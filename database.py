@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 # Load .env file if it exists
 load_dotenv()
 
-MONGODB_URI = os.getenv("MONGODB_URI", "mongodb+srv://ersinucar:1597538520Ersin%3F@ucar.83bqvaj.mongodb.net/ersinucar?retryWrites=true&w=majority&appName=Ucar")
-DB_NAME = os.getenv("DB_NAME", "ersinucar
-")
+# Railway/Render gibi platformlarda bu degeri "Variables" kismindan alir.
+# Yerelde calisirken ise .env dosyasindan alir.
+MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
+DB_NAME = os.getenv("DB_NAME", "snack_roulette")
 
 client = AsyncIOMotorClient(MONGODB_URI)
 db = client[DB_NAME]
@@ -50,5 +51,5 @@ async def clear_history():
 
 async def bulk_add_snacks(snacks_list):
     if snacks_list:
-        await snacks_collection.delete_many({}) # Temizle ve yeniden yükle
+        await snacks_collection.delete_many({})
         await snacks_collection.insert_many(snacks_list)
