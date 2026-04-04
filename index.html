@@ -16,14 +16,49 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- Login Modal -->
+    <!-- Lobby Portal Modal -->
     <div id="login-modal" class="modal active">
+        <div class="lobby-portal">
+            <div class="lobby-header">
+                <h2>Cips <span class="highlight">Ruleti</span> Portalı 🍿</h2>
+                <div class="lobby-tabs">
+                    <button class="tab-btn active" data-tab="join">Lobilere Göz At</button>
+                    <button class="tab-btn" data-tab="create">Lobi Kur</button>
+                </div>
+            </div>
+
+            <div id="lobby-username-section" class="lobby-username-section">
+                <input type="text" id="username-input" placeholder="Önce adını yaz...">
+            </div>
+
+            <div id="tab-join" class="tab-content active">
+                <p>Mevcut bir lobiye çift tıklayarak katıl:</p>
+                <div class="room-list" id="room-list">
+                    <div class="loading">Lobiler aranıyor...</div>
+                </div>
+            </div>
+
+            <div id="tab-create" class="tab-content">
+                <p>Yeni bir lobi oluşturun:</p>
+                <div class="create-form">
+                    <input type="text" id="new-room-id" placeholder="Lobi Adı (örn: Cuma-Gecesi)">
+                    <input type="password" id="new-room-pass" placeholder="Şifre (Opsiyonel)">
+                    <button id="create-btn" class="btn primary-btn">Oda Kur ve Katıl</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Prompt Modal -->
+    <div id="password-modal" class="modal">
         <div class="modal-content">
-            <h2>Hoşgeldin!</h2>
-            <p>Ortak sepete katılmak için adını ve oda kodunu gir:</p>
-            <input type="text" id="username-input" placeholder="Adın nedir?">
-            <input type="text" id="room-input" placeholder="Oda Kodu (örn: ekip-1)" value="genel">
-            <button id="join-btn" class="btn primary-btn">Katıl</button>
+            <h3>Kilitli Lobi 🔒</h3>
+            <p>Bu lobiye girmek için şifreyi yaz:</p>
+            <input type="password" id="join-room-pass" placeholder="Şifre">
+            <div class="modal-actions">
+                <button id="cancel-pass-btn" class="btn outline-btn">Vazgeç</button>
+                <button id="submit-pass-btn" class="btn primary-btn">Katıl</button>
+            </div>
         </div>
     </div>
 

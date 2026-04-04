@@ -44,19 +44,160 @@ body {
 
 .modal-content {
     background: var(--bg-card);
-    padding: 3rem; border-radius: 20px;
+    padding: 3rem; border-radius: 30px;
     border: 1px solid var(--glass-border);
     text-align: center;
     box-shadow: var(--glass-shadow);
+    width: 90%;
+    max-width: 500px;
 }
-.modal-content input {
-    margin: 1rem 0; padding: 1rem; width: 100%; border-radius: 10px;
-    border: 1px solid var(--glass-border); background: rgba(255,255,255,0.1); color: white;
-    font-size: 1.1rem;
+.modal-content input, .create-form input, .lobby-username-section input {
+    margin: 1rem 0; padding: 1rem; width: 100%; border-radius: 12px;
+    border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white;
+    font-size: 1.1rem; outline: none; transition: 0.2s;
+}
+.modal-content input:focus, .create-form input:focus, .lobby-username-section input:focus {
+    border-color: var(--primary); background: rgba(255,255,255,0.1);
+}
+
+.modal-actions {
+    display: flex; gap: 1rem; margin-top: 1.5rem;
+}
+
+.lobby-portal {
+    background: var(--bg-card);
+    width: 90%;
+    max-width: 700px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: panelSlideIn 0.4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}
+
+.lobby-header {
+    background: rgba(255,255,255,0.03);
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.lobby-tabs {
+    display: flex;
+    background: rgba(0,0,0,0.2);
+    padding: 0.4rem;
+    border-radius: 15px;
+    margin-top: 1.5rem;
+    gap: 0.5rem;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+    font-family: 'Outfit';
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.tab-content {
+    display: none;
+    padding: 2rem;
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.lobby-username-section {
+    padding: 0 2rem;
+    margin-top: 1rem;
+}
+
+.room-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.room-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.room-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.room-card .room-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.room-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.room-count {
+    background: rgba(0,0,0,0.3);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--primary);
+}
+
+.room-join-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.room-card:hover .room-join-hint {
+    opacity: 1;
+}
+
+.room-card.protected {
+    border-left: 4px solid #facc15;
+}
+
+.no-rooms {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    border: 2px dashed var(--glass-border);
+    border-radius: 20px;
 }
 
 .btn {
-    padding: 1rem 2rem; border: none; border-radius: 10px; cursor: pointer;
+    padding: 1rem 2rem; border: none; border-radius: 12px; cursor: pointer;
     font-weight: bold; font-size: 1.1rem; transition: 0.2s; font-family: 'Outfit';
 }
 .primary-btn { background: var(--primary); color: white; width: 100%; }

@@ -8,8 +8,21 @@ let currentRotation = 0;
 document.addEventListener('DOMContentLoaded', () => {
     // UI Elements
     const loginModal = document.getElementById('login-modal');
-    const joinBtn = document.getElementById('join-btn');
     const usernameInput = document.getElementById('username-input');
+
+    // Lobby Elements
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const roomListContainer = document.getElementById('room-list');
+    const createBtn = document.getElementById('create-btn');
+    const newRoomIdInput = document.getElementById('new-room-id');
+    const newRoomPassInput = document.getElementById('new-room-pass');
+
+    // Password Modal Elements
+    const passwordModal = document.getElementById('password-modal');
+    const joinRoomPassInput = document.getElementById('join-room-pass');
+    const submitPassBtn = document.getElementById('submit-pass-btn');
+    const cancelPassBtn = document.getElementById('cancel-pass-btn');
     
     const productGrid = document.getElementById('product-grid');
     const searchInput = document.getElementById('search-input');
@@ -51,16 +64,85 @@ document.addEventListener('DOMContentLoaded', () => {
         wheelCartToggleBtn.textContent = open ? 'Sepeti gizle' : 'Ortak sepet';
     }
 
-    // Login
-    joinBtn.addEventListener('click', () => {
-        const name = usernameInput.value.trim();
-        const room = document.getElementById('room-input').value.trim() || 'genel';
-        if(!name) return;
-        
-        loginModal.classList.remove('active');
-        document.getElementById('current-room-display').textContent = room;
-        connectWebSocket(name, room);
+    // Tab Switching
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+        });
     });
+
+    // Create Room
+    createBtn.addEventListener('click', () => {
+        const name = usernameInput.value.trim();
+        const room = newRoomIdInput.value.trim();
+        const pass = newRoomPassInput.value.trim();
+        if(!name) { showToast("Önce adını yaz!", "error"); return; }
+        if(!room) { showToast("Oda adı gerekli!", "error"); return; }
+        
+        ws.send(JSON.stringify({ type: 'create_room', name, room_id: room, password: pass || null }));
+    });
+
+    // Password Prompt State
+    let pendingRoomId = null;
+
+    function openPasswordModal(roomId) {
+        pendingRoomId = roomId;
+        joinRoomPassInput.value = '';
+        passwordModal.classList.add('active');
+        joinRoomPassInput.focus();
+    }
+
+    cancelPassBtn.addEventListener('click', () => {
+        passwordModal.classList.remove('active');
+        pendingRoomId = null;
+    });
+
+    submitPassBtn.addEventListener('click', () => {
+        const name = usernameInput.value.trim();
+        const pass = joinRoomPassInput.value.trim();
+        if(!name) { showToast("Önce adını yaz!", "error"); return; }
+        
+        passwordModal.classList.remove('active');
+        ws.send(JSON.stringify({ type: 'join_room', name, room_id: pendingRoomId, password: pass }));
+        pendingRoomId = null;
+    });
+
+    // Rendering Lobbies
+    function renderLobbyList(rooms) {
+        if(!rooms || rooms.length === 0) {
+            roomListContainer.innerHTML = '<div class="no-rooms">Henüz aktif lobi yok. İlkini sen kur!</div>';
+            return;
+        }
+
+        roomListContainer.innerHTML = rooms.map(room => `
+            <div class="room-card ${room.protected ? 'protected' : ''}" data-rid="${room.room_id}">
+                <div class="room-info">
+                    <span class="room-name">${room.room_id} ${room.protected ? '🔒' : ''}</span>
+                    <span class="room-count">${room.count} Kişi</span>
+                </div>
+                <div class="room-join-hint">Katılmak için çift tıkla</div>
+            </div>
+        `).join('');
+
+        // Add double click listeners
+        document.querySelectorAll('.room-card').forEach(card => {
+            card.addEventListener('dblclick', () => {
+                const rid = card.dataset.rid;
+                const name = usernameInput.value.trim();
+                if(!name) { showToast("Önce adını yaz!", "error"); return; }
+
+                const room = rooms.find(r => r.room_id === rid);
+                if(room && room.protected) {
+                    openPasswordModal(rid);
+                } else {
+                    ws.send(JSON.stringify({ type: 'join_room', name, room_id: rid }));
+                }
+            });
+        });
+    }
 
     const cartArea = document.getElementById('cart-area');
     const cartMobileToggle = document.getElementById('cart-mobile-toggle');
@@ -82,7 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ws.onmessage = (event) => {
             const msg = JSON.parse(event.data);
             
-            if (msg.type === 'init_products') {
+            if (msg.type === 'error') {
+                showToast(msg.message, 'error');
+            }
+            else if (msg.type === 'room_list') {
+                renderLobbyList(msg.rooms);
+            }
+            else if (msg.type === 'init_products') {
+                loginModal.classList.remove('active');
                 snacksData = msg.products;
                 renderProducts(snacksData);
             } 
@@ -203,6 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     }
+
+    // Connect immediately to see lobbies
+    connectWebSocket();
 
     const CATEGORY_EMOJIS = {
         'Çikolata': '🍫', 'Gofret': '🧇', 'Bisküvi & Kraker': '🍪',

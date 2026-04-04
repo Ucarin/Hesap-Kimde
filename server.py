@@ -15,12 +15,14 @@ app.mount("/static", StaticFiles(directory="."), name="static")
 
 # State (Dictionary indexed by room_id)
 rooms: Dict[str, dict] = {} 
+lobby_clients: List[WebSocket] = []
 
 def get_room_state(room_id: str):
     if room_id not in rooms:
         rooms[room_id] = {
+            "password": None,
             "clients": [],
-            "users": {}, # uid -> data
+            "users": {}, # uid -> data (name, approved, safe)
             "cart": [],
             "state": "shopping"
         }
@@ -89,6 +91,23 @@ def _sanitize_a101_image_url(url: str) -> str:
     return url
 
 
+async def broadcast_room_list():
+    room_list = []
+    for rid, state in rooms.items():
+        if rid == "genel" or len(state["clients"]) > 0:
+            room_list.append({
+                "room_id": rid,
+                "count": len(state["users"]),
+                "protected": state["password"] is not None
+            })
+    
+    msg = {"type": "room_list", "rooms": room_list}
+    for client in lobby_clients:
+        try:
+            await client.send_json(msg)
+        except:
+            pass
+
 async def broadcast_state(room_id: str):
     state = get_room_state(room_id)
     state_msg = {
@@ -103,24 +122,42 @@ async def broadcast_state(room_id: str):
             await client.send_json(state_msg)
         except:
             pass
+    # Anytime state (users) changes, lobby might need refresh
+    await broadcast_room_list()
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    room_id = "genel" # Default
+    room_id = None
     user_id = str(id(websocket))
     
     try:
         await websocket.accept()
+        lobby_clients.append(websocket)
+        
+        # Send initial lobby list
+        await broadcast_room_list()
         
         while True:
             data = await websocket.receive_json()
             msg_type = data.get("type")
             
             if msg_type == "join_room":
-                room_id = data.get("room_id", "genel")
+                target_room = data.get("room_id", "genel")
+                password = data.get("password")
                 name = data.get("name", "Misafir")
                 
-                state = get_room_state(room_id)
+                state = get_room_state(target_room)
+                
+                # Password check
+                if state["password"] and state["password"] != password:
+                    await websocket.send_json({"type": "error", "message": "Yanlış şifre! ❌"})
+                    continue
+                
+                # Join logic
+                room_id = target_room
+                if websocket in lobby_clients:
+                    lobby_clients.remove(websocket)
+                
                 state["clients"].append(websocket)
                 state["users"][user_id] = {"name": name, "approved": False, "safe": False}
                 
@@ -133,8 +170,40 @@ async def websocket_endpoint(websocket: WebSocket):
                 
                 await websocket.send_json({"type": "init_products", "products": snacks})
                 await broadcast_state(room_id)
+
+            elif msg_type == "create_room":
+                new_room_id = data.get("room_id")
+                new_password = data.get("password")
+                name = data.get("name", "Misafir")
+                
+                if not new_room_id:
+                    await websocket.send_json({"type": "error", "message": "Oda adı boş olamaz!"})
+                    continue
+                
+                if new_room_id in rooms and len(rooms[new_room_id]["clients"]) > 0:
+                    await websocket.send_json({"type": "error", "message": "Bu oda adı zaten alınmış!"})
+                    continue
+                
+                # Initialize room
+                state = get_room_state(new_room_id)
+                state["password"] = new_password if new_password else None
+                
+                # Auto-join
+                room_id = new_room_id
+                if websocket in lobby_clients:
+                    lobby_clients.remove(websocket)
+                
+                state["clients"].append(websocket)
+                state["users"][user_id] = {"name": name, "approved": False, "safe": False}
+                
+                log_debug(f"Room {room_id} created by {name}")
+                
+                snacks = await get_snacks()
+                await websocket.send_json({"type": "init_products", "products": snacks})
+                await broadcast_state(room_id)
                 
             elif msg_type == "add_to_cart":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 product = data.get("product")
                 product["added_by"] = state["users"][user_id]["name"]
@@ -144,6 +213,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 await broadcast_state(room_id)
                 
             elif msg_type == "remove_from_cart":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 idx = data.get("index")
                 if 0 <= idx < len(state["cart"]):
@@ -153,6 +223,7 @@ async def websocket_endpoint(websocket: WebSocket):
                     await broadcast_state(room_id)
                     
             elif msg_type == "toggle_approve":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 state["users"][user_id]["approved"] = data.get("approved", False)
                 all_approved = len(state["users"]) > 0 and all(u["approved"] for u in state["users"].values())
@@ -163,6 +234,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 await broadcast_state(room_id)
                 
             elif msg_type == "spin_wheel":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 if state["state"] == "wheel":
                     msg = {
@@ -174,38 +246,32 @@ async def websocket_endpoint(websocket: WebSocket):
                         await client.send_json(msg)
 
             elif msg_type == "wheel_result_eliminate":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 eliminated_user_id = data.get("eliminated_user_id")
                 for client in state["clients"]:
                     await client.send_json({"type": "user_eliminated", "user_id": eliminated_user_id})
                     
             elif msg_type == "record_loser":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 loser_name = data.get("loser_name")
                 log_debug(f"MSG RECEIVED: record_loser for {loser_name} in room {room_id}")
                 
-                # Check if already recorded to avoid double records within same session
                 already_safe = any(u["name"] == loser_name and u["safe"] for u in state["users"].values())
                 if not already_safe and loser_name:
-                    # MARK SAFE IMMEDIATELY to prevent race condition double-saves
                     for uid in state["users"]:
                         if state["users"][uid]["name"] == loser_name:
                             state["users"][uid]["safe"] = True
-                    
-                    # Now record to DB
                     success = await mark_paid(loser_name, list(state["cart"]))
                     if success:
-                        toast_msg = {
-                            "type": "toast",
-                            "message": f"{loser_name} başarıyla kaydedildi! ✅",
-                            "toast_type": "success"
-                        }
+                        toast_msg = {"type": "toast", "message": f"{loser_name} başarıyla kaydedildi! ✅", "toast_type": "success"}
                         for client in state["clients"]:
                             await client.send_json(toast_msg)
-                            
                     await broadcast_state(room_id)
 
             elif msg_type == "reset_game":
+                if not room_id: continue
                 state = get_room_state(room_id)
                 state["state"] = "shopping"
                 for uid in state["users"]:
@@ -215,17 +281,32 @@ async def websocket_endpoint(websocket: WebSocket):
                 await broadcast_state(room_id)
 
     except WebSocketDisconnect:
-        state = get_room_state(room_id)
-        if websocket in state["clients"]:
-            state["clients"].remove(websocket)
-        if user_id in state["users"]:
-            del state["users"][user_id]
-        await broadcast_state(room_id)
+        if websocket in lobby_clients:
+            lobby_clients.remove(websocket)
+        if room_id:
+            state = get_room_state(room_id)
+            if websocket in state["clients"]:
+                state["clients"].remove(websocket)
+            if user_id in state["users"]:
+                del state["users"][user_id]
+            
+            # Clean up empty rooms (except genel)
+            if len(state["clients"]) == 0 and room_id != "genel":
+                if room_id in rooms:
+                    del rooms[room_id]
+            
+            await broadcast_state(room_id)
+            await broadcast_room_list()
+            
     except Exception as e:
         log_debug(f"WEBSOCKET ERROR: {e}")
-        state = get_room_state(room_id)
-        if websocket in state["clients"]:
-            state["clients"].remove(websocket)
+        if websocket in lobby_clients:
+            lobby_clients.remove(websocket)
+        if room_id:
+            state = get_room_state(room_id)
+            if websocket in state["clients"]:
+                state["clients"].remove(websocket)
+            await broadcast_state(room_id)
 
 from fastapi.responses import RedirectResponse
 @app.get("/")
