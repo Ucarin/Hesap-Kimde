@@ -99,25 +99,29 @@ async def broadcast_state():
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     global app_state
-    await websocket.accept()
-    connected_clients.append(websocket)
-    user_id = str(id(websocket))
-    
-    users[user_id] = {"name": f"Misafir_{user_id[-4:]}", "approved": False, "safe": False}
-    
-    snacks = await get_snacks()
-    # Sanitize A101 images specifically
-    for item in snacks:
-        if item.get("market") == "A101":
-            item["image"] = _sanitize_a101_image_url(item.get("image") or "")
-
-    await websocket.send_json({"type": "init_products", "products": snacks})
-    await broadcast_state()
-    
     try:
+        await websocket.accept()
+        connected_clients.append(websocket)
+        user_id = str(id(websocket))
+        
+        users[user_id] = {"name": f"Misafir_{user_id[-4:]}", "approved": False, "safe": False}
+        
+        log_debug(f"New connection: {user_id}. Fetching snacks...")
+        snacks = await get_snacks()
+        log_debug(f"Snacks fetched: {len(snacks)}")
+
+        # Sanitize A101 images specifically
+        for item in snacks:
+            if item.get("market") == "A101":
+                item["image"] = _sanitize_a101_image_url(item.get("image") or "")
+
+        await websocket.send_json({"type": "init_products", "products": snacks})
+        await broadcast_state()
+        
         while True:
             data = await websocket.receive_json()
             msg_type = data.get("type")
+            # ... (the rest of the loop remains same)
             
             if msg_type == "set_name":
                 name = data.get("name")
@@ -210,6 +214,10 @@ async def websocket_endpoint(websocket: WebSocket):
         if user_id in users:
             del users[user_id]
         await broadcast_state()
+    except Exception as e:
+        log_debug(f"WEBSOCKET ERROR: {e}")
+        if websocket in connected_clients:
+            connected_clients.remove(websocket)
 
 from fastapi.responses import RedirectResponse
 @app.get("/")
