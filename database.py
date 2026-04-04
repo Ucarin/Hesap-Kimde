@@ -5,8 +5,9 @@ from dotenv import load_dotenv
 # Load .env file if it exists
 load_dotenv()
 
-MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
-DB_NAME = os.getenv("DB_NAME", "snack_roulette")
+MONGODB_URI = os.getenv("MONGODB_URI", "mongodb+srv://ersinucar:1597538520Ersin%3F@ucar.83bqvaj.mongodb.net/ersinucar?retryWrites=true&w=majority&appName=Ucar")
+DB_NAME = os.getenv("DB_NAME", "ersinucar
+")
 
 client = AsyncIOMotorClient(MONGODB_URI)
 db = client[DB_NAME]
