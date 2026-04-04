@@ -1,6 +1,7 @@
 fastapi
-uvicorn
+uvicorn[standard]
 motor
 pymongo
 python-dotenv
 dnspython
+websockets
