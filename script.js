@@ -153,12 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Connection
-    function connectWebSocket(name, room) {
+    function connectWebSocket() {
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
 
         ws.onopen = () => {
-            ws.send(JSON.stringify({ type: 'join_room', name: name, room_id: room }));
+            console.log("Connected to Lobby");
         };
 
         ws.onmessage = (event) => {
