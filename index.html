@@ -24,11 +24,16 @@
                 <div class="lobby-tabs">
                     <button class="tab-btn active" data-tab="join">Lobilere Göz At</button>
                     <button class="tab-btn" data-tab="create">Lobi Kur</button>
+                    <button class="tab-btn" data-tab="auth">Giriş / Kayıt</button>
                 </div>
             </div>
 
             <div id="lobby-username-section" class="lobby-username-section">
-                <input type="text" id="username-input" placeholder="Önce adını yaz...">
+                <input type="text" id="username-input" placeholder="Adın (Misafir girişi için)">
+                <div id="logged-in-info" style="display:none; color:var(--success); margin: 0.5rem 0;">
+                    ✅ <strong id="logged-user-name">...</strong> olarak giriş yapıldı.
+                    <button id="logout-btn" class="btn outline-btn" style="padding: 0.2rem 0.5rem; font-size: 0.8rem; border-color: var(--danger); color: var(--danger);">Çıkış Yap</button>
+                </div>
             </div>
 
             <div id="tab-join" class="tab-content active">
@@ -42,8 +47,63 @@
                 <p>Yeni bir lobi oluşturun:</p>
                 <div class="create-form">
                     <input type="text" id="new-room-id" placeholder="Lobi Adı (örn: Cuma-Gecesi)">
-                    <input type="password" id="new-room-pass" placeholder="Şifre (Opsiyonel)">
+                    <input type="password" id="new-room-pass" placeholder="Lobi Şifresi (Opsiyonel)">
                     <button id="create-btn" class="btn primary-btn">Oda Kur ve Katıl</button>
+                </div>
+            </div>
+
+            <div id="tab-auth" class="tab-content">
+                <div class="auth-box">
+                    <div id="auth-login-view">
+                        <h3>Giriş Yap</h3>
+                        <input type="text" id="login-username" placeholder="Kullanıcı Adı">
+                        <input type="password" id="login-password" placeholder="Şifre">
+                        <button id="login-btn" class="btn primary-btn">Giriş Yap</button>
+                        <p style="margin-top:1rem; font-size:0.9rem;">Hesabın yok mu? <a href="#" id="show-register" style="color:var(--primary)">Kayıt Ol</a></p>
+                    </div>
+                    <div id="auth-register-view" style="display:none;">
+                        <h3>Kayıt Ol</h3>
+                        <input type="text" id="reg-username" placeholder="Kullanıcı Adı">
+                        <input type="password" id="reg-password" placeholder="Şifre">
+                        <button id="register-btn" class="btn primary-btn">Hesap Oluştur</button>
+                        <p style="margin-top:1rem; font-size:0.9rem;">Zaten hesabın var mı? <a href="#" id="show-login" style="color:var(--primary)">Giriş Yap</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content profile-content">
+            <button type="button" id="close-profile-btn" class="close-modal-btn">&times;</button>
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <h2 id="profile-name">Kullanıcı Adı</h2>
+                <div class="profile-badges" id="profile-badges">
+                    <!-- Badges will be injected here -->
+                </div>
+            </div>
+            
+            <div class="profile-stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Toplam Harcama</span>
+                    <strong id="profile-total-spent">0.00 TL</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Toplam Galibiyet</span>
+                    <strong id="profile-total-wins" style="color:var(--success)">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Toplam Mağlubiyet</span>
+                    <strong id="profile-total-losses" style="color:var(--danger)">0</strong>
+                </div>
+            </div>
+
+            <div class="profile-history-section">
+                <h3>Kişisel Geçmiş</h3>
+                <div id="profile-history-list" class="profile-history-list">
+                    <p class="loading">Yükleniyor...</p>
                 </div>
             </div>
         </div>
@@ -72,6 +132,7 @@
                     <p>Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
                 </div>
                 <div class="header-right">
+                    <button type="button" id="open-profile-btn" class="btn outline-btn profile-toggle-btn" style="display:none; margin-right:0.5rem;">👤 Profilim</button>
                     <button type="button" id="open-history-btn" class="btn outline-btn history-toggle-btn">📜 Ödeme Geçmişi</button>
                 </div>
             </header>

@@ -16,8 +16,48 @@ db = client[DB_NAME]
 # Collections
 history_collection = db["payment_history"]
 snacks_collection = db["snacks"]
+accounts_collection = db["accounts"]
 
-async def get_history():
+# --- Account Operations --- #
+
+async def get_account(username):
+    try:
+        return await accounts_collection.find_one({"username": username})
+    except Exception as e:
+        print(f"DATABASE ERROR (get_account): {e}")
+        return None
+
+async def create_account(username, password_hash):
+    try:
+        new_user = {
+            "username": username,
+            "password": password_hash,
+            "total_spent": 0.0,
+            "wins": 0,
+            "losses": 0,
+            "created_at": os.getenv("CURRENT_TIME", "2026-04-04T18:44:11Z")
+        }
+        await accounts_collection.insert_one(new_user)
+        return True
+    except Exception as e:
+        print(f"DATABASE ERROR (create_account): {e}")
+        return False
+
+async def update_account_stats(username, amount=0.0, is_loss=True):
+    try:
+        update_query = {"$inc": {"total_spent": amount}}
+        if is_loss:
+            update_query["$inc"]["losses"] = 1
+        else:
+            update_query["$inc"]["wins"] = 1
+            
+        await accounts_collection.update_one({"username": username}, update_query)
+        return True
+    except Exception as e:
+        print(f"DATABASE ERROR (update_account_stats): {e}")
+        return False
+
+# --- Other Operations --- #
     try:
         history = []
         cursor = history_collection.find().sort("date", -1)

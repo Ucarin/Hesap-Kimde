@@ -7,7 +7,14 @@ import uvicorn
 from typing import List, Dict
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
-from database import get_history, add_history_record, clear_history, get_snacks, snacks_collection
+from database import (
+    get_history, add_history_record, clear_history, get_snacks, snacks_collection,
+    get_account, create_account, update_account_stats
+)
+import hashlib
+
+def hash_password(password: str) -> str:
+    return hashlib.sha256(password.encode()).hexdigest()
 
 app = FastAPI()
 
@@ -252,18 +259,73 @@ async def websocket_endpoint(websocket: WebSocket):
                 for client in state["clients"]:
                     await client.send_json({"type": "user_eliminated", "user_id": eliminated_user_id})
                     
+            elif msg_type == "register":
+                username = data.get("username")
+                password = data.get("password")
+                if not username or not password:
+                    await websocket.send_json({"type": "error", "message": "Kullanıcı adı ve şifre gerekli!"})
+                    continue
+                
+                existing = await get_account(username)
+                if existing:
+                    await websocket.send_json({"type": "error", "message": "Bu kullanıcı adı zaten alınmış!"})
+                    continue
+                
+                success = await create_account(username, hash_password(password))
+                if success:
+                    await websocket.send_json({"type": "toast", "message": "Kayıt başarılı! Şimdi giriş yapabilirsin. ✅", "toast_type": "success"})
+                else:
+                    await websocket.send_json({"type": "error", "message": "Kayıt sırasında bir hata oluştu."})
+
+            elif msg_type == "login":
+                username = data.get("username")
+                password = data.get("password")
+                
+                user = await get_account(username)
+                if not user or user["password"] != hash_password(password):
+                    await websocket.send_json({"type": "error", "message": "Kullanıcı adı veya şifre hatalı! ❌"})
+                    continue
+                
+                # Success
+                user_data = {
+                    "username": user["username"],
+                    "total_spent": user.get("total_spent", 0.0),
+                    "wins": user.get("wins", 0),
+                    "losses": user.get("losses", 0)
+                }
+                await websocket.send_json({"type": "login_success", "user": user_data})
+                
             elif msg_type == "record_loser":
                 if not room_id: continue
                 state = get_room_state(room_id)
                 loser_name = data.get("loser_name")
-                log_debug(f"MSG RECEIVED: record_loser for {loser_name} in room {room_id}")
                 
                 already_safe = any(u["name"] == loser_name and u["safe"] for u in state["users"].values())
                 if not already_safe and loser_name:
                     for uid in state["users"]:
                         if state["users"][uid]["name"] == loser_name:
                             state["users"][uid]["safe"] = True
+                    
+                    # Calculate total to update stats
+                    total = 0.0
+                    for item in state["cart"]:
+                        p = str(item.get("price", "0")).replace(",", ".").replace("₺", "").strip()
+                        clean_p = "".join(c for c in p if (c.isdigit() or c == "."))
+                        try:
+                            if clean_p: total += float(clean_p)
+                        except: pass
+                    
+                    # Store in history
                     success = await mark_paid(loser_name, list(state["cart"]))
+                    
+                    # UPDATE USER ACCOUNT STATS (DB)
+                    await update_account_stats(loser_name, amount=total, is_loss=True)
+                    
+                    # Increment WINS for others in the room
+                    for uid, udata in state["users"].items():
+                        if udata["name"] != loser_name:
+                            await update_account_stats(udata["name"], amount=0.0, is_loss=False)
+
                     if success:
                         toast_msg = {"type": "toast", "message": f"{loser_name} başarıyla kaydedildi! ✅", "toast_type": "success"}
                         for client in state["clients"]:

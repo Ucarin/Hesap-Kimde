@@ -4,6 +4,7 @@ let usersState = {};
 let cartState = [];
 let myApproved = false;
 let currentRotation = 0;
+let currentUser = JSON.parse(localStorage.getItem('sr_user')) || null;
 
 document.addEventListener('DOMContentLoaded', () => {
     // UI Elements
@@ -33,6 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartList = document.getElementById('cart-list');
     const cartTotalPrice = document.getElementById('cart-total-price');
     const approveBtn = document.getElementById('approve-btn');
+
+    // Auth Elements
+    const authTab = document.querySelector('[data-tab="auth"]');
+    const authLoginView = document.getElementById('auth-login-view');
+    const authRegisterView = document.getElementById('auth-register-view');
+    const showRegister = document.getElementById('show-register');
+    const showLogin = document.getElementById('show-login');
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loggedInInfo = document.getElementById('logged-in-info');
+    const loggedUserName = document.getElementById('logged-user-name');
+    const openProfileBtn = document.getElementById('open-profile-btn');
+    const profileModal = document.getElementById('profile-modal');
+    const closeProfileBtn = document.getElementById('close-profile-btn');
     
     const wheelOverlay = document.getElementById('wheel-overlay');
     const wheelCanvas = document.getElementById('wheel-canvas');
@@ -73,6 +89,93 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
         });
     });
+
+    // Auth View Switching
+    showRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        authLoginView.style.display = 'none';
+        authRegisterView.style.display = 'block';
+    });
+    showLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        authRegisterView.style.display = 'none';
+        authLoginView.style.display = 'block';
+    });
+
+    // Login / Register Actions
+    loginBtn.addEventListener('click', () => {
+        const username = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value;
+        if(!username || !password) return showToast("Eksik bilgi!", "error");
+        ws.send(JSON.stringify({ type: 'login', username, password }));
+    });
+
+    registerBtn.addEventListener('click', () => {
+        const username = document.getElementById('reg-username').value.trim();
+        const password = document.getElementById('reg-password').value;
+        if(!username || !password) return showToast("Eksik bilgi!", "error");
+        ws.send(JSON.stringify({ type: 'register', username, password }));
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        currentUser = null;
+        localStorage.removeItem('sr_user');
+        updateAuthUI();
+    });
+
+    function updateAuthUI() {
+        if (currentUser) {
+            usernameInput.style.display = 'none';
+            loggedInInfo.style.display = 'block';
+            loggedUserName.textContent = currentUser.username;
+            openProfileBtn.style.display = 'inline-block';
+            // Also update the input used for joining rooms
+            usernameInput.value = currentUser.username;
+        } else {
+            usernameInput.style.display = 'block';
+            loggedInInfo.style.display = 'none';
+            openProfileBtn.style.display = 'none';
+        }
+    }
+
+    // Profile Modal
+    openProfileBtn.addEventListener('click', () => {
+        renderProfile();
+        profileModal.classList.add('active');
+    });
+    closeProfileBtn.addEventListener('click', () => profileModal.classList.remove('active'));
+
+    function renderProfile() {
+        if (!currentUser) return;
+        document.getElementById('profile-name').textContent = currentUser.username;
+        document.getElementById('profile-total-spent').textContent = (currentUser.total_spent || 0).toFixed(2) + " TL";
+        document.getElementById('profile-total-wins').textContent = currentUser.wins || 0;
+        document.getElementById('profile-total-losses').textContent = currentUser.losses || 0;
+
+        // Render Badges
+        const badgesContainer = document.getElementById('profile-badges');
+        badgesContainer.innerHTML = '';
+        if ((currentUser.total_spent || 0) > 200) badgesContainer.innerHTML += '<span class="badge">💎 Zengin</span>';
+        if ((currentUser.wins || 0) > 5) badgesContainer.innerHTML += '<span class="badge">🍀 Şanslı Balık</span>';
+        if ((currentUser.losses || 0) > 5) badgesContainer.innerHTML += '<span class="badge">💀 Fakir Savar</span>';
+
+        // Render Personal History (filtered from global history if available)
+        // Note: For a more robust app, the server should send the specific history for this user only.
+        // For now, we filter what we have in historyState if available (need to ensure historyState is updated).
+        const historyList = document.getElementById('profile-history-list');
+        const personalHistory = globalHistory.filter(h => h.loser === currentUser.username);
+        
+        if (personalHistory.length === 0) {
+            historyList.innerHTML = '<p class="no-history">Henüz bir ödemen bulunmuyor. Şanslısın!</p>';
+        } else {
+            historyList.innerHTML = personalHistory.map(h => `
+                <div class="mini-history-card">
+                    <span>${h.date}</span>
+                    <strong>${h.total} TL</strong>
+                </div>
+            `).join('');
+        }
+    }
 
     // Create Room
     createBtn.addEventListener('click', () => {
@@ -170,6 +273,14 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (msg.type === 'room_list') {
                 renderLobbyList(msg.rooms);
             }
+            else if (msg.type === 'login_success') {
+                currentUser = msg.user;
+                localStorage.setItem('sr_user', JSON.stringify(currentUser));
+                updateAuthUI();
+                showToast("Giriş başarılı! Hoşgeldin.", "success");
+                // Navigate to Lobby tab
+                tabBtns[0].click();
+            }
             else if (msg.type === 'init_products') {
                 loginModal.classList.remove('active');
                 snacksData = msg.products;
@@ -182,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderUsers();
                 renderCart();
                 if (msg.history) {
+                    globalHistory = msg.history; // Update global reference
                     lastHistoryLength = msg.history.length;
                     historyInitialized = true;
                     renderHistory(msg.history);
@@ -293,8 +405,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    let globalHistory = [];
+
     // Connect immediately to see lobbies
     connectWebSocket();
+    updateAuthUI();
 
     const CATEGORY_EMOJIS = {
         'Çikolata': '🍫', 'Gofret': '🧇', 'Bisküvi & Kraker': '🍪',
