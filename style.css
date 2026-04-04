@@ -825,3 +825,70 @@ canvas { border-radius: 50%; transition: transform 4s cubic-bezier(0.17, 0.67, 0
         margin-bottom: 1rem;
     }
 }
+/* --- Giriş & Kayıt Ekranı Özel Stilleri --- */
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.auth-view {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-input-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.auth-input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.auth-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.auth-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}
+
+/* Giriş yapınca görünen kullanıcı bilgi barı */
+.user-badge-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+}
+
+.user-status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--success);
+}
