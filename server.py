@@ -13,11 +13,18 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="."), name="static")
 
-# State (Memory-only for real-time sync, persistence moves to DB)
-connected_clients: List[WebSocket] = []
-users: Dict[str, dict] = {} # e.g. {"user_id": {"name": "Doğa", "approved": False, "safe": False}}
-shared_cart: List[dict] = [] 
-app_state = "shopping" 
+# State (Dictionary indexed by room_id)
+rooms: Dict[str, dict] = {} 
+
+def get_room_state(room_id: str):
+    if room_id not in rooms:
+        rooms[room_id] = {
+            "clients": [],
+            "users": {}, # uid -> data
+            "cart": [],
+            "state": "shopping"
+        }
+    return rooms[room_id]
 
 # Local logging for debug
 def log_debug(msg):
@@ -29,7 +36,6 @@ def log_debug(msg):
 async def mark_paid(name, current_cart=None):
     log_debug(f"mark_paid: LOSER={name}, ITEMS={len(current_cart or [])}")
     
-    import datetime
     total = 0.0
     if current_cart:
         for item in current_cart:
@@ -52,16 +58,17 @@ async def mark_paid(name, current_cart=None):
     log_debug(f"SAVE SUCCESS: Record added to MongoDB for {name}")
     return True
 
-async def check_history_reset(active_names):
+async def check_history_reset(room_id, active_names):
     if not active_names:
         return
+    state = get_room_state(room_id)
     hist = await get_history()
     paid_names = {h["loser"] for h in hist}
     # Herkes ödeme yapmışsa geçmişi temizle
     if all(n in paid_names for n in active_names):
         await clear_history()
-        for uid in users:
-            users[uid]["safe"] = False
+        for uid in state["users"]:
+            state["users"][uid]["safe"] = False
 
 _BAD_A101_URL = (
     "aldin-aldin", "aldin_aldin", "haftanin-yildizlari", "haftanin_yildizlari",
@@ -82,15 +89,16 @@ def _sanitize_a101_image_url(url: str) -> str:
     return url
 
 
-async def broadcast_state():
+async def broadcast_state(room_id: str):
+    state = get_room_state(room_id)
     state_msg = {
         "type": "state_update",
-        "users": users,
-        "cart": shared_cart,
-        "app_state": app_state,
+        "users": state["users"],
+        "cart": state["cart"],
+        "app_state": state["state"],
         "history": await get_history()
     }
-    for client in connected_clients:
+    for client in state["clients"]:
         try:
             await client.send_json(state_msg)
         except:
@@ -98,126 +106,126 @@ async def broadcast_state():
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    global app_state
+    room_id = "genel" # Default
+    user_id = str(id(websocket))
+    
     try:
         await websocket.accept()
-        connected_clients.append(websocket)
-        user_id = str(id(websocket))
-        
-        users[user_id] = {"name": f"Misafir_{user_id[-4:]}", "approved": False, "safe": False}
-        
-        log_debug(f"New connection: {user_id}. Fetching snacks...")
-        snacks = await get_snacks()
-        log_debug(f"Snacks fetched: {len(snacks)}")
-
-        # Sanitize A101 images specifically
-        for item in snacks:
-            if item.get("market") == "A101":
-                item["image"] = _sanitize_a101_image_url(item.get("image") or "")
-
-        await websocket.send_json({"type": "init_products", "products": snacks})
-        await broadcast_state()
         
         while True:
             data = await websocket.receive_json()
             msg_type = data.get("type")
-            # ... (the rest of the loop remains same)
             
-            if msg_type == "set_name":
-                name = data.get("name")
-                users[user_id]["name"] = name
-                hist = await get_history()
-                paid_names = {h["loser"] for h in hist}
-                if name in paid_names:
-                    users[user_id]["safe"] = True
-                else:
-                    users[user_id]["safe"] = False
+            if msg_type == "join_room":
+                room_id = data.get("room_id", "genel")
+                name = data.get("name", "Misafir")
                 
-                await check_history_reset([u["name"] for u in users.values()])
-                await broadcast_state()
+                state = get_room_state(room_id)
+                state["clients"].append(websocket)
+                state["users"][user_id] = {"name": name, "approved": False, "safe": False}
+                
+                log_debug(f"User {name} joined room {room_id}")
+                
+                snacks = await get_snacks()
+                for item in snacks:
+                    if item.get("market") == "A101":
+                        item["image"] = _sanitize_a101_image_url(item.get("image") or "")
+                
+                await websocket.send_json({"type": "init_products", "products": snacks})
+                await broadcast_state(room_id)
                 
             elif msg_type == "add_to_cart":
+                state = get_room_state(room_id)
                 product = data.get("product")
-                product["added_by"] = users[user_id]["name"]
-                shared_cart.append(product)
-                for uid in users:
-                    users[uid]["approved"] = False
-                await broadcast_state()
+                product["added_by"] = state["users"][user_id]["name"]
+                state["cart"].append(product)
+                for uid in state["users"]:
+                    state["users"][uid]["approved"] = False
+                await broadcast_state(room_id)
                 
             elif msg_type == "remove_from_cart":
+                state = get_room_state(room_id)
                 idx = data.get("index")
-                if 0 <= idx < len(shared_cart):
-                    shared_cart.pop(idx)
-                    for uid in users:
-                        users[uid]["approved"] = False
-                    await broadcast_state()
+                if 0 <= idx < len(state["cart"]):
+                    state["cart"].pop(idx)
+                    for uid in state["users"]:
+                        state["users"][uid]["approved"] = False
+                    await broadcast_state(room_id)
                     
             elif msg_type == "toggle_approve":
-                users[user_id]["approved"] = data.get("approved", False)
-                all_approved = len(users) > 0 and all(u["approved"] for u in users.values())
-                if all_approved and shared_cart:
-                    app_state = "wheel"
+                state = get_room_state(room_id)
+                state["users"][user_id]["approved"] = data.get("approved", False)
+                all_approved = len(state["users"]) > 0 and all(u["approved"] for u in state["users"].values())
+                if all_approved and state["cart"]:
+                    state["state"] = "wheel"
                 else:
-                    app_state = "shopping"
-                await broadcast_state()
+                    state["state"] = "shopping"
+                await broadcast_state(room_id)
                 
             elif msg_type == "spin_wheel":
-                if app_state == "wheel":
+                state = get_room_state(room_id)
+                if state["state"] == "wheel":
                     msg = {
                         "type": "wheel_spin",
                         "mode": data.get("mode", "roulette"),
                         "target_index": data.get("target_index", 0)
                     }
-                    for client in connected_clients:
+                    for client in state["clients"]:
                         await client.send_json(msg)
 
             elif msg_type == "wheel_result_eliminate":
+                state = get_room_state(room_id)
                 eliminated_user_id = data.get("eliminated_user_id")
-                msg = {
-                    "type": "user_eliminated",
-                    "user_id": eliminated_user_id
-                }
-                for client in connected_clients:
-                    await client.send_json(msg)
+                for client in state["clients"]:
+                    await client.send_json({"type": "user_eliminated", "user_id": eliminated_user_id})
                     
             elif msg_type == "record_loser":
+                state = get_room_state(room_id)
                 loser_name = data.get("loser_name")
-                log_debug(f"MSG RECEIVED: record_loser for {loser_name}")
-                if loser_name:
-                    success = await mark_paid(loser_name, list(shared_cart))
+                log_debug(f"MSG RECEIVED: record_loser for {loser_name} in room {room_id}")
+                
+                # Check if already recorded to avoid double records within same session
+                already_safe = any(u["name"] == loser_name and u["safe"] for u in state["users"].values())
+                if not already_safe and loser_name:
+                    # MARK SAFE IMMEDIATELY to prevent race condition double-saves
+                    for uid in state["users"]:
+                        if state["users"][uid]["name"] == loser_name:
+                            state["users"][uid]["safe"] = True
+                    
+                    # Now record to DB
+                    success = await mark_paid(loser_name, list(state["cart"]))
                     if success:
-                        # Direct toast to all
                         toast_msg = {
                             "type": "toast",
                             "message": f"{loser_name} başarıyla kaydedildi! ✅",
                             "toast_type": "success"
                         }
-                        for client in connected_clients:
+                        for client in state["clients"]:
                             await client.send_json(toast_msg)
                             
-                    for uid in users:
-                        if users[uid]["name"] == loser_name:
-                            users[uid]["safe"] = True
-                    await broadcast_state()
+                    await broadcast_state(room_id)
 
             elif msg_type == "reset_game":
-                app_state = "shopping"
-                for uid in users:
-                    users[uid]["approved"] = False
-                shared_cart.clear()
-                await check_history_reset([u["name"] for u in users.values()])
-                await broadcast_state()
+                state = get_room_state(room_id)
+                state["state"] = "shopping"
+                for uid in state["users"]:
+                    state["users"][uid]["approved"] = False
+                state["cart"].clear()
+                await check_history_reset(room_id, [u["name"] for u in state["users"].values()])
+                await broadcast_state(room_id)
 
     except WebSocketDisconnect:
-        if websocket in connected_clients:
-            connected_clients.remove(websocket)
-        if user_id in users:
-            del users[user_id]
-        await broadcast_state()
+        state = get_room_state(room_id)
+        if websocket in state["clients"]:
+            state["clients"].remove(websocket)
+        if user_id in state["users"]:
+            del state["users"][user_id]
+        await broadcast_state(room_id)
     except Exception as e:
         log_debug(f"WEBSOCKET ERROR: {e}")
-        if websocket in connected_clients:
-            connected_clients.remove(websocket)
+        state = get_room_state(room_id)
+        if websocket in state["clients"]:
+            state["clients"].remove(websocket)
 
 from fastapi.responses import RedirectResponse
 @app.get("/")

@@ -20,8 +20,9 @@
     <div id="login-modal" class="modal active">
         <div class="modal-content">
             <h2>Hoşgeldin!</h2>
-            <p>Ortak sepete katılmak için adını gir:</p>
+            <p>Ortak sepete katılmak için adını ve oda kodunu gir:</p>
             <input type="text" id="username-input" placeholder="Adın nedir?">
+            <input type="text" id="room-input" placeholder="Oda Kodu (örn: ekip-1)" value="genel">
             <button id="join-btn" class="btn primary-btn">Katıl</button>
         </div>
     </div>
@@ -32,6 +33,7 @@
             <header class="app-header">
                 <div class="header-left">
                     <h1>Snack<span class="highlight">Roulette</span></h1>
+                    <p>Oda: <span id="current-room-display" class="highlight">...</span></p>
                     <p>Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
                 </div>
                 <div class="header-right">
@@ -58,13 +60,14 @@
             <div class="grid" id="product-grid">
                 <div class="loading">Sistem yükleniyor...</div>
             </div>
-
-            <div class="grid" id="product-grid">
-                <div class="loading">Sistem yükleniyor...</div>
-            </div>
         </main>
 
-        <aside class="cart-area">
+        <aside class="cart-area" id="cart-area">
+            <div class="cart-mobile-handle"></div>
+            <div class="cart-mobile-toggle" id="cart-mobile-toggle">
+                <h3>🛒 Sepet & Kişiler</h3>
+                <span id="cart-mobile-info">0 Ürün - 0.00 TL</span>
+            </div>
             <div class="users-section">
                 <h3>Aktif Kişiler <span id="user-count">0</span></h3>
                 <ul id="users-list"></ul>

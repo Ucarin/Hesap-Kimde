@@ -54,19 +54,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Login
     joinBtn.addEventListener('click', () => {
         const name = usernameInput.value.trim();
+        const room = document.getElementById('room-input').value.trim() || 'genel';
         if(!name) return;
         
         loginModal.classList.remove('active');
-        connectWebSocket(name);
+        document.getElementById('current-room-display').textContent = room;
+        connectWebSocket(name, room);
     });
 
+    const cartArea = document.getElementById('cart-area');
+    const cartMobileToggle = document.getElementById('cart-mobile-toggle');
+    if (cartMobileToggle) {
+        cartMobileToggle.addEventListener('click', () => {
+            cartArea.classList.toggle('mobile-open');
+        });
+    }
+
     // Connection
-    function connectWebSocket(name) {
+    function connectWebSocket(name, room) {
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
 
         ws.onopen = () => {
-            ws.send(JSON.stringify({ type: 'set_name', name: name }));
+            ws.send(JSON.stringify({ type: 'join_room', name: name, room_id: room }));
         };
 
         ws.onmessage = (event) => {
@@ -161,15 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                  ws.send(JSON.stringify({ type: 'wheel_result_eliminate', eliminated_user_id: loser.userId }));
                                  spinBtn.disabled = false;
                                  winnerText.textContent = "Sıradaki kişi için çevir!";
-                                 winnerCartSummary.style.display = 'none';
-                                 winnerCartSummary.innerHTML = '';
                                  syncCartPanelButtonLabels();
                              }, 2000);
                         } else {
                              const ultimateLoserInfo = activeUsers.filter((u, i) => i !== targetIndex)[0];
                              const ultimateLoserColor = colors[activeUsers.indexOf(ultimateLoserInfo) % colors.length];
                              text = `HESAP <span style="color:${ultimateLoserColor}">${ultimateLoserInfo.name}</span> KİŞİSİNE KALDI! 💀`;
+                             
+                             // Only the person who spun the wheel sends the record
+                             // or rely on server-side protection. I'll still send it but server handles dedupe.
                              ws.send(JSON.stringify({ type: 'record_loser', loser_name: ultimateLoserInfo.name }));
+                             
                              wheelEndActions.style.display = 'flex';
                              showPayerCartSummary = true;
                              drawWheel([ultimateLoserInfo], ultimateLoserColor);
@@ -411,6 +423,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!isNaN(priceNum)) total += priceNum;
         });
         cartTotalPrice.textContent = total.toFixed(2) + " TL";
+        
+        const cartMobileInfo = document.getElementById('cart-mobile-info');
+        if (cartMobileInfo) {
+            cartMobileInfo.textContent = `${cartState.length} Ürün - ${total.toFixed(2)} TL`;
+        }
     }
 
     // Approve logic

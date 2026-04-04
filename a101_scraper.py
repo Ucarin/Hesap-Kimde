@@ -157,11 +157,12 @@ def scrape_a101():
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(3)
 
-            # Ana kart selector - siteden tespit edilen gerçek Tailwind class yapısı
-            cards = driver.find_elements(By.CSS_SELECTOR, "div.w-full.border.cursor-pointer")
+            # Ana kart selector - site yapısına göre güncellendi
+            cards = driver.find_elements(By.CSS_SELECTOR, "div.w-full.border.cursor-pointer.rounded-2xl")
             if not cards:
-                # Fallback: eski stil veya farklı yapı
-                cards = driver.find_elements(By.CSS_SELECTOR, "li.set-product-item, [class*='ProductCard'], [class*='product-card']")
+                cards = driver.find_elements(By.CSS_SELECTOR, "div.w-full.border.cursor-pointer")
+            if not cards:
+                cards = driver.find_elements(By.CSS_SELECTOR, "li.set-product-item, [class*='ProductCard']")
 
             for card in cards:
                 try:
@@ -226,15 +227,19 @@ def scrape_a101():
                 scroll_attempts = 0
                 last_height = new_height
 
-        print(f"  [{category_name}] {cat_count} ürün eklendi. Toplam: {len(products)}")
+        print(f"  [{category_name}] {cat_count} yeni ürün eklendi. (Toplam biriken: {len(products)})")
 
     driver.quit()
+
+    if not products:
+        print("\nUYARI: Hiç ürün bulunamadı! JSON dosyası güncellenmedi.")
+        return
 
     file_name = "market_data.json"
     with open(file_name, "w", encoding="utf-8") as f:
         json.dump({"snacks": products}, f, ensure_ascii=False, indent=4)
 
-    print(f"\nToplam {len(products)} A101 ürünü '{file_name}' dosyasına kaydedildi!")
+    print(f"\nBAŞARILI: Toplam {len(products)} A101 ürünü '{file_name}' dosyasına kaydedildi!")
 
 if __name__ == "__main__":
     scrape_a101()
