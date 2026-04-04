@@ -1,0 +1,977 @@
+{
+    "snacks": [
+        {
+            "name": "Ülker Çokokrem Kakaolu Fındık Kreması 40 G",
+            "price": "₺28,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/1UdJh2z7lY_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Damak Antep Fıstıklı Çikolata 30 G",
+            "price": "₺29,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Damak İnci Antep Fıstıklı Beyaz Çikolata 30 G",
+            "price": "₺26,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/kEhMHmM7Je_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Damak İnci Fıstıklı Çikolata 18 G",
+            "price": "₺12,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/RlFszbeMQ4_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Damak Antep Fıstıklı Stick Çikolata 18 G",
+            "price": "₺21,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/rzFCizIgR6_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Caramio Karamel Dolgulu Çikolata 32 G",
+            "price": "₺27,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/apDq7LmvN1_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Caramio Duo Çikolata 32 G",
+            "price": "₺15,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ZRYxT2NKui_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Caramio Bitter Çikolata 32 G",
+            "price": "₺15,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/rRQzGiSBao_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Uzun Çikolata Keyfi Antep Fıstıklı 34 G",
+            "price": "₺34,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/haftanin-yildizlari_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Karam Bitter Mini Çikolata 32 G",
+            "price": "₺24,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/WAIOxMdi2P_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti İçibol %27 Fındıklı Çikolata 30 G",
+            "price": "₺27,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Dxf4VGV55f_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Petito Patim Bol Sütlü Çikolata 18 G",
+            "price": "₺13,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/haftanin-yildizlari_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Petito Ayıcık Mini Çikolata 6,5 G",
+            "price": "₺8,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/DHs4i29TLd_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Petito Mini Sütlü Çikolata 32 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/KHhx5J5tR7_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Kurabiyeli Çikolata 60 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Bitter Çikolata 60 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Corn Flakes Çikolata 60 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Crunch Pirinç Patlaklı Sütlü Çikolata 31,5 G",
+            "price": "₺30,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/5kfGBtjTfa_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Crunch Pirinç Patlaklı Beyaz Çikolata 31,5 G",
+            "price": "₺17,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/8znPC0dyv0_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Amore Limon Dolgulu Çikolata 54 G",
+            "price": "₺25,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/3UPjlXqtJc_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Fındıklı Çikolata 60 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ltWDlCClDk_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Çikolata Uzun Sütlü 32 G",
+            "price": "₺20,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ejt79tSfv7_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Fındık Rüyası Fındıklı Çikolata 40,5 G",
+            "price": "₺32,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/qQr0SqtBE5_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Fındıklı Çikolata Bar 30 G",
+            "price": "₺15,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Alncw3P7pT_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Ottimo Beyaz Çikolata 64 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/YIQiAvOrVi_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Antep Fıstıklı Baton Çikolata 30 G",
+            "price": "₺23,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/DhuOzyyXzz_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Çokofest Frambuazlı Çikolata Bar 30 G",
+            "price": "₺27,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/TdHriDuA-G_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Vince Fındık Keyfi Çikolata 40 G",
+            "price": "₺15,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/wOoG6qkLYb_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "File Para Çikolata 27 G",
+            "price": "₺27,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/X-ycYIPzwY_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Lc Şemsiye Sütlü Çikolata 25 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/qWuClusuiz_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Canga Bar Yer Fıstıklı Karamelli Çikolata 45 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/haftanin-yildizlari_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Canga Bar Cookie Karamel Çikolata 45 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/haftanin-yildizlari_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Remixx Bar Çikolata Bisküvi Karamel 20 G",
+            "price": "₺5,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Remixx Bar Çikolata Nuga Karamel 20 G",
+            "price": "₺5,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Tadelle Fındıklı Çikolata Bar 30 G",
+            "price": "₺37,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/7lnYAPvYiV_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Hobby Çikolatalı Fındıklı Bar 25 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/-DkuoNoc9f_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Yer Fıstıklı Kremalı Çikolata Bar 40 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/qu8CtX1Y2i_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Laviva Bisküvili Bar Çikolata 35 G",
+            "price": "₺26,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/0uHBYUrEZb_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Canga Gold Yer Fıstıklı Karamelli Çikolata 45 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/oSLr66AWWd_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Snickers Çikolata Bar 35,5 G",
+            "price": "₺24,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/jX5CUCvS6v_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Yer Fıstıklı Çikolata Bar 4x40 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aPzmoszYTI_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Albeni 40 G",
+            "price": "₺19,75",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/sohAEUq-Xg_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Albeni Beyaz Çikolata Kaplı Viva 36 G",
+            "price": "₺15,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/TUgV95fS-I_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Piko Portakallı Pirinç Patlaklı Bar 18 G",
+            "price": "₺9,75",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/SAdxv4HHqt_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Hindistan Cevizli Bar Çikolata 5x25 G",
+            "price": "₺25,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/irZosq9xse_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Cho-Co Corn Sütlü Çikolata Hindistan Cevizli Bar 32 G",
+            "price": "₺8,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Q424xeoTEw_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Metro Çikolata Nugalı Bar 36 G",
+            "price": "₺16,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ThlxuREOlH_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Bar Nugalı Karamelli Çikolata 40 G",
+            "price": "₺11,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/QaHk6Ve-60_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Karamelli Çikolata Bar 40 G",
+            "price": "₺8,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/7Y9psVcgJ5_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Cocostar Hindistan Cevizli Bar Çikolata 25 G",
+            "price": "₺12,75",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/EA8NN9qtSU_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Çokomilk Çikolata Kaplı Nuga Bar 24 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Kkd1Vajwfh_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cino Kayısılı Çikolatalı Bar 25 G",
+            "price": "₺8,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/hhl2pseLcH_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutmaster Çubuk Çikolata 52 G",
+            "price": "₺18,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/VxT9wfeQkp_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Eti Maximus Loading Yer Fıstıklı Bar Çikolata 50 G",
+            "price": "₺17,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/haftanin-yildizlari_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Twix Çikolatalı Bar 75 G",
+            "price": "₺24,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/MAeS2flNn5_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Şölen Nutymax Antep Fıstıklı Kremalı Çikolata 44 G",
+            "price": "₺39,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ZghCBl-wDU_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Bounty Hindistan Cevizli Çikolata Bar 57 G",
+            "price": "₺29,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/o2Nml4BKI0_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Granio Kırmızı Meyveli Çikolata Bar 40 G",
+            "price": "₺20,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/JFEYqZHrWX_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Beyoğlu Gala Yer Fıstıklı Çikolata 47 G",
+            "price": "₺8,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/FhR9Pl1OxX_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Yer Fıstıklı Karamelli Beyaz Çikolata Bar 60 G",
+            "price": "₺9,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/nDUFnOPah2_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Sweet Tastic Hindistan Cevizli Çikolata Bar 50 G",
+            "price": "₺7,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/nGiH84JY6W_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Antep Fıstıklı Çikolata 40 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/bMPQpmH4Sz_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Bisküvi Kremalı Çikolata 40 G",
+            "price": "₺7,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/k9rPYBbeNu_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Lotus Kremalı Bisküvi Çikolata 40 G",
+            "price": "₺7,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/E4FgBXaQsT_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cino Çikolatalı Portakallı Bar 25 G",
+            "price": "₺8,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/MlheSvvXmR_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Sütlü Çikolata 30 G",
+            "price": "₺19,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/yBojtjlaI8_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Rodeo Yer Fıstıklı Çikolata Bar 45 G",
+            "price": "₺19,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/pxqJARkGi2_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Çilek Kremalı Çikolata 40 G",
+            "price": "₺7,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/rkS1Ayyymg_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Hindistan Cevizli Kremalı Çikolata 40 G",
+            "price": "₺7,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/VEs0v7iyo0_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutschoco Çikolata Bar 30 G",
+            "price": "₺8,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/gb2fGSGgP5_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Şölen Boombastic Yer Fıstıklı Çikolata 40 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/JBc3sgj74c_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Sweet Tastic Yer Fıstıklı Çikolata 50 G",
+            "price": "₺7,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Q6B1BBfq2i_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Sweet Tastic Karamelli Çikolata 50 G",
+            "price": "₺7,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/FJrHDdzfQ9_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Tigo Pop Muzlu Bar 8 G",
+            "price": "₺2,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/RgwyLG5Ssg_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Tigo Pop Çilekli Bar 8 G",
+            "price": "₺2,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/4HqBu3RO7H_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Tigo Pop Kakaolu Bar 8 G",
+            "price": "₺2,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/jhMZiWWtD4_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "M&M's Salted Caramel Draje 36 G",
+            "price": "₺24,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/zY7JLHfMUr_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "M&M's Fıstıklı Çikolatalı Draje 45 G",
+            "price": "₺24,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/9LIJWWq--J_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Vince Draje Çikolata 3x27 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/L9R9XM9Yl8_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ozmo Egg Çikolatalı Sürpriz Yumurta 20 G",
+            "price": "₺39,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/hxw97Tg52U_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Kiddy Sürpriz Yumurta Sütlü Çikolata 20 G",
+            "price": "₺23,75",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Kz4qex7Str_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Enjoy Erkekler İçin Sürpriz Yumurta Çikolata 20 G",
+            "price": "₺22,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/IMa27JJu2o_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Enjoy Kızlar İçin Sürpriz Yumurta Çikolata 20 G",
+            "price": "₺22,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/bj8PSr3hVz_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Todix Dips Stick Çikolata 40 G",
+            "price": "₺12,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/vaSYkDCqsm_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Todix Choco Oyuncaklı Çikolata 35 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/5iYid3CoIM_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Togo Cosmilk Oyuncaklı Çikolata Bar 25 G",
+            "price": "₺7,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ycEoLdxntl_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cino File Para Çikolata 33 G",
+            "price": "₺27,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/25wteDS8kQ_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Dippo Oyuncaklı Kornet Çikolata 25 G",
+            "price": "₺22,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/CB7EJk2ILd_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cosby Şemsiye Çikolata 20 G",
+            "price": "₺29,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/4WJFsGHmuH_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Lc Madalyon Sütlü Çikolata 18 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/0QMgGYr0Vc_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Lc Süt Dolgulu Balık Çikolata 18 G",
+            "price": "₺14,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/IOuyRE-PwX_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Peyman Bahçeden Fındıklı Bar 30 G",
+            "price": "₺29,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Bahçeden Yer Fıstıklı Bar 30 G",
+            "price": "₺12,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Tadımca Yer Fıstıklı Bar 30 G",
+            "price": "₺15,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/hZP1dy2cPn_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Be Happy Çilekli Tablet Çikolata 88 G",
+            "price": "₺39,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Miniki Sütlü Çikolata 9 G",
+            "price": "₺5,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/BSL1yvudrD_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Beyoğlu Kadayıflı Dubai Çikolatası 35 G",
+            "price": "₺29,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/HAnVhPVmYB_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Skittles Meyve Aromalı Draje 38 G",
+            "price": "₺25,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/nmm7XL8Hgx_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Çokofest Karamel Dolgulu Çikolata 60 G",
+            "price": "₺25,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/54rcuV0Fuq_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Bonucci Kadayıflı Dubai Çikolatası 35 G",
+            "price": "₺39,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/pyDobZEhxt_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cosby Fun Pembe Yumurta Çikolata 20 G",
+            "price": "₺18,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/JDIbx1s5Aa_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Kahve Dünyası Nello Fındıklı Bar Çikolata 33 G",
+            "price": "₺39,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Ujsuv-ojCu_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Çokofest Frambuazlı Çikolata 55 G",
+            "price": "₺29,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/ht0UsJ54PR_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cosby Fun Mavi Yumurta Çikolata 20 G",
+            "price": "₺18,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/kuVRI1NWkv_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Patiswiss Kadayıflı Dubai Çikolata 30 G",
+            "price": "₺29,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/jCfMKdHd-S_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Miniki Nugalı Sütlü Çikolata Bar 25 G",
+            "price": "₺9,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/56O2A8R5zL_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Donaci Meyveli Hindistan Cevizi Dolgulu Çikolata 250 G",
+            "price": "₺34,90",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/1zDMGd4szb_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ödül Pirinç Patlaklı Dolgulu Çikolata 500 G",
+            "price": "₺40,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/AS0w1kJcDS_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ödül Fındıklı Çikolata 350 G",
+            "price": "₺32,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/DnZVcMhHzG_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutmaster Orman Meyvesi Aromalı Krema & Grissini 52 G",
+            "price": "₺18,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/JI99GcHnRP_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutmaster Antep Fıstıklı Krema & Grissini 52 G",
+            "price": "₺18,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/akDcaa-sJB_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Dippo Kakaolu Süt Dolgulu Kalp 18 G",
+            "price": "₺14,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/26jBKgt1j1_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Dippo File Para Çikolata 27 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/tPVgYkCK6u_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cino Hindistan Cevizli Bar 25 G",
+            "price": "₺7,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Qx499ev0Dd_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Fındıklı Çikolata 30 G",
+            "price": "₺30,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Sütlü Çikolata 30 G",
+            "price": "₺30,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Bitter Çikolata 30 G",
+            "price": "₺30,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Kahve Dünyası Yer Fıstıklı Patlamış Mısır 80 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/oKhBp4uYVa_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Dippo Madalyon Çikolata 18 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aqw1FQ37c0_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Corny Çikolatalı Fındıklı Tam Tahıllı Bar 20 G",
+            "price": "₺19,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/hjwCGnyOcK_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Kadayıflı Dubai Çikolata 35 G",
+            "price": "₺39,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/IoyIKN-e7C_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Spesiyal Çikolata Karadeniz Rüyası 30 G",
+            "price": "₺25,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/pVLV6O8Jof_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Kahve Dünyası Popçik Patlayan Şekerli Çikolata 18 G",
+            "price": "₺18,75",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/soU0GF0d5V_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutbari Yer Fıstıklı Çubuk Çikolata 50 G",
+            "price": "₺14,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/lJcK3Qq2Ge_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Xroll Bitter Çikolatalı Dolgulu ve Bisküvili Sütlü Çikolata 35 G",
+            "price": "₺18,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/L-tgEscZeY_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutmaster Muzlu Krema & Grissini 52 G",
+            "price": "₺14,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/nRW1pOJWL4_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nutmaster Çilek Kreması & Grissini 52 G",
+            "price": "₺18,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/qVIWr3x3tp_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Metro Büyük Boy 50,4 G",
+            "price": "₺21,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/lYKCXtVXpZ_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Sütlü Bademli Çikolata 60 G",
+            "price": "₺39,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Nestle Bademli Beyaz Çikolata 60 G",
+            "price": "₺39,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Mentos Pure Nane Aromalı Sakız Draje 30 G",
+            "price": "₺35,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Sarelle Çubuk Çikolata 50 G",
+            "price": "₺27,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/zsiPuzlAdz_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Tambol Bol Sütlü Çikolata 77 G",
+            "price": "₺39,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/NMdW3mmiWh_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Damak Antep Fıstıklı Baklava Çikolata 30 G",
+            "price": "₺29,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/Mv4jzXXOMb_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Torku Çokofest Karamel Dolgulu Çikolata 55 G",
+            "price": "₺29,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/efuK3a6ixG_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Kahve Dünyası Beyoğlu Bar Çikolata 30 G",
+            "price": "₺37,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/zqY2C-7BbE_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Ülker Albeni Büyük Boy 52 G",
+            "price": "₺23,50",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/CcOIS57t6j_240x240.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cino Kakaolu Fındık Kreması Tüp 40 G",
+            "price": "₺10,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        },
+        {
+            "name": "Cino Tüp Kakaolu Fındık Kreması 25 G",
+            "price": "₺8,00",
+            "image": "https://cdn2.a101.com.tr/dbmk89vnr/CALL/Image/get/aldin-aldin_200x200.png",
+            "category": "Çikolata",
+            "market": "A101"
+        }
+    ]
+}

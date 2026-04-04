@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Snack Roulette</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal active">
+        <div class="modal-content">
+            <h2>Hoşgeldin!</h2>
+            <p>Ortak sepete katılmak için adını gir:</p>
+            <input type="text" id="username-input" placeholder="Adın nedir?">
+            <button id="join-btn" class="btn primary-btn">Katıl</button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-layout">
+        <main class="shop-area">
+            <header class="app-header">
+                <div class="header-left">
+                    <h1>Snack<span class="highlight">Roulette</span></h1>
+                    <p>Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
+                </div>
+                <div class="header-right">
+                    <button type="button" id="open-history-btn" class="btn outline-btn history-toggle-btn">📜 Ödeme Geçmişi</button>
+                </div>
+            </header>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Atıştırmalık ara...">
+            </div>
+
+            <div class="category-filters" id="category-filters">
+                <button class="cat-btn active" data-cat="Tümü">🛒 Tümü</button>
+                <button class="cat-btn" data-cat="Çikolata">🍫 Çikolata</button>
+                <button class="cat-btn" data-cat="Gofret">🧇 Gofret</button>
+                <button class="cat-btn" data-cat="Bisküvi & Kraker">🍪 Bisküvi</button>
+                <button class="cat-btn" data-cat="Kek">🎂 Kek</button>
+                <button class="cat-btn" data-cat="Cips">🥔 Cips</button>
+                <button class="cat-btn" data-cat="Kuruyemiş">🥜 Kuruyemiş</button>
+                <button class="cat-btn" data-cat="Şekerleme & Sakız">🍬 Şekerleme</button>
+                <button class="cat-btn" data-cat="Sağlıklı">🍏 Sağlıklı</button>
+            </div>
+
+            <div class="grid" id="product-grid">
+                <div class="loading">Sistem yükleniyor...</div>
+            </div>
+
+            <div class="grid" id="product-grid">
+                <div class="loading">Sistem yükleniyor...</div>
+            </div>
+        </main>
+
+        <aside class="cart-area">
+            <div class="users-section">
+                <h3>Aktif Kişiler <span id="user-count">0</span></h3>
+                <ul id="users-list"></ul>
+            </div>
+
+            <div class="cart-section">
+                <h3>Ortak Sepet</h3>
+                <ul id="cart-list"></ul>
+                <div class="cart-total">
+                    <span>Toplam:</span>
+                    <strong id="cart-total-price">0.00 TL</strong>
+                </div>
+                <button id="approve-btn" class="btn approve-btn">Sepeti Onaylıyorum</button>
+                <p class="wait-msg">Herkesin onaylaması bekleniyor...</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Wheel Overlay -->
+    <div id="wheel-overlay" class="modal">
+        <div class="wheel-container">
+            <button type="button" id="close-wheel-btn" class="close-modal-btn">&times;</button>
+            <div class="wheel-top-bar">
+                <h2>Ölüm Çarkı 💀</h2>
+                <button type="button" id="wheel-cart-toggle-btn" class="btn outline-btn wheel-cart-btn">Ortak sepet</button>
+            </div>
+            <p>Sıra ödemede! Mod seç ve çarkı çevir.</p>
+
+            <div class="wheel-controls">
+                <label>
+                    <input type="radio" name="wheel-mode" value="roulette" checked>
+                    Rus Ruleti (İlk Çıkan Öder)
+                </label>
+                <label>
+                    <input type="radio" name="wheel-mode" value="survivor">
+                    Survivor (Sona Kalan Öder)
+                </label>
+            </div>
+
+            <div class="canvas-wrapper">
+                <div class="pointer">▼</div>
+                <canvas id="wheel-canvas" width="400" height="400"></canvas>
+            </div>
+
+            <button id="spin-btn" class="btn danger-btn">Çevir!</button>
+            <p id="winner-text"></p>
+            <div id="winner-cart-summary" class="winner-cart-summary" style="display:none;" aria-live="polite"></div>
+            <div id="wheel-end-actions" class="wheel-end-actions" style="display:none;">
+                <button type="button" id="view-payer-cart-btn" class="btn outline-btn">Sepeti görüntüle</button>
+                <button type="button" id="reset-game-btn" class="btn primary-btn">Sıfırla ve Geri Dön</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Overlay (Page within a Page) -->
+    <div id="history-overlay" class="modal">
+        <div class="history-panel">
+            <button type="button" id="close-history-btn" class="close-modal-btn">&times;</button>
+            <div class="history-panel-header">
+                <h2>Ödeme <span class="highlight">Geçmişi</span> 🗓️</h2>
+                <p>Uygulama genelinde yapılan tüm çekilişlerin kayıtları.</p>
+            </div>
+            
+            <div id="history-overlay-content" class="history-overlay-content">
+                <!-- Last Result will be highlighted here -->
+                <div id="last-result-container"></div>
+                
+                <hr class="panel-divider">
+                
+                <h3>Tüm Kayıtlar</h3>
+                <div id="history-container" class="history-container">
+                    <p class="loading">Henüz bir kayıt bulunamadı.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
