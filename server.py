@@ -82,18 +82,6 @@ def _sanitize_a101_image_url(url: str) -> str:
     return url
 
 
-# Load initial snacks
-snacks = []
-try:
-    with open("market_data.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-        snacks = data.get("snacks", [])
-        for item in snacks:
-            if item.get("market") == "A101":
-                item["image"] = _sanitize_a101_image_url(item.get("image") or "")
-except:
-    pass
-
 async def broadcast_state():
     state_msg = {
         "type": "state_update",

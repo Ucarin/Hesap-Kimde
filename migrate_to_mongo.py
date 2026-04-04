@@ -12,7 +12,7 @@ async def migrate():
             data = json.load(f)
             snacks = data.get("snacks", [])
             if snacks:
-                # _id'leri temizle (ObjectId cakismasi olmasin diye)
+                # _id'leri temizle (ObjectId cakismasi olmasın diye)
                 for s in snacks:
                     if "_id" in s: del s["_id"]
                 await bulk_add_snacks(snacks)
