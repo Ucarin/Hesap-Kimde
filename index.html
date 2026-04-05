@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplayer Snack Roulette</title>
+    <title>Hesap Kimde</title>
     <link rel="stylesheet" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="background-blobs">
         <div class="blob blob-1"></div>
@@ -20,7 +22,7 @@
     <div id="login-modal" class="modal active">
         <div class="lobby-portal">
             <div class="lobby-header">
-                <h2>Cips <span class="highlight">Ruleti</span> Portalı 🍿</h2>
+                <h2>Hesabı <span class="highlight">Kitle</span></h2>
                 <div class="lobby-tabs">
                     <button class="tab-btn active" data-tab="join">Lobilere Göz At</button>
                     <button class="tab-btn" data-tab="create">Lobi Kur</button>
@@ -32,7 +34,9 @@
                 <input type="text" id="username-input" placeholder="Adın (Misafir girişi için)">
                 <div id="logged-in-info" style="display:none; color:var(--success); margin: 0.5rem 0;">
                     ✅ <strong id="logged-user-name">...</strong> olarak giriş yapıldı.
-                    <button id="logout-btn" class="btn outline-btn" style="padding: 0.2rem 0.5rem; font-size: 0.8rem; border-color: var(--danger); color: var(--danger);">Çıkış Yap</button>
+                    <button id="logout-btn" class="btn outline-btn"
+                        style="padding: 0.2rem 0.5rem; font-size: 0.8rem; border-color: var(--danger); color: var(--danger);">Çıkış
+                        Yap</button>
                 </div>
             </div>
 
@@ -59,14 +63,16 @@
                         <input type="text" id="login-username" placeholder="Kullanıcı Adı">
                         <input type="password" id="login-password" placeholder="Şifre">
                         <button id="login-btn" class="btn primary-btn">Giriş Yap</button>
-                        <p style="margin-top:1rem; font-size:0.9rem;">Hesabın yok mu? <a href="#" id="show-register" style="color:var(--primary)">Kayıt Ol</a></p>
+                        <p style="margin-top:1rem; font-size:0.9rem;">Hesabın yok mu? <a href="#" id="show-register"
+                                style="color:var(--primary)">Kayıt Ol</a></p>
                     </div>
                     <div id="auth-register-view" style="display:none;">
                         <h3>Kayıt Ol</h3>
                         <input type="text" id="reg-username" placeholder="Kullanıcı Adı">
                         <input type="password" id="reg-password" placeholder="Şifre">
                         <button id="register-btn" class="btn primary-btn">Hesap Oluştur</button>
-                        <p style="margin-top:1rem; font-size:0.9rem;">Zaten hesabın var mı? <a href="#" id="show-login" style="color:var(--primary)">Giriş Yap</a></p>
+                        <p style="margin-top:1rem; font-size:0.9rem;">Zaten hesabın var mı? <a href="#" id="show-login"
+                                style="color:var(--primary)">Giriş Yap</a></p>
                     </div>
                 </div>
             </div>
@@ -84,7 +90,7 @@
                     <!-- Badges will be injected here -->
                 </div>
             </div>
-            
+
             <div class="profile-stats-grid">
                 <div class="stat-card">
                     <span class="stat-label">Toplam Harcama</span>
@@ -127,16 +133,18 @@
         <main class="shop-area">
             <header class="app-header">
                 <div class="header-left">
-                    <h1>Snack<span class="highlight">Roulette</span></h1>
+                    <h1>Kitleme<span class="highlight">Çarkı</span></h1>
                     <p>Oda: <span id="current-room-display" class="highlight">...</span></p>
                     <p>Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
                 </div>
                 <div class="header-right">
-                    <button type="button" id="open-profile-btn" class="btn outline-btn profile-toggle-btn" style="display:none; margin-right:0.5rem;">👤 Profilim</button>
-                    <button type="button" id="open-history-btn" class="btn outline-btn history-toggle-btn">📜 Ödeme Geçmişi</button>
+                    <button type="button" id="open-profile-btn" class="btn outline-btn profile-toggle-btn"
+                        style="display:none; margin-right:0.5rem;">👤 Profilim</button>
+                    <button type="button" id="open-history-btn" class="btn outline-btn history-toggle-btn">📜 Ödeme
+                        Geçmişi</button>
                 </div>
             </header>
-            
+
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Atıştırmalık ara...">
             </div>
@@ -187,8 +195,9 @@
         <div class="wheel-container">
             <button type="button" id="close-wheel-btn" class="close-modal-btn">&times;</button>
             <div class="wheel-top-bar">
-                <h2>Ölüm Çarkı 💀</h2>
-                <button type="button" id="wheel-cart-toggle-btn" class="btn outline-btn wheel-cart-btn">Ortak sepet</button>
+                <h2>Kime Kitlensin ? 💀</h2>
+                <button type="button" id="wheel-cart-toggle-btn" class="btn outline-btn wheel-cart-btn">Ortak
+                    sepet</button>
             </div>
             <p>Sıra ödemede! Mod seç ve çarkı çevir.</p>
 
@@ -226,13 +235,13 @@
                 <h2>Ödeme <span class="highlight">Geçmişi</span> 🗓️</h2>
                 <p>Uygulama genelinde yapılan tüm çekilişlerin kayıtları.</p>
             </div>
-            
+
             <div id="history-overlay-content" class="history-overlay-content">
                 <!-- Last Result will be highlighted here -->
                 <div id="last-result-container"></div>
-                
+
                 <hr class="panel-divider">
-                
+
                 <h3>Tüm Kayıtlar</h3>
                 <div id="history-container" class="history-container">
                     <p class="loading">Henüz bir kayıt bulunamadı.</p>
@@ -243,4 +252,5 @@
 
     <script src="/static/script.js"></script>
 </body>
+
 </html>
