@@ -12,10 +12,6 @@
     --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
-.logo-text h2 {
-    color: #ffffff !important;
-}
-
 .light-theme {
     --bg-dark: #fbfcfe;
     --bg-card: rgba(255, 255, 255, 0.95);
@@ -33,29 +29,18 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* --- GLOBAL LEGIBILITY FIXES --- */
-input, textarea, select {
-    color: var(--text-main) !important;
+/* --- LOGO & HEADER VISIBILITY --- */
+.logo-text h2 {
+    color: var(--text-main) !important; /* Dynamic based on theme */ transition: 0.3s;
 }
 
-.light-theme input, .light-theme textarea {
-    color: #0f172a !important;
+.light-theme .logo-text h2 {
+    color: #0f172a !important; /* Force visibility in light mode */
 }
 
-/* Animations & Polishes */
-@keyframes highlightPulse {
-    0% { filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.4)); }
-    50% { filter: drop-shadow(0 0 15px rgba(251, 146, 60, 0.7)); }
-    100% { filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.4)); }
-}
-
-.highlight {
-    animation: highlightPulse 2s infinite ease-in-out;
-}
-
-/* --- Header & Navigation --- */
 .main-header {
-    z-index: 1001 !important;
+    z-index: 1100 !important; /* Above everything */
+    padding: 1.5rem 2rem;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -65,196 +50,180 @@ input, textarea, select {
     padding: 0.8rem 2rem;
 }
 
-/* --- Language Dropdown --- */
-.custom-dropdown {
+/* --- GLOBAL LEGIBILITY FIXES --- */
+input, textarea, select {
+    color: var(--text-main) !important;
+}
+
+.light-theme input, .light-theme textarea {
+    color: #0f172a !important;
+}
+
+/* --- SECTION SPACING OPTIMIZATION --- */
+section {
+    padding: 2.5rem 2rem !important; /* Significantly reduced to avoid massive gaps */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#portal.portal-container {
+    padding-top: 6rem !important; /* Reduced Hero top spacing */
+    min-height: auto;
+    padding-bottom: 4rem;
+}
+
+.portal-hero {
+    margin-bottom: 2rem !important;
+}
+
+/* --- PRODUCT CARD & ADD BUTTON FIX --- */
+.product-card {
     position: relative;
+    z-index: 1;
+}
+
+.add-btn {
+    position: relative;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+    transform: scale(1.1);
+    background: var(--primary-hover);
+}
+
+/* --- FINTECH DASHBOARD CART UI --- */
+.cart-area {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(40px) !important;
+    border-left: 1px solid var(--glass-border) !important;
+    padding: 2rem !important;
+    display: flex;
+    flex-direction: column;
     z-index: 1000;
 }
 
-.dropdown-trigger {
-    background: var(--bg-card);
-    border: 1px solid var(--glass-border);
-    color: var(--text-main);
-    padding: 0.6rem 1rem !important;
-    border-radius: 14px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: 0.3s;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    min-width: 160px;
-    backdrop-filter: blur(20px);
-    display: none;
-    flex-direction: column;
-    padding: 0.5rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    animation: dropdownFade 0.3s ease;
-}
-
-.custom-dropdown.active .dropdown-menu {
-    display: flex;
-}
-
-.dropdown-menu button {
-    background: transparent;
-    border: none;
-    color: var(--text-main);
-    padding: 0.8rem 1.2rem;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 10px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.dropdown-menu button.active {
-    background: rgba(251, 146, 60, 0.15);
-    color: var(--primary);
-    border-left: 3px solid var(--primary);
-}
-
-@keyframes dropdownFade {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Market Module Fixes --- */
-.shop-area {
-    padding-top: 8rem !important;
-}
-
-.app-header {
-    background: var(--bg-card);
-    padding: 2rem;
-    border-radius: 24px;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    margin-bottom: 2rem;
-}
-
-/* --- Lobby & Tabs --- */
-.lobby-portal {
-    background: var(--bg-card) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 32px !important;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.6) !important;
-    backdrop-filter: blur(40px) !important;
-}
-
-.lobby-tabs {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid var(--glass-border) !important;
-    padding: 8px !important;
-    border-radius: 20px !important;
-    margin-top: 2rem !important;
-}
-
-.light-theme .lobby-tabs {
-    background: rgba(0, 0, 0, 0.03) !important;
-}
-
-.tab-btn {
-    font-weight: 700 !important;
-    color: var(--text-muted) !important;
-}
-
-.tab-btn.active {
-    background: var(--primary) !important;
-    color: white !important;
-}
-
-/* --- Auth Box --- */
-.auth-box {
-    background: rgba(255,255,255,0.03) !important;
-    padding: 2.5rem !important;
-    border-radius: 28px !important;
-    border: 1px solid var(--glass-border) !important;
-}
-
-.auth-box input {
-    background: rgba(255,255,255,0.05) !important;
-    border: 2px solid var(--glass-border) !important;
-    padding: 1.2rem !important;
-    border-radius: 16px !important;
-}
-
-/* --- Cart Area Overhaul --- */
-.cart-area {
-    background: var(--bg-card) !important;
-    backdrop-filter: blur(30px) !important;
-    border-left: 1px solid var(--glass-border) !important;
-    padding: 2.5rem !important;
-    display: flex;
-    flex-direction: column;
-}
-
 .cart-header {
-    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 1.5rem;
 }
 
-.cart-items {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.cart-items ul {
-    list-style: none;
-    padding: 0;
-}
-
-.cart-items li {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
-    padding: 1rem;
-    border-radius: 16px;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.cart-header h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
 }
 
 .users-summary {
     background: rgba(251, 146, 60, 0.1);
     color: var(--primary);
-    padding: 0.4rem 0.8rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-top: 0.5rem;
 }
 
+.cart-items li {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid var(--glass-border) !important;
+    padding: 1.2rem !important;
+    border-radius: 20px !important;
+    margin-bottom: 0.8rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    transition: 0.3s;
+}
+
+.cart-items li:hover {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
 .cart-total-section {
-    background: rgba(255,255,255,0.03);
-    padding: 2rem;
-    border-radius: 24px;
-    border: 1px solid var(--glass-border);
-    margin-top: auto;
+    background: rgba(59, 130, 246, 0.05) !important; /* Subtle blue tint for fintech feel */
+    padding: 2rem !important;
+    border-radius: 28px !important;
+    border: 1px solid var(--glass-border) !important;
+    margin-top: auto !important;
 }
 
 .total-amount {
     color: var(--primary);
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
-/* --- Footer --- */
+.cart-area .primary-btn {
+    background: var(--primary) !important;
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    box-shadow: 0 10px 25px rgba(251, 146, 60, 0.3) !important;
+}
+
+/* --- PREMIUM MULTI-COLUMN FOOTER --- */
 .main-footer {
     background: var(--bg-footer);
     padding: 6rem 2rem 4rem;
     border-top: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 10;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-col h2 { margin-bottom: 1rem; font-weight: 800; }
+.footer-col h4 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.footer-links { list-style: none; padding: 0; }
+.footer-links li { margin-bottom: 1rem; }
+.footer-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
