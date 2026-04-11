@@ -1,8 +1,7 @@
 :root {
     /* Base Variables (Dark/Default) */
-    --bg-dark: #0f172a;
-    --bg-card: rgba(30, 41, 59, 0.7);
-    --bg-nav: rgba(15, 23, 42, 0.8);
+    --bg-nav: rgba(15, 23, 42, 0.9);
+    --bg-footer: #0a0f1d;
     --primary: #f97316;
     --primary-hover: #ea580c;
     --success: #10b981;
@@ -14,9 +13,10 @@
 }
 
 .light-theme {
-    --bg-dark: #f1f5f9;
+    --bg-dark: #f8fafc;
     --bg-card: rgba(255, 255, 255, 0.8);
     --bg-nav: rgba(255, 255, 255, 0.9);
+    --bg-footer: #f1f5f9;
     --text-main: #0f172a;
     --text-muted: #475569;
     --glass-border: rgba(15, 23, 42, 0.1);
@@ -1843,7 +1843,8 @@ canvas { border-radius: 50%; transition: transform 4s cubic-bezier(0.17, 0.67, 0
 
 .main-header.scrolled {
     padding: 1rem 2rem;
-    background: rgba(15, 23, 42, 0.9);
+    background: var(--bg-nav);
+    box-shadow: var(--glass-shadow);
 }
 
 .nav-links {

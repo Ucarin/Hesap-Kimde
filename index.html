@@ -22,6 +22,7 @@
     <meta property="og:image" content="/static/og-image.jpg">
 
     <link rel="stylesheet" href="/static/style.css?v=1.1">
+    <link rel="stylesheet" href="/static/corporate.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Preference Scripts -->
@@ -169,33 +170,44 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer style="margin-top: 5rem; padding-bottom: 3rem;">
-            <div
-                style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 2rem; flex-wrap: wrap; gap: 1.5rem;">
-                <div style="text-align: left;">
-                    <h3 style="margin-bottom: 0.5rem; color: white;">Hesap Kimde?</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="footer_subtitle">Işık hızında fintech deneyimi.</p>
+        <!-- Footer Redesign -->
+        <footer class="main-footer">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h2 style="font-weight: 800; margin-bottom: 1rem;">Hesap<span class="highlight">Kimde?</span></h2>
+                    <p data-i18n="footer_subtitle">Işık hızında fintech deneyimi.</p>
                 </div>
-                <div style="display: flex; gap: 2rem;">
-                    <div style="text-align: left;">
-                        <span
-                            style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;" data-i18n="footer_contact">İletişim</span>
-                        <a href="mailto:info@hesapkimde.net"
-                            style="color: white; text-decoration: none; font-size: 0.9rem;">info@hesapkimde.net</a>
-                    </div>
-                    <div style="text-align: left;">
-                        <span
-                            style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;" data-i18n="footer_social">Sosyal</span>
-                        <div style="display: flex; gap: 1rem; margin-top: 0.2rem;">
-                            <a href="https://www.instagram.com/cereezersin/" target="_blank"
-                                style="color: white; text-decoration: none; font-size: 0.9rem;">Instagram</a>
-                        </div>
-                    </div>
+                <div class="footer-col">
+                    <h4 data-i18n="nav_solutions">Çözümler</h4>
+                    <ul class="footer-links">
+                        <li><a href="/market" data-i18n="market_title">Market Modülü</a></li>
+                        <li><a href="/yemek" data-i18n="yemek_title">Yemek & Restoran</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="nav_corporate">Kurumsal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hakkimizda" data-i18n="nav_corporate">Hakkımızda</a></li>
+                        <li><a href="#partnerler" data-i18n="nav_partners">Partnerler</a></li>
+                        <li><a href="#iletisim" data-i18n="nav_contact">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_social">Sosyal</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.instagram.com/cereezersin/" target="_blank">Instagram</a></li>
+                        <li><a href="#">X (Twitter)</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
                 </div>
             </div>
-            <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;" data-i18n="footer_rights">&copy; 2026
-                Hesap Kimde? Tüm hakları saklıdır.</p>
+            <div class="footer-bottom">
+                <p data-i18n="footer_rights">&copy; 2026 Hesap Kimde? Tüm hakları saklıdır.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: none;">Gizlilik Politikası</a>
+                    <a href="#" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: none;">Kullanım Şartları</a>
+                </div>
+            </div>
         </footer>
     </main>
 
