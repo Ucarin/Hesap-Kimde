@@ -1177,6 +1177,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const product = JSON.parse(decodeURIComponent(encodedStr));
 
         ws.send(JSON.stringify({ type: 'add_to_cart', product }));
+        const currentLang = localStorage.getItem('lang') || 'tr';
+        showToast(translations[currentLang]?.added_toast || 'Sepete eklendi!', 'success');
 
     };
 
@@ -1202,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <li style="${u.safe ? 'opacity: 0.5;' : ''}">
 
-                <span>${u.name} ${u.safe ? '<small>🛡️ Güvende</small>' : ''}</span>
+                <span>${u.name} ${u.safe ? `<small>🛡️ ${translations[localStorage.getItem('lang') || 'tr']?.safe_badge || 'Güvende'}</small>` : ''}</span>
 
                 ${u.approved ? '<span class="status-check">✅</span>' : '<span class="status-cross">⏳</span>'}
 
@@ -1218,7 +1220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (cartState.length === 0) {
 
-            cartList.innerHTML = `<li>Sepet boş. Biraz atıştırmalık ekleyin!</li>`;
+            cartList.innerHTML = `<li>${translations[localStorage.getItem('lang') || 'tr']?.empty_cart || 'Sepet boş.'}</li>`;
 
             cartTotalPrice.textContent = "0.00 TL";
 
@@ -1234,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <div class="cart-item-info">
 
-                    <span>${item.name} <small style="color:var(--text-muted)">(${item.added_by || 'Sistem'})</small></span>
+                    <span>${item.name} <small style="color:var(--text-muted)">(${item.added_by || (translations[localStorage.getItem('lang') || 'tr']?.system_label || 'Sistem')})</small></span>
 
                     <span class="cart-item-price">${item.price}</span>
 
@@ -1268,7 +1270,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (cartMobileInfo) {
 
-            cartMobileInfo.textContent = `${cartState.length} Ürün - ${total.toFixed(2)} TL`;
+            cartMobileInfo.textContent = `${cartState.length} ${translations[localStorage.getItem('lang') || 'tr']?.items_count || 'Ürün'} - ${total.toFixed(2)} TL`;
 
         }
 
@@ -1352,7 +1354,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!overrideUsers) {
 
-                ctx.fillText("Herkes güvende! Tur sıfırlanıyor...", centerX, centerY);
+                const lang = localStorage.getItem('lang') || 'tr';
+                const msg = lang === 'tr' ? "Herkes güvende! Tur sıfırlanıyor..." : (lang === 'es' ? "¡Todos a salvo! Reiniciando..." : "Everyone is safe! Resetting tour...");
+                ctx.fillText(msg, centerX, centerY);
 
             }
 
@@ -1484,7 +1488,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } else {
 
-            renderWinnerCartSummary('Ortak sepet — tüm kullanıcılar görebilir');
+            const lang = localStorage.getItem('lang') || 'tr';
+            renderWinnerCartSummary(translations[lang]?.joint_cart_desc || 'Ortak sepet');
 
         }
 

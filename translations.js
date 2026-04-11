@@ -45,7 +45,13 @@ const translations = {
         approve_btn: "SEPETİ ONAYLIYORUM",
         total_label: "Toplam:",
         active_users: "Aktif Kişi",
-        confirm_wait: "Herkesin onaylaması bekleniyor..."
+        confirm_wait: "Herkesin onaylaması bekleniyor...",
+        safe_badge: "Güvende",
+        empty_cart: "Sepet boş. Biraz atıştırmalık ekleyin!",
+        system_label: "Sistem",
+        items_count: "Ürün",
+        joint_cart_desc: "Ortak sepet — tüm kullanıcılar görebilir",
+        added_toast: "Sepete eklendi!"
     },
     en: {
         nav_home: "Portal",
@@ -93,7 +99,13 @@ const translations = {
         approve_btn: "APPROVE CART",
         total_label: "Total:",
         active_users: "Active Users",
-        confirm_wait: "Waiting for everyone to approve..."
+        confirm_wait: "Waiting for everyone to approve...",
+        safe_badge: "Safe",
+        empty_cart: "Cart is empty. Add some snacks!",
+        system_label: "System",
+        items_count: "Items",
+        joint_cart_desc: "Joint cart — visible to everyone",
+        added_toast: "Added to cart!"
     },
     es: {
         nav_home: "Portal",
@@ -141,6 +153,12 @@ const translations = {
         approve_btn: "APROBAR CARRITO",
         total_label: "Total:",
         active_users: "Usuarios Activos",
-        confirm_wait: "Esperando que todos aprueben..."
+        confirm_wait: "Esperando que todos aprueben...",
+        safe_badge: "Seguro",
+        empty_cart: "El carrito está vacío. ¡Añade algunos snacks!",
+        system_label: "Sistema",
+        items_count: "Artículos",
+        joint_cart_desc: "Carrito conjunto — visible para todos",
+        added_toast: "¡Añadido al carrito!"
     }
 };
