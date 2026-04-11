@@ -23,6 +23,10 @@
 
     <link rel="stylesheet" href="/static/style.css?v=1.1">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Preference Scripts -->
+    <script src="/static/translations.js"></script>
+    <script src="/static/preferences.js"></script>
 </head>
 
 <body>
@@ -37,35 +41,45 @@
             <h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2>
         </div>
         <nav class="nav-links">
-            <a href="#portal">Giriş</a>
-            <a href="#hakkimizda">Kurumsal</a>
-            <a href="#cozumler">Çözümler</a>
-            <a href="#partnerler">İş Ortaklığı</a>
-            <a href="#iletisim">İletişim</a>
+            <a href="#portal" data-i18n="nav_home">Giriş</a>
+            <a href="#hakkimizda" data-i18n="nav_corporate">Kurumsal</a>
+            <a href="#cozumler" data-i18n="nav_solutions">Çözümler</a>
+            <a href="#partnerler" data-i18n="nav_partners">İş Ortaklığı</a>
+            <a href="#iletisim" data-i18n="nav_contact">İletişim</a>
         </nav>
+        <div class="pref-controls">
+            <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
+                <span id="theme-icon">☀️</span>
+            </button>
+            <select class="lang-select" id="lang-select" onchange="handleLangChange(event)">
+                <option value="tr">🇹🇷 TR</option>
+                <option value="en">🇺🇸 EN</option>
+                <option value="es">🇪🇸 ES</option>
+            </select>
+        </div>
     </header>
 
     <main>
         <!-- Hero / Portal Section -->
         <section id="portal" class="portal-container" style="padding-top: 10rem;">
             <header class="portal-hero">
-                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem);">Bölüşmek Hiç Bu Kadar <span class="highlight">Akıllı</span> Olmamıştı.</h1>
-                <p>Türkiye'nin en hızlı ve eğlenceli hesap bölüşme platformuna hoş geldiniz.</p>
+                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem);" data-i18n="hero_title">Bölüşmek Hiç Bu Kadar <span class="highlight">Akıllı</span> Olmamıştı.</h1>
+                <p data-i18n="hero_subtitle">Türkiye'nin en hızlı ve eğlenceli hesap bölüşme platformuna hoş geldiniz.</p>
             </header>
 
             <div class="portal-grid">
                 <a href="/market" class="portal-card" id="market-card">
-                    <span class="portal-badge">Popüler</span>
+                    <span class="portal-badge" data-i18n="market_badge">Popüler</span>
                     <div class="icon">🛒</div>
-                    <h2>Market Modülü</h2>
-                    <p>Market alışverişini eğlenceye dönüştürün. Ürünleri ekleyin, sepeti onaylayın ve çarkı çevirerek kimin ödeyeceğine karar verin.</p>
+                    <h2 data-i18n="market_title">Market Modülü</h2>
+                    <p data-i18n="market_desc">Market alışverişini eğlenceye dönüştürün. Ürünleri ekleyin, sepeti onaylayın ve çarkı çevirerek kimin ödeyeceğine karar verin.</p>
                 </a>
 
                 <a href="/yemek" class="portal-card" id="yemek-card">
-                    <span class="portal-badge">Yeni</span>
+                    <span class="portal-badge" data-i18n="yemek_badge">Yeni</span>
                     <div class="icon">🍽️</div>
-                    <h2>Yemek & Restoran</h2>
-                    <p>QR okutun, adisyona ulaşın ve restoranlarda garson beklemeden hesabınızı saniyeler içinde bölüşün.</p>
+                    <h2 data-i18n="yemek_title">Yemek & Restoran</h2>
+                    <p data-i18n="yemek_desc">QR okutun, adisyona ulaşın ve restoranlarda garson beklemeden hesabınızı saniyeler içinde bölüşün.</p>
                 </a>
             </div>
         </section>
@@ -74,13 +88,13 @@
         <section id="hakkimizda">
             <div class="about-grid">
                 <div class="about-text">
-                    <span class="portal-badge" style="position: static; margin-bottom: 1rem; display: inline-block;">Vizyonumuz</span>
-                    <h3>Hesap Bölüşme Kültürünü Dijitalleştiriyoruz</h3>
-                    <p>
+                    <span class="portal-badge" style="position: static; margin-bottom: 1rem; display: inline-block;" data-i18n="about_badge">Vizyonumuz</span>
+                    <h3 data-i18n="about_title">Hesap Bölüşme Kültürünü Dijitalleştiriyoruz</h3>
+                    <p data-i18n="about_p1">
                         Hesap Kimde?, arkadaş gruplarının ve işletmelerin ödeme süreçlerini daha şeffaf, hızlı ve eğlenceli hale getirmek için doğdu. 
                         Frankfurt merkezli güçlü sunucu altyapımızla, saniyeler içinde senkronize olan WebSockets altyapısı sunuyoruz.
                     </p>
-                    <p style="margin-top: 1rem;">
+                    <p style="margin-top: 1rem;" data-i18n="about_p2">
                         Sadece bir uygulama değil; marketlerden restoranlara, her noktada ödemeyi kolaylaştıran bir ekosistem inşa ediyoruz.
                     </p>
                 </div>
@@ -94,29 +108,29 @@
 
         <!-- Solutions / Programs Section -->
         <section id="cozumler" style="background: rgba(255,255,255,0.02); border-radius: 50px;">
-            <h2 class="section-title">Programlarımız & <span class="highlight">Çözümler</span></h2>
+            <h2 class="section-title" data-i18n="solutions_title">Programlarımız & <span class="highlight">Çözümler</span></h2>
             <div class="solutions-container">
                 <div class="solution-item">
                     <span class="bullet-icon">⚡</span>
-                    <h4>Gerçek Zamanlı Senkronizasyon</h4>
-                    <p>WebSocket teknolojisi ile sepetinizdeki her değişiklik tüm grupta anında görünür.</p>
+                    <h4 data-i18n="sol_1_title">Gerçek Zamanlı Senkronizasyon</h4>
+                    <p data-i18n="sol_1_desc">WebSocket teknolojisi ile sepetinizdeki her değişiklik tüm grupta anında görünür.</p>
                 </div>
                 <div class="solution-item">
                     <span class="bullet-icon">🛡️</span>
-                    <h4>Güvenli Ödeme Entegrasyonu</h4>
-                    <p>Apple Pay, Google Pay ve yerel ödeme sistemleriyle %100 güvenli çözüm ortaklığı.</p>
+                    <h4 data-i18n="sol_2_title">Güvenli Ödeme Entegrasyonu</h4>
+                    <p data-i18n="sol_2_desc">Apple Pay, Google Pay ve yerel ödeme sistemleriyle %100 güvenli çözüm ortaklığı.</p>
                 </div>
                 <div class="solution-item">
                     <span class="bullet-icon">📊</span>
-                    <h4>Gelişmiş Raporlama</h4>
-                    <p>Kişisel ve grup bazlı harcama geçmişi ile bütçenizi kontrol altında tutun.</p>
+                    <h4 data-i18n="sol_3_title">Gelişmiş Raporlama</h4>
+                    <p data-i18n="sol_3_desc">Kişisel ve grup bazlı harcama geçmişi ile bütçenizi kontrol altında tutun.</p>
                 </div>
             </div>
         </section>
 
         <!-- Partners Section -->
         <section id="partnerler">
-            <h2 class="section-title">Gelecek İş Ortaklarımız</h2>
+            <h2 class="section-title" data-i18n="partners_title">Gelecek İş Ortaklarımız</h2>
             <div class="partners-grid">
                 <div class="partner-logo">BİM</div>
                 <div class="partner-logo">A101</div>
@@ -124,33 +138,33 @@
                 <div class="partner-logo">MİGROS</div>
                 <div class="partner-logo">YEMEKSEPETİ</div>
             </div>
-            <p style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;" data-i18n="partners_subtitle">
                 Çok yakında Türkiye'nin dev perakende ve restoran zincirleri ile doğrudan entegrasyon!
             </p>
         </section>
 
         <!-- Contact Form Section -->
         <section id="iletisim">
-            <h2 class="section-title">Bizimle <span class="highlight">İletişime</span> Geçin</h2>
+            <h2 class="section-title" data-i18n="contact_title">Bizimle <span class="highlight">İletişime</span> Geçin</h2>
             <div class="contact-wrapper">
                 <form id="contact-form">
                     <div class="form-group">
-                        <label for="name">Adınız Soyadınız</label>
-                        <input type="text" id="name" placeholder="Örn: Ahmet Yılmaz" required>
+                        <label for="name" data-i18n="form_name">Adınız Soyadınız</label>
+                        <input type="text" id="name" data-i18n="form_name" placeholder="Örn: Ahmet Yılmaz" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">E-posta Adresiniz</label>
-                        <input type="email" id="email" placeholder="orn@mail.com" required>
+                        <label for="email" data-i18n="form_email">E-posta Adresiniz</label>
+                        <input type="email" id="email" data-i18n="form_email" placeholder="orn@mail.com" required>
                     </div>
                     <div class="form-group">
-                        <label for="subject">Konu</label>
-                        <input type="text" id="subject" placeholder="İş Ortaklığı, Destek vb.">
+                        <label for="subject" data-i18n="form_subject">Konu</label>
+                        <input type="text" id="subject" data-i18n="form_subject" placeholder="İş Ortaklığı, Destek vb.">
                     </div>
                     <div class="form-group">
-                        <label for="message">Mesajınız</label>
-                        <textarea id="message" rows="5" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
+                        <label for="message" data-i18n="form_message">Mesajınız</label>
+                        <textarea id="message" rows="5" data-i18n="form_message" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
                     </div>
-                    <button type="submit" class="btn primary-btn" style="margin-top: 1rem;">Mesajı Gönder</button>
+                    <button type="submit" class="btn primary-btn" style="margin-top: 1rem;" data-i18n="form_submit">Mesajı Gönder</button>
                 </form>
             </div>
         </section>
@@ -161,18 +175,18 @@
                 style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 2rem; flex-wrap: wrap; gap: 1.5rem;">
                 <div style="text-align: left;">
                     <h3 style="margin-bottom: 0.5rem; color: white;">Hesap Kimde?</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Işık hızında fintech deneyimi.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="footer_subtitle">Işık hızında fintech deneyimi.</p>
                 </div>
                 <div style="display: flex; gap: 2rem;">
                     <div style="text-align: left;">
                         <span
-                            style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;">İletişim</span>
+                            style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;" data-i18n="footer_contact">İletişim</span>
                         <a href="mailto:info@hesapkimde.net"
                             style="color: white; text-decoration: none; font-size: 0.9rem;">info@hesapkimde.net</a>
                     </div>
                     <div style="text-align: left;">
                         <span
-                            style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;">Sosyal</span>
+                            style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;" data-i18n="footer_social">Sosyal</span>
                         <div style="display: flex; gap: 1rem; margin-top: 0.2rem;">
                             <a href="https://www.instagram.com/cereezersin/" target="_blank"
                                 style="color: white; text-decoration: none; font-size: 0.9rem;">Instagram</a>
@@ -180,7 +194,7 @@
                     </div>
                 </div>
             </div>
-            <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">&copy; 2026
+            <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;" data-i18n="footer_rights">&copy; 2026
                 Hesap Kimde? Tüm hakları saklıdır.</p>
         </footer>
     </main>
@@ -209,7 +223,9 @@
         // Form submission placeholder
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Mesajınız başarıyla iletildi! En kısa sürede size geri döneceğiz. 🚀');
+            const lang = localStorage.getItem('lang') || 'tr';
+            const msg = lang === 'tr' ? 'Mesajınız başarıyla iletildi!' : (lang === 'en' ? 'Message sent successfully!' : '¡Mensaje enviado con éxito!');
+            alert(msg);
             this.reset();
         });
 

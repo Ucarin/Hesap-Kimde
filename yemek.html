@@ -8,6 +8,10 @@
     <meta name="description" content="Garson beklemeden adisyonunuzu takip edin, arkadaşlarınızla Fransız usulü (paylaş/öde) hesabınızı kapatın. Geleceğin restoran deneyimi burada.">
     <link rel="stylesheet" href="/static/style.css?v=1.1">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Preference Scripts -->
+    <script src="/static/translations.js"></script>
+    <script src="/static/preferences.js"></script>
     <style>
         .coming-soon-container {
             height: 100vh;
@@ -18,21 +22,7 @@
             text-align: center;
             padding: 2rem;
         }
-
-        .icon-box {
-            font-size: 5rem;
-            margin-bottom: 2rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .back-btn {
-            margin-top: 2rem;
-        }
+        /* ... existing styles ... */
     </style>
 </head>
 
@@ -42,14 +32,32 @@
         <div class="blob blob-2" style="background: #f59e0b;"></div>
     </div>
 
+    <!-- Navigation Header -->
+    <header class="main-header" id="navbar">
+        <div class="logo-text">
+            <a href="/" style="text-decoration: none; color: inherit;"><h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2></a>
+        </div>
+        <div class="pref-controls">
+            <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
+                <span id="theme-icon">☀️</span>
+            </button>
+            <select class="lang-select" id="lang-select" onchange="handleLangChange(event)">
+                <option value="tr">🇹🇷 TR</option>
+                <option value="en">🇺🇸 EN</option>
+                <option value="es">🇪🇸 ES</option>
+            </select>
+        </div>
+    </header>
+
     <div class="coming-soon-container">
         <div class="icon-box">🍽️</div>
-        <h1>Yemek & Restoran Modülü</h1>
-        <p style="color: var(--text-muted); max-width: 500px; margin-top: 1rem;">
+        <h1 data-i18n="yemek_title">Yemek & Restoran Modülü</h1>
+        <p style="color: var(--text-muted); max-width: 500px; margin-top: 1rem;" data-i18n="yemek_desc">
             QR okutarak adisyona ulaşma, sipariş takibi ve Fransız usulü ödeme bölüştürme çok yakında burada olacak. Frankfurt sunucumuzda hazırlıklar devam ediyor! 🚀
         </p>
-        <a href="/" class="btn outline-btn back-btn">Ana Sayfaya Dön</a>
+        <a href="/" class="btn outline-btn back-btn" data-i18n="back_to_home">Ana Sayfaya Dön</a>
     </div>
+</body>
 
 </body>
 

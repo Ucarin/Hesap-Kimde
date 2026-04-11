@@ -8,6 +8,10 @@
     <meta name="description" content="Sepetinizi ortaklaşa doldurun, çarkı çevirin ve ödemeyi kime kitleyeceğinizi şansa bırakın. Market alışverişleri hiç bu kadar eğlenceli olmamıştı!">
     <link rel="stylesheet" href="/static/style.css?v=1.1">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Preference Scripts -->
+    <script src="/static/translations.js"></script>
+    <script src="/static/preferences.js"></script>
 </head>
 
 <body>
@@ -16,6 +20,23 @@
         <div class="blob blob-2"></div>
     </div>
 
+    <!-- Navigation Header (Consistent with Index) -->
+    <header class="main-header" id="navbar">
+        <div class="logo-text">
+            <a href="/" style="text-decoration: none; color: inherit;"><h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2></a>
+        </div>
+        <div class="pref-controls">
+            <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
+                <span id="theme-icon">☀️</span>
+            </button>
+            <select class="lang-select" id="lang-select" onchange="handleLangChange(event)">
+                <option value="tr">🇹🇷 TR</option>
+                <option value="en">🇺🇸 EN</option>
+                <option value="es">🇪🇸 ES</option>
+            </select>
+        </div>
+    </header>
+
     <!-- Notification Toast Container -->
     <div id="toast-container" class="toast-container"></div>
 
@@ -23,13 +44,14 @@
     <div id="login-modal" class="modal active">
         <div class="lobby-portal">
             <div class="lobby-header">
-                <h2>Hesabı <span class="highlight">Kitle</span></h2>
+                <h2 data-i18n="market_app_title">Hesabı <span class="highlight">Kitle</span></h2>
                 <div class="lobby-tabs">
-                    <button class="tab-btn active" data-tab="join">Lobilere Göz At</button>
-                    <button class="tab-btn" data-tab="create">Lobi Kur</button>
+                    <button class="tab-btn active" data-tab="join" data-i18n="market_tab_join">Lobilere Göz At</button>
+                    <button class="tab-btn" data-tab="create" data-i18n="market_tab_create">Lobi Kur</button>
                     <button class="tab-btn" data-tab="auth">Giriş / Kayıt</button>
                 </div>
             </div>
+            <!-- Other contents remain similar but with i18n hooks -->
 
             <div id="lobby-username-section" class="lobby-username-section">
                 <input type="text" id="username-input" placeholder="Adın (Misafir girişi için)">
@@ -134,9 +156,9 @@
         <main class="shop-area">
             <header class="app-header">
                 <div class="header-left">
-                    <a href="/" style="text-decoration: none; color: inherit;"><h1>Hesap<span class="highlight">KİMDE?</span></h1></a>
-                    <p>Oda: <span id="current-room-display" class="highlight">...</span></p>
-                    <p>Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
+                    <a href="/" style="text-decoration: none; color: inherit;"><h1 data-i18n="market_app_title">Hesap<span class="highlight">KİMDE?</span></h1></a>
+                    <p><span data-i18n="nav_home"></span>: <span id="current-room-display" class="highlight">...</span></p>
+                    <p data-i18n="market_app_desc">Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
                 </div>
                 <div class="header-right">
                     <button type="button" id="open-profile-btn" class="btn outline-btn profile-toggle-btn"
