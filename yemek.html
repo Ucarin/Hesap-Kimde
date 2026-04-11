@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesap Kimde - Yemek & Restoran</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .coming-soon-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .icon-box {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .back-btn {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1" style="background: #ef4444;"></div>
+        <div class="blob blob-2" style="background: #f59e0b;"></div>
+    </div>
+
+    <div class="coming-soon-container">
+        <div class="icon-box">🍽️</div>
+        <h1>Yemek & Restoran Modülü</h1>
+        <p style="color: var(--text-muted); max-width: 500px; margin-top: 1rem;">
+            QR okutarak adisyona ulaşma, sipariş takibi ve Fransız usulü ödeme bölüştürme çok yakında burada olacak. Frankfurt sunucumuzda hazırlıklar devam ediyor! 🚀
+        </p>
+        <a href="/" class="btn outline-btn back-btn">Ana Sayfaya Dön</a>
+    </div>
+
+</body>
+
+</html>

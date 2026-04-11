@@ -50,19 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cancelPassBtn = document.getElementById('cancel-pass-btn');
 
-    
+
 
     const productGrid = document.getElementById('product-grid');
 
     const searchInput = document.getElementById('search-input');
 
-    
+
 
     const userCount = document.getElementById('user-count');
 
     const usersList = document.getElementById('users-list');
 
-    
+
 
     const cartList = document.getElementById('cart-list');
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeProfileBtn = document.getElementById('close-profile-btn');
 
-    
+
 
     const wheelOverlay = document.getElementById('wheel-overlay');
 
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const password = document.getElementById('login-password').value;
 
-        if(!username || !password) return showToast("Eksik bilgi!", "error");
+        if (!username || !password) return showToast("Eksik bilgi!", "error");
 
         ws.send(JSON.stringify({ type: 'login', username, password }));
 
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const password = document.getElementById('reg-password').value;
 
-        if(!username || !password) return showToast("Eksik bilgi!", "error");
+        if (!username || !password) return showToast("Eksik bilgi!", "error");
 
         ws.send(JSON.stringify({ type: 'register', username, password }));
 
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const personalHistory = globalHistory.filter(h => h.loser === currentUser.username);
 
-        
+
 
         if (personalHistory.length === 0) {
 
@@ -366,11 +366,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const pass = newRoomPassInput.value.trim();
 
-        if(!name) { showToast("Önce adını yaz!", "error"); return; }
+        if (!name) { showToast("Önce adını yaz!", "error"); return; }
 
-        if(!room) { showToast("Oda adı gerekli!", "error"); return; }
+        if (!room) { showToast("Oda adı gerekli!", "error"); return; }
 
-        
+
 
         ws.send(JSON.stringify({ type: 'create_room', name, room_id: room, password: pass || null }));
 
@@ -414,9 +414,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const pass = joinRoomPassInput.value.trim();
 
-        if(!name) { showToast("Önce adını yaz!", "error"); return; }
+        if (!name) { showToast("Önce adını yaz!", "error"); return; }
 
-        
+
 
         passwordModal.classList.remove('active');
 
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderLobbyList(rooms) {
 
-        if(!rooms || rooms.length === 0) {
+        if (!rooms || rooms.length === 0) {
 
             roomListContainer.innerHTML = '<div class="no-rooms">Henüz aktif lobi yok. İlkini sen kur!</div>';
 
@@ -472,13 +472,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const name = usernameInput.value.trim();
 
-                if(!name) { showToast("Önce adını yaz!", "error"); return; }
+                if (!name) { showToast("Önce adını yaz!", "error"); return; }
 
 
 
                 const room = rooms.find(r => r.room_id === rid);
 
-                if(room && room.protected) {
+                if (room && room.protected) {
 
                     openPasswordModal(rid);
 
@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 
-        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+        ws = new WebSocket("ws://92.5.117.194:8000/ws");
 
 
 
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const msg = JSON.parse(event.data);
 
-            
+
 
             if (msg.type === 'error') {
 
@@ -572,7 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderProducts(snacksData);
 
-            } 
+            }
 
             else if (msg.type === 'state_update') {
 
@@ -580,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 cartState = msg.cart;
 
-                
+
 
                 renderUsers();
 
@@ -600,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 }
 
-                
+
 
                 if (msg.app_state === "wheel") {
 
@@ -640,13 +640,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     syncCartPanelButtonLabels();
 
-                    
+
 
                     // reset approval btn state if cart changed
 
                     const allFalse = Object.values(usersState).every(u => !u.approved);
 
-                    if(allFalse) {
+                    if (allFalse) {
 
                         myApproved = false;
 
@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (!loser) return;
 
-                    
+
 
                     const loserColor = colors[targetIndex % colors.length];
 
@@ -736,43 +736,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         text = `${loser.name} KURTULDU!`;
 
-                        if(activeUsers.length > 2) {
+                        if (activeUsers.length > 2) {
 
-                             setTimeout(() => {
+                            setTimeout(() => {
 
-                                 ws.send(JSON.stringify({ type: 'wheel_result_eliminate', eliminated_user_id: loser.userId }));
+                                ws.send(JSON.stringify({ type: 'wheel_result_eliminate', eliminated_user_id: loser.userId }));
 
-                                 spinBtn.disabled = false;
+                                spinBtn.disabled = false;
 
-                                 winnerText.textContent = "Sıradaki kişi için çevir!";
+                                winnerText.textContent = "Sıradaki kişi için çevir!";
 
-                                 syncCartPanelButtonLabels();
+                                syncCartPanelButtonLabels();
 
-                             }, 2000);
+                            }, 2000);
 
                         } else {
 
-                             const ultimateLoserInfo = activeUsers.filter((u, i) => i !== targetIndex)[0];
+                            const ultimateLoserInfo = activeUsers.filter((u, i) => i !== targetIndex)[0];
 
-                             const ultimateLoserColor = colors[activeUsers.indexOf(ultimateLoserInfo) % colors.length];
+                            const ultimateLoserColor = colors[activeUsers.indexOf(ultimateLoserInfo) % colors.length];
 
-                             text = `HESAP <span style="color:${ultimateLoserColor}">${ultimateLoserInfo.name}</span> KİŞİSİNE KALDI! 💀`;
+                            text = `HESAP <span style="color:${ultimateLoserColor}">${ultimateLoserInfo.name}</span> KİŞİSİNE KALDI! 💀`;
 
-                             
 
-                             // Only the person who spun the wheel sends the record
 
-                             // or rely on server-side protection. I'll still send it but server handles dedupe.
+                            // Only the person who spun the wheel sends the record
 
-                             ws.send(JSON.stringify({ type: 'record_loser', loser_name: ultimateLoserInfo.name }));
+                            // or rely on server-side protection. I'll still send it but server handles dedupe.
 
-                             
+                            ws.send(JSON.stringify({ type: 'record_loser', loser_name: ultimateLoserInfo.name }));
 
-                             wheelEndActions.style.display = 'flex';
 
-                             showPayerCartSummary = true;
 
-                             drawWheel([ultimateLoserInfo], ultimateLoserColor);
+                            wheelEndActions.style.display = 'flex';
+
+                            showPayerCartSummary = true;
+
+                            drawWheel([ultimateLoserInfo], ultimateLoserColor);
 
                         }
 
@@ -938,15 +938,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         historyContainer.innerHTML = history.slice().reverse().map(h => {
 
-             const cartHtml = h.cart && h.cart.length > 0
+            const cartHtml = h.cart && h.cart.length > 0
 
                 ? `<ul>${h.cart.map(i => `<li><span class="hist-item-name">${i.name}</span> <span>${i.price}</span></li>`).join('')}</ul>`
 
                 : 'Sepet boş';
 
-             
 
-             return `
+
+            return `
 
                 <div class="history-card">
 
@@ -986,13 +986,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!last) {
 
-             lastResultContainer.innerHTML = '';
+            lastResultContainer.innerHTML = '';
 
-             return;
+            return;
 
         }
 
-        
+
 
         const cartHtml = last.cart && last.cart.length > 0
 
@@ -1196,7 +1196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         userCount.textContent = uList.length;
 
-        
+
 
         usersList.innerHTML = uList.map(u => `
 
@@ -1216,7 +1216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCart() {
 
-        if(cartState.length === 0) {
+        if (cartState.length === 0) {
 
             cartList.innerHTML = `<li>Sepet boş. Biraz atıştırmalık ekleyin!</li>`;
 
@@ -1226,7 +1226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
 
-        
+
 
         cartList.innerHTML = cartState.map((item, i) => `
 
@@ -1246,7 +1246,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         `).join('');
 
-        
+
 
         // Calculate Total
 
@@ -1256,13 +1256,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const priceNum = parseFloat(item.price.replace(',', '.').replace(/[^0-9.]/g, ''));
 
-            if(!isNaN(priceNum)) total += priceNum;
+            if (!isNaN(priceNum)) total += priceNum;
 
         });
 
         cartTotalPrice.textContent = total.toFixed(2) + " TL";
 
-        
+
 
         const cartMobileInfo = document.getElementById('cart-mobile-info');
 
@@ -1282,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         myApproved = !myApproved;
 
-        if(myApproved) {
+        if (myApproved) {
 
             approveBtn.classList.add('approved');
 
@@ -1326,7 +1326,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const activeUsers = overrideUsers || getWheelSlots();
 
-        
+
 
         const centerX = wheelCanvas.width / 2;
 
@@ -1336,7 +1336,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-        if(activeUsers.length === 0) {
+        if (activeUsers.length === 0) {
 
             ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
 
@@ -1358,7 +1358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
 
-        
+
 
         const sliceAngle = (2 * Math.PI) / activeUsers.length;
 
@@ -1366,15 +1366,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
 
-        
+
 
         // Reset rotation if it's a "winner take all" redraw to align with the pointer
 
         if (overrideUsers) {
 
-             wheelCanvas.style.transition = 'none';
+            wheelCanvas.style.transition = 'none';
 
-             wheelCanvas.style.transform = 'rotate(90deg)'; // Adjust so text at PI ends up at top
+            wheelCanvas.style.transform = 'rotate(90deg)'; // Adjust so text at PI ends up at top
 
         }
 
@@ -1386,7 +1386,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const endAngle = startAngle + sliceAngle;
 
-            
+
 
             ctx.beginPath();
 
@@ -1396,7 +1396,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ctx.closePath();
 
-            
+
 
             ctx.fillStyle = overrideColor || colors[i % colors.length];
 
@@ -1408,7 +1408,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ctx.stroke();
 
-            
+
 
             // Text
 
@@ -1438,7 +1438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const activeUsersCount = getWheelSlots().length;
 
-        if(activeUsersCount === 0) return;
+        if (activeUsersCount === 0) return;
 
 
 
@@ -1446,7 +1446,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mode = document.querySelector('input[name="wheel-mode"]:checked').value;
 
-        
+
 
         ws.send(JSON.stringify({ type: 'spin_wheel', mode, target_index: targetIndex }));
 
@@ -1530,7 +1530,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         toast.className = `toast ${type}`;
 
-        
+
 
         let icon = '🔔';
 

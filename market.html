@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesap Kimde - Market</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Lobby Portal Modal -->
+    <div id="login-modal" class="modal active">
+        <div class="lobby-portal">
+            <div class="lobby-header">
+                <h2>Hesabı <span class="highlight">Kitle</span></h2>
+                <div class="lobby-tabs">
+                    <button class="tab-btn active" data-tab="join">Lobilere Göz At</button>
+                    <button class="tab-btn" data-tab="create">Lobi Kur</button>
+                    <button class="tab-btn" data-tab="auth">Giriş / Kayıt</button>
+                </div>
+            </div>
+
+            <div id="lobby-username-section" class="lobby-username-section">
+                <input type="text" id="username-input" placeholder="Adın (Misafir girişi için)">
+                <div id="logged-in-info" style="display:none; color:var(--success); margin: 0.5rem 0;">
+                    ✅ <strong id="logged-user-name">...</strong> olarak giriş yapıldı.
+                    <button id="logout-btn" class="btn outline-btn"
+                        style="padding: 0.2rem 0.5rem; font-size: 0.8rem; border-color: var(--danger); color: var(--danger);">Çıkış
+                        Yap</button>
+                </div>
+            </div>
+
+            <div id="tab-join" class="tab-content active">
+                <p>Mevcut bir lobiye çift tıklayarak katıl:</p>
+                <div class="room-list" id="room-list">
+                    <div class="loading">Lobiler aranıyor...</div>
+                </div>
+            </div>
+
+            <div id="tab-create" class="tab-content">
+                <p>Yeni bir lobi oluşturun:</p>
+                <div class="create-form">
+                    <input type="text" id="new-room-id" placeholder="Lobi Adı (örn: Cuma-Gecesi)">
+                    <input type="password" id="new-room-pass" placeholder="Lobi Şifresi (Opsiyonel)">
+                    <button id="create-btn" class="btn primary-btn">Oda Kur ve Katıl</button>
+                </div>
+            </div>
+
+            <div id="tab-auth" class="tab-content">
+                <div class="auth-box">
+                    <div id="auth-login-view">
+                        <h3>Giriş Yap</h3>
+                        <input type="text" id="login-username" placeholder="Kullanıcı Adı">
+                        <input type="password" id="login-password" placeholder="Şifre">
+                        <button id="login-btn" class="btn primary-btn">Giriş Yap</button>
+                        <p style="margin-top:1rem; font-size:0.9rem;">Hesabın yok mu? <a href="#" id="show-register"
+                                style="color:var(--primary)">Kayıt Ol</a></p>
+                    </div>
+                    <div id="auth-register-view" style="display:none;">
+                        <h3>Kayıt Ol</h3>
+                        <input type="text" id="reg-username" placeholder="Kullanıcı Adı">
+                        <input type="password" id="reg-password" placeholder="Şifre">
+                        <button id="register-btn" class="btn primary-btn">Hesap Oluştur</button>
+                        <p style="margin-top:1rem; font-size:0.9rem;">Zaten hesabın var mı? <a href="#" id="show-login"
+                                style="color:var(--primary)">Giriş Yap</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content profile-content">
+            <button type="button" id="close-profile-btn" class="close-modal-btn">&times;</button>
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <h2 id="profile-name">Kullanıcı Adı</h2>
+                <div class="profile-badges" id="profile-badges">
+                    <!-- Badges will be injected here -->
+                </div>
+            </div>
+
+            <div class="profile-stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Toplam Harcama</span>
+                    <strong id="profile-total-spent">0.00 TL</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Toplam Galibiyet</span>
+                    <strong id="profile-total-wins" style="color:var(--success)">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Toplam Mağlubiyet</span>
+                    <strong id="profile-total-losses" style="color:var(--danger)">0</strong>
+                </div>
+            </div>
+
+            <div class="profile-history-section">
+                <h3>Kişisel Geçmiş</h3>
+                <div id="profile-history-list" class="profile-history-list">
+                    <p class="loading">Yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Prompt Modal -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <h3>Kilitli Lobi 🔒</h3>
+            <p>Bu lobiye girmek için şifreyi yaz:</p>
+            <input type="password" id="join-room-pass" placeholder="Şifre">
+            <div class="modal-actions">
+                <button id="cancel-pass-btn" class="btn outline-btn">Vazgeç</button>
+                <button id="submit-pass-btn" class="btn primary-btn">Katıl</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-layout">
+        <main class="shop-area">
+            <header class="app-header">
+                <div class="header-left">
+                    <a href="/" style="text-decoration: none; color: inherit;"><h1>Hesap<span class="highlight">KİMDE?</span></h1></a>
+                    <p>Oda: <span id="current-room-display" class="highlight">...</span></p>
+                    <p>Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
+                </div>
+                <div class="header-right">
+                    <button type="button" id="open-profile-btn" class="btn outline-btn profile-toggle-btn"
+                        style="display:none; margin-right:0.5rem;">👤 Profilim</button>
+                    <button type="button" id="open-history-btn" class="btn outline-btn history-toggle-btn">📜 Ödeme
+                        Geçmişi</button>
+                </div>
+            </header>
+
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Atıştırmalık ara...">
+            </div>
+
+            <div class="category-filters" id="category-filters">
+                <button class="cat-btn active" data-cat="Tümü">🛒 Tümü</button>
+                <button class="cat-btn" data-cat="Çikolata">🍫 Çikolata</button>
+                <button class="cat-btn" data-cat="Gofret">🧇 Gofret</button>
+                <button class="cat-btn" data-cat="Bisküvi & Kraker">🍪 Bisküvi</button>
+                <button class="cat-btn" data-cat="Kek">🎂 Kek</button>
+                <button class="cat-btn" data-cat="Cips">🥔 Cips</button>
+                <button class="cat-btn" data-cat="Kuruyemiş">🥜 Kuruyemiş</button>
+                <button class="cat-btn" data-cat="Şekerleme & Sakız">🍬 Şekerleme</button>
+                <button class="cat-btn" data-cat="Sağlıklı">🍏 Sağlıklı</button>
+            </div>
+
+            <div class="grid" id="product-grid">
+                <div class="loading">Sistem yükleniyor...</div>
+            </div>
+        </main>
+
+        <aside class="cart-area" id="cart-area">
+            <div class="cart-mobile-handle"></div>
+            <div class="cart-mobile-toggle" id="cart-mobile-toggle">
+                <h3>🛒 Sepet & Kişiler</h3>
+                <span id="cart-mobile-info">0 Ürün - 0.00 TL</span>
+            </div>
+            <div class="users-section">
+                <h3>Aktif Kişiler <span id="user-count">0</span></h3>
+                <ul id="users-list"></ul>
+            </div>
+
+            <div class="cart-section">
+                <h3>Ortak Sepet</h3>
+                <ul id="cart-list"></ul>
+                <div class="cart-total">
+                    <span>Toplam:</span>
+                    <strong id="cart-total-price">0.00 TL</strong>
+                </div>
+                <button id="approve-btn" class="btn approve-btn">Sepeti Onaylıyorum</button>
+                <p class="wait-msg">Herkesin onaylaması bekleniyor...</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Wheel Overlay -->
+    <div id="wheel-overlay" class="modal">
+        <div class="wheel-container">
+            <button type="button" id="close-wheel-btn" class="close-modal-btn">&times;</button>
+            <div class="wheel-top-bar">
+                <h2>Kime Kitlensin ? 💀</h2>
+                <button type="button" id="wheel-cart-toggle-btn" class="btn outline-btn wheel-cart-btn">Ortak
+                    sepet</button>
+            </div>
+            <p>Sıra ödemede! Mod seç ve çarkı çevir.</p>
+
+            <div class="wheel-controls">
+                <label>
+                    <input type="radio" name="wheel-mode" value="roulette" checked>
+                    Rus Ruleti (İlk Çıkan Öder)
+                </label>
+                <label>
+                    <input type="radio" name="wheel-mode" value="survivor">
+                    Survivor (Sona Kalan Öder)
+                </label>
+            </div>
+
+            <div class="canvas-wrapper">
+                <div class="pointer">▼</div>
+                <canvas id="wheel-canvas" width="400" height="400"></canvas>
+            </div>
+
+            <button id="spin-btn" class="btn danger-btn">Çevir!</button>
+            <p id="winner-text"></p>
+            <div id="winner-cart-summary" class="winner-cart-summary" style="display:none;" aria-live="polite"></div>
+            <div id="wheel-end-actions" class="wheel-end-actions" style="display:none;">
+                <button type="button" id="view-payer-cart-btn" class="btn outline-btn">Sepeti görüntüle</button>
+                <button type="button" id="reset-game-btn" class="btn primary-btn">Sıfırla ve Geri Dön</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Overlay (Page within a Page) -->
+    <div id="history-overlay" class="modal">
+        <div class="history-panel">
+            <button type="button" id="close-history-btn" class="close-modal-btn">&times;</button>
+            <div class="history-panel-header">
+                <h2>Ödeme <span class="highlight">Geçmişi</span> 🗓️</h2>
+                <p>Uygulama genelinde yapılan tüm çekilişlerin kayıtları.</p>
+            </div>
+
+            <div id="history-overlay-content" class="history-overlay-content">
+                <!-- Last Result will be highlighted here -->
+                <div id="last-result-container"></div>
+
+                <hr class="panel-divider">
+
+                <h3>Tüm Kayıtlar</h3>
+                <div id="history-container" class="history-container">
+                    <p class="loading">Henüz bir kayıt bulunamadı.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

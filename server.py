@@ -742,13 +742,19 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 
-from fastapi.responses import RedirectResponse
+from fastapi.responses import FileResponse
 
 @app.get("/")
-
 def read_root():
+    return FileResponse("index.html")
 
-    return RedirectResponse(url="/static/index.html")
+@app.get("/market")
+def read_market():
+    return FileResponse("market.html")
+
+@app.get("/yemek")
+def read_yemek():
+    return FileResponse("yemek.html")
 
 
 
