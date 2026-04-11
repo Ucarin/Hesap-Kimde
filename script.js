@@ -1286,13 +1286,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             approveBtn.classList.add('approved');
 
-            approveBtn.textContent = 'Onaylandı ✅';
+            const approvedText = (localStorage.getItem('lang') || 'tr') === 'tr' ? 'Onaylandı ✅' : ((localStorage.getItem('lang') || 'tr') === 'es' ? 'Aprobado ✅' : 'Approved ✅');
+            approveBtn.textContent = approvedText;
 
         } else {
 
             approveBtn.classList.remove('approved');
 
-            approveBtn.textContent = 'Sepeti Onaylıyorum';
+            const currentLang = localStorage.getItem('lang') || 'tr';
+            approveBtn.textContent = translations[currentLang]?.approve_btn || 'SEPETİ ONAYLIYORUM';
 
         }
 

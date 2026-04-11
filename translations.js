@@ -41,7 +41,11 @@ const translations = {
         market_app_title: "Hesap <span class='highlight'>Kitle</span>",
         market_tab_join: "Lobilere Göz At",
         market_tab_create: "Lobi Kur",
-        market_app_desc: "Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!"
+        market_app_desc: "Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!",
+        approve_btn: "SEPETİ ONAYLIYORUM",
+        total_label: "Toplam:",
+        active_users: "Aktif Kişi",
+        confirm_wait: "Herkesin onaylaması bekleniyor..."
     },
     en: {
         nav_home: "Portal",
@@ -85,7 +89,11 @@ const translations = {
         market_app_title: "Bill <span class='highlight'>Split</span>",
         market_tab_join: "Browse Lobbies",
         market_tab_create: "Create Lobby",
-        market_app_desc: "Add items, get everyone to approve, and let the wheel decide who pays!"
+        market_app_desc: "Add items, get everyone to approve, and let the wheel decide who pays!",
+        approve_btn: "APPROVE CART",
+        total_label: "Total:",
+        active_users: "Active Users",
+        confirm_wait: "Waiting for everyone to approve..."
     },
     es: {
         nav_home: "Portal",
@@ -129,6 +137,10 @@ const translations = {
         market_app_title: "Dividir <span class='highlight'>Cuenta</span>",
         market_tab_join: "Ver Salas",
         market_tab_create: "Crear Sala",
-        market_app_desc: "¡Agregue artículos, haga que todos aprueben y deje que la rueda decida quién paga!"
+        market_app_desc: "¡Agregue artículos, haga que todos aprueben y deje que la rueda decida quién paga!",
+        approve_btn: "APROBAR CARRITO",
+        total_label: "Total:",
+        active_users: "Usuarios Activos",
+        confirm_wait: "Esperando que todos aprueben..."
     }
 };

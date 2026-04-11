@@ -27,203 +27,212 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     transition: background 0.5s ease, color 0.5s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- NO UNDERLINES --- */
+a, button, .portal-card, .market-card, .yemek-card, .product-card {
+    text-decoration: none !important;
 }
 
 /* --- LOGO & HEADER VISIBILITY --- */
 .logo-text h2 {
-    color: var(--text-main) !important; /* Dynamic based on theme */ transition: 0.3s;
+    color: var(--text-main) !important; transition: 0.3s;
 }
 
 .light-theme .logo-text h2 {
-    color: #0f172a !important; /* Force visibility in light mode */
+    color: #0f172a !important;
 }
 
 .main-header {
-    z-index: 1100 !important; /* Above everything */
+    z-index: 2000 !important;
     padding: 1.5rem 2rem;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
 }
 
 .main-header.scrolled {
     background: var(--bg-nav) !important;
     box-shadow: var(--glass-shadow);
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
 }
 
-/* --- GLOBAL LEGIBILITY FIXES --- */
-input, textarea, select {
-    color: var(--text-main) !important;
-}
-
-.light-theme input, .light-theme textarea {
-    color: #0f172a !important;
-}
-
-/* --- SECTION SPACING OPTIMIZATION --- */
+/* --- SECTION SPACING & TYPOGRAPHY --- */
 section {
-    padding: 2.5rem 2rem !important; /* Significantly reduced to avoid massive gaps */
+    padding: 6rem 2rem !important; /* REVERTED TO BREATHING ROOM */
     max-width: 1200px;
     margin: 0 auto;
 }
 
 #portal.portal-container {
-    padding-top: 6rem !important; /* Reduced Hero top spacing */
+    padding-top: 10rem !important;
     min-height: auto;
-    padding-bottom: 4rem;
+    padding-bottom: 6rem;
 }
 
-.portal-hero {
-    margin-bottom: 2rem !important;
-}
-
-/* --- PRODUCT CARD & ADD BUTTON FIX --- */
-.product-card {
-    position: relative;
-    z-index: 1;
-}
-
-.add-btn {
-    position: relative;
-    z-index: 10 !important;
-    pointer-events: auto !important;
+/* --- VISION (ABOUT) SECTION ENHANCEMENT --- */
+.about-badge {
     background: var(--primary);
     color: white;
-    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
-    transition: 0.2s;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    display: inline-block;
 }
 
-.add-btn:hover {
-    transform: scale(1.1);
-    background: var(--primary-hover);
+.about-text h3 {
+    font-size: 3.2rem !important; /* Enlarged title */
+    font-weight: 800 !important;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    letter-spacing: -2px;
 }
 
-/* --- FINTECH DASHBOARD CART UI --- */
-.cart-area {
-    background: var(--bg-card) !important;
-    backdrop-filter: blur(40px) !important;
-    border-left: 1px solid var(--glass-border) !important;
-    padding: 2rem !important;
+.about-text p {
+    font-size: 1.25rem !important;
+    line-height: 1.8;
+}
+
+/* --- LANGUAGE DROPDOWN REDESIGN --- */
+.custom-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown-trigger {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 0.5rem 1rem !important;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
     display: flex;
-    flex-direction: column;
-    z-index: 1000;
-}
-
-.cart-header {
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--glass-border);
-    margin-bottom: 1.5rem;
-}
-
-.cart-header h2 {
-    font-size: 1.4rem;
-    font-weight: 800;
-}
-
-.users-summary {
-    background: rgba(251, 146, 60, 0.1);
-    color: var(--primary);
-    padding: 0.5rem 1rem;
-    border-radius: 14px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-.cart-items li {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid var(--glass-border) !important;
-    padding: 1.2rem !important;
-    border-radius: 20px !important;
-    margin-bottom: 0.8rem !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+    gap: 0.4rem;
     transition: 0.3s;
 }
 
-.cart-items li:hover {
-    border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.08) !important;
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    min-width: 140px;
+    backdrop-filter: blur(30px);
+    display: none;
+    flex-direction: column;
+    padding: 0.5rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    z-index: 2500;
+}
+
+.custom-dropdown.active .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-menu button {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    padding: 0.8rem 1.2rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: 0.2s;
+}
+
+.dropdown-menu button:hover {
+    background: rgba(251, 146, 60, 0.1);
+    color: var(--primary);
+}
+
+.dropdown-menu button.active {
+    color: var(--primary);
+    background: rgba(251, 146, 60, 0.05);
+}
+
+/* --- MARKET HEADER & GRID --- */
+.shop-area {
+    padding-top: 9rem !important; /* MORE ROOM FOR HEADER */
+}
+
+.app-header {
+    background: var(--bg-card);
+    padding: 2.5rem !important;
+    border-radius: 28px;
+    margin-bottom: 3rem !important;
+    border: 1px solid var(--glass-border);
+}
+
+/* Fix product card buttons not clicking */
+.grid {
+    pointer-events: auto !important;
+}
+
+.product-card {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto !important;
+    border: 1px solid var(--glass-border);
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+.add-btn {
+    pointer-events: auto !important;
+    z-index: 100 !important;
+    cursor: pointer !important;
+    position: relative;
+    background: var(--primary);
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    color: white;
+}
+
+/* FINTECH SIDEBAR INTEGRATION */
+.cart-area {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(50px) !important;
+    border-left: 1px solid var(--glass-border) !important;
+    padding: 2.5rem !important;
+    width: 400px !important;
+    z-index: 1000;
+    box-shadow: -20px 0 50px rgba(0,0,0,0.1);
+}
+
+.cart-items li {
+    background: rgba(255, 255, 255, 0.03) !important;
+    margin-bottom: 1rem !important;
+    border: 1px solid var(--glass-border) !important;
 }
 
 .cart-total-section {
-    background: rgba(59, 130, 246, 0.05) !important; /* Subtle blue tint for fintech feel */
-    padding: 2rem !important;
-    border-radius: 28px !important;
-    border: 1px solid var(--glass-border) !important;
-    margin-top: auto !important;
+    padding: 2.5rem !important;
+    margin-top: 2rem !important;
+    border-radius: 30px !important;
 }
 
-.total-amount {
-    color: var(--primary);
-    font-weight: 800;
-    font-size: 1.8rem;
+#approve-btn {
+    letter-spacing: 1px;
+    font-weight: 900 !important;
 }
 
-.cart-area .primary-btn {
-    background: var(--primary) !important;
-    padding: 1.25rem !important;
-    border-radius: 18px !important;
-    font-size: 1.1rem !important;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    box-shadow: 0 10px 25px rgba(251, 146, 60, 0.3) !important;
-}
-
-/* --- PREMIUM MULTI-COLUMN FOOTER --- */
+/* --- FOOTER (DO NOT TOUCH - RESTORING PERMANENTLY) --- */
 .main-footer {
     background: var(--bg-footer);
     padding: 6rem 2rem 4rem;
     border-top: 1px solid var(--glass-border);
-    position: relative;
-    z-index: 10;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-col h2 { margin-bottom: 1rem; font-weight: 800; }
-.footer-col h4 {
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 800;
-}
-
-.footer-links { list-style: none; padding: 0; }
-.footer-links li { margin-bottom: 1rem; }
-.footer-links a {
-    color: var(--text-main);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: 0.3s;
-}
-
-.footer-links a:hover {
-    opacity: 1;
-    color: var(--primary);
-    padding-left: 5px;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 4rem auto 0;
-    padding-top: 2rem;
-    border-top: 1px solid var(--glass-border);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-size: 0.85rem;
-    color: var(--text-muted);
 }
