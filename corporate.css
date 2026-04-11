@@ -1,15 +1,19 @@
-/* --- Premium Fintech Design Tokens (OLED Dark & Frosted Light) --- */
+/* --- Premium Fintech Design Tokens (Softened Slate-Navy) --- */
 :root {
-    --bg-dark: #070a13;
-    --bg-card: rgba(13, 18, 33, 0.9);
-    --bg-nav: rgba(7, 10, 19, 0.95);
-    --bg-footer: #04060c;
-    --text-main: #f1f5f9;
+    --bg-dark: #0f172a;
+    --bg-card: rgba(30, 41, 59, 0.7);
+    --bg-nav: rgba(15, 23, 42, 0.9);
+    --bg-footer: #0a0f1d;
+    --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --primary: #fb923c;
     --primary-hover: #f97316;
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.logo-text h2 {
+    color: #ffffff !important;
 }
 
 .light-theme {
@@ -123,50 +127,97 @@ body {
     color: #0f172a;
 }
 
-/* Language Flags UI */
-.lang-flags {
-    display: flex;
-    gap: 0.5rem;
-    background: var(--bg-card);
-    padding: 0.3rem;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
+/* Custom Premium Dropdown */
+.custom-dropdown {
+    position: relative;
+    z-index: 1000;
 }
 
-.lang-flags button {
+.dropdown-trigger {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 0.7rem 1.2rem;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-trigger:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(251, 146, 60, 0.2);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    min-width: 160px;
+    backdrop-filter: blur(20px);
+    display: none;
+    flex-direction: column;
+    padding: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    animation: dropdownFade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-dropdown.active .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-menu button {
     background: transparent;
     border: none;
-    font-size: 1.2rem;
+    color: var(--text-main);
+    padding: 0.8rem 1.2rem;
+    text-align: left;
     cursor: pointer;
-    padding: 0.2rem 0.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 600;
     transition: 0.2s;
-    filter: grayscale(0.4);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
-.lang-flags button.active {
-    filter: grayscale(0);
+
+.dropdown-menu button:hover {
+    background: rgba(251, 146, 60, 0.1);
+    color: var(--primary);
+}
+
+.dropdown-menu button.active {
     background: rgba(251, 146, 60, 0.15);
-    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-left: 3px solid var(--primary);
 }
 
-/* Global Dark/Light Switch Transitions */
-* {
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+/* Global Contrast Polish */
+p, .text-muted {
+    text-rendering: optimizeLegibility;
 }
 
-/* Fix for possible unreadable text in dark mode */
-.dark-theme .text-muted, [data-theme="dark"] .text-muted {
+[data-theme="dark"] .text-muted, .dark-theme .text-muted {
     color: #94a3b8 !important;
 }
 
-/* App Header Room ID Polish */
-.app-header .highlight {
-    text-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
+h2, h3, h4 {
+    letter-spacing: -0.5px;
 }
 
-.lang-flags button:hover {
-    filter: grayscale(0);
-    background: rgba(255,255,255,0.05);
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* --- Market Module App UI Overhaul --- */
@@ -232,27 +283,49 @@ body {
     box-shadow: 0 4px 15px rgba(251, 146, 60, 0.4) !important;
 }
 
-/* Auth / Login Design */
+/* Auth / Login Design - High Contrast Fix */
 .auth-box {
-    background: rgba(255,255,255,0.02) !important;
+    background: rgba(255,255,255,0.03) !important;
     padding: 2.5rem !important;
-    border-radius: 24px !important;
+    border-radius: 28px !important;
     border: 1px solid var(--glass-border) !important;
-    margin-top: 1rem !important;
+    margin-top: 1.5rem !important;
+    position: relative;
 }
 
 .auth-box h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
     text-align: center;
+    font-weight: 800;
 }
 
 .auth-box input {
-    background: rgba(0,0,0,0.2) !important;
-    border: 1px solid var(--glass-border) !important;
-    padding: 1rem !important;
-    color: var(--text-main) !important;
-    margin-bottom: 1rem !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 2px solid var(--glass-border) !important;
+    padding: 1.2rem 1.5rem !important;
+    color: white !important;
+    margin-bottom: 1.2rem !important;
+    border-radius: 16px !important;
+    font-size: 1rem !important;
+    transition: 0.3s !important;
+}
+
+.auth-box input::placeholder {
+    color: rgba(255,255,255,0.3);
+}
+
+.auth-box input:focus {
+    border-color: var(--primary) !important;
+    background: rgba(255,255,255,0.08) !important;
+    box-shadow: 0 0 20px rgba(251, 146, 60, 0.1);
+}
+
+.auth-box .btn.primary-btn {
+    padding: 1.2rem !important;
+    font-size: 1.1rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Room Cards */

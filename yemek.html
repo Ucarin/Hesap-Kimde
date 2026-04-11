@@ -42,10 +42,16 @@
             <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
                 <span id="theme-icon">☀️</span>
             </button>
-            <div class="lang-flags">
-                <button onclick="setLanguage('tr')" title="Türkçe">🇹🇷</button>
-                <button onclick="setLanguage('en')" title="English">🇺🇸</button>
-                <button onclick="setLanguage('es')" title="Español">🇪🇸</button>
+            <div class="custom-dropdown" id="lang-dropdown">
+                <button class="dropdown-trigger" onclick="toggleDropdown()">
+                    <span id="current-lang-flag">🇹🇷</span>
+                    <span id="current-lang-text">TR</span>
+                </button>
+                <div class="dropdown-menu">
+                    <button onclick="setLanguage('tr')">🇹🇷 Türkçe</button>
+                    <button onclick="setLanguage('en')">🇺🇸 English</button>
+                    <button onclick="setLanguage('es')">🇪🇸 Español</button>
+                </div>
             </div>
         </div>
     </header>

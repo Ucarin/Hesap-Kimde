@@ -42,13 +42,25 @@ function setLanguage(lang) {
     if (langSelect) langSelect.value = lang;
     
     // Update active flag UI
-    document.querySelectorAll('.lang-flags button').forEach(btn => {
-        const onClickAttr = btn.getAttribute('onclick');
-        if (onClickAttr && onClickAttr.includes(`'${lang}'`)) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+    const flags = { 'tr': '🇹🇷', 'en': '🇺🇸', 'es': '🇪🇸' };
+    const currentFlag = document.getElementById('current-lang-flag');
+    const currentText = document.getElementById('current-lang-text');
+    
+    if (currentFlag) currentFlag.textContent = flags[lang];
+    if (currentText) currentText.textContent = lang.toUpperCase();
+
+    // Close all dropdowns
+    document.querySelectorAll('.custom-dropdown').forEach(d => {
+        d.classList.remove('active');
+        // Highlight active button in menu
+        d.querySelectorAll('.dropdown-menu button').forEach(btn => {
+            const onClickAttr = btn.getAttribute('onclick');
+            if (onClickAttr && onClickAttr.includes(`'${lang}'`)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
     });
 
     document.documentElement.lang = lang;
@@ -81,8 +93,21 @@ function initPreferences() {
     });
 }
 
+function toggleDropdown() {
+    const dropdown = document.getElementById('lang-dropdown');
+    if (dropdown) dropdown.classList.toggle('active');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e => {
+    if (!e.target.closest('.custom-dropdown')) {
+        document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('active'));
+    }
+});
+
 // Global functions for UI events
 window.handleThemeToggle = toggleTheme;
 window.handleLangChange = (e) => setLanguage(e.target.value);
+window.toggleDropdown = toggleDropdown;
 
 document.addEventListener('DOMContentLoaded', initPreferences);
