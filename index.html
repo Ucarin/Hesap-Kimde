@@ -42,7 +42,6 @@
             <h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2>
         </div>
         <nav class="nav-links">
-            <a href="#portal" data-i18n="nav_home">Giriş</a>
             <a href="#hakkimizda" data-i18n="nav_corporate">Kurumsal</a>
             <a href="#cozumler" data-i18n="nav_solutions">Çözümler</a>
             <a href="#partnerler" data-i18n="nav_partners">İş Ortaklığı</a>
@@ -52,11 +51,11 @@
             <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
                 <span id="theme-icon">☀️</span>
             </button>
-            <select class="lang-select" id="lang-select" onchange="handleLangChange(event)">
-                <option value="tr">🇹🇷 TR</option>
-                <option value="en">🇺🇸 EN</option>
-                <option value="es">🇪🇸 ES</option>
-            </select>
+            <div class="lang-flags">
+                <button onclick="setLanguage('tr')" title="Türkçe">🇹🇷</button>
+                <button onclick="setLanguage('en')" title="English">🇺🇸</button>
+                <button onclick="setLanguage('es')" title="Español">🇪🇸</button>
+            </div>
         </div>
     </header>
 

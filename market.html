@@ -30,11 +30,11 @@
             <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
                 <span id="theme-icon">☀️</span>
             </button>
-            <select class="lang-select" id="lang-select" onchange="handleLangChange(event)">
-                <option value="tr">🇹🇷 TR</option>
-                <option value="en">🇺🇸 EN</option>
-                <option value="es">🇪🇸 ES</option>
-            </select>
+            <div class="lang-flags">
+                <button onclick="setLanguage('tr')" title="Türkçe">🇹🇷</button>
+                <button onclick="setLanguage('en')" title="English">🇺🇸</button>
+                <button onclick="setLanguage('es')" title="Español">🇪🇸</button>
+            </div>
         </div>
     </header>
 
@@ -157,9 +157,11 @@
         <main class="shop-area">
             <header class="app-header">
                 <div class="header-left">
-                    <a href="/" style="text-decoration: none; color: inherit;"><h1 data-i18n="market_app_title">Hesap<span class="highlight">KİMDE?</span></h1></a>
-                    <p><span data-i18n="nav_home"></span>: <span id="current-room-display" class="highlight">...</span></p>
-                    <p data-i18n="market_app_desc">Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!</p>
+                    <h1 style="font-size: 1.1rem; opacity: 0.6; margin-bottom: 0.5rem;" data-i18n="market_app_title">Market Modülü</h1>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span class="highlight" style="font-size: 1.8rem; font-weight: 800;" id="current-room-display">...</span>
+                        <span style="background: var(--glass-border); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;">Aktif Lobi</span>
+                    </div>
                 </div>
                 <div class="header-right">
                     <button type="button" id="open-profile-btn" class="btn outline-btn profile-toggle-btn"

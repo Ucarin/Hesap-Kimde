@@ -41,6 +41,16 @@ function setLanguage(lang) {
     const langSelect = document.getElementById('lang-select');
     if (langSelect) langSelect.value = lang;
     
+    // Update active flag UI
+    document.querySelectorAll('.lang-flags button').forEach(btn => {
+        const onClickAttr = btn.getAttribute('onclick');
+        if (onClickAttr && onClickAttr.includes(`'${lang}'`)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
     document.documentElement.lang = lang;
 }
 

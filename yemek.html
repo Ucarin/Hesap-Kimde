@@ -42,11 +42,11 @@
             <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
                 <span id="theme-icon">☀️</span>
             </button>
-            <select class="lang-select" id="lang-select" onchange="handleLangChange(event)">
-                <option value="tr">🇹🇷 TR</option>
-                <option value="en">🇺🇸 EN</option>
-                <option value="es">🇪🇸 ES</option>
-            </select>
+            <div class="lang-flags">
+                <button onclick="setLanguage('tr')" title="Türkçe">🇹🇷</button>
+                <button onclick="setLanguage('en')" title="English">🇺🇸</button>
+                <button onclick="setLanguage('es')" title="Español">🇪🇸</button>
+            </div>
         </div>
     </header>
 

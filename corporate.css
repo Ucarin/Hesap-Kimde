@@ -1,3 +1,34 @@
+/* --- Premium Fintech Design Tokens (OLED Dark & Frosted Light) --- */
+:root {
+    --bg-dark: #070a13;
+    --bg-card: rgba(13, 18, 33, 0.9);
+    --bg-nav: rgba(7, 10, 19, 0.95);
+    --bg-footer: #04060c;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --primary: #fb923c;
+    --primary-hover: #f97316;
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.light-theme {
+    --bg-dark: #fbfcfe;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-nav: rgba(255, 255, 255, 0.98);
+    --bg-footer: #f1f5f9;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --glass-border: rgba(15, 23, 42, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
 /* Calculated Adjustments for Light/Dark Themes */
 
 /* Header Scroll Visibility Fix */
@@ -90,4 +121,149 @@
 
 .light-theme .section-title {
     color: #0f172a;
+}
+
+/* Language Flags UI */
+.lang-flags {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--bg-card);
+    padding: 0.3rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.lang-flags button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    transition: 0.2s;
+    filter: grayscale(0.4);
+}
+.lang-flags button.active {
+    filter: grayscale(0);
+    background: rgba(251, 146, 60, 0.15);
+    border: 1px solid var(--primary);
+}
+
+/* Global Dark/Light Switch Transitions */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Fix for possible unreadable text in dark mode */
+.dark-theme .text-muted, [data-theme="dark"] .text-muted {
+    color: #94a3b8 !important;
+}
+
+/* App Header Room ID Polish */
+.app-header .highlight {
+    text-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
+}
+
+.lang-flags button:hover {
+    filter: grayscale(0);
+    background: rgba(255,255,255,0.05);
+}
+
+/* --- Market Module App UI Overhaul --- */
+
+/* App Header */
+.app-header {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.app-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.app-header p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Lobby Portal Redesign */
+.lobby-portal {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 32px !important;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6) !important;
+    backdrop-filter: blur(40px) !important;
+}
+
+.lobby-header {
+    padding-bottom: 3rem !important;
+}
+
+.lobby-header h2 {
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+}
+
+.lobby-tabs {
+    background: rgba(0,0,0,0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    padding: 6px !important;
+    border-radius: 18px !important;
+    margin-top: 2rem !important;
+}
+
+.tab-btn {
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    color: var(--text-muted) !important;
+}
+
+.tab-btn.active {
+    background: var(--primary) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(251, 146, 60, 0.4) !important;
+}
+
+/* Auth / Login Design */
+.auth-box {
+    background: rgba(255,255,255,0.02) !important;
+    padding: 2.5rem !important;
+    border-radius: 24px !important;
+    border: 1px solid var(--glass-border) !important;
+    margin-top: 1rem !important;
+}
+
+.auth-box h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.auth-box input {
+    background: rgba(0,0,0,0.2) !important;
+    border: 1px solid var(--glass-border) !important;
+    padding: 1rem !important;
+    color: var(--text-main) !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Room Cards */
+.room-card {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid var(--glass-border) !important;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.room-card:hover {
+    transform: translateY(-5px) !important;
+    background: rgba(255,255,255,0.06) !important;
+    border-color: var(--primary) !important;
 }
