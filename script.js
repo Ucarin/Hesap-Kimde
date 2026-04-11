@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 
-        ws = new WebSocket("ws://92.5.117.194:8000/ws");
+        ws = new WebSocket(`${protocol}//92.5.117.194:8000/ws`);
 
 
 
