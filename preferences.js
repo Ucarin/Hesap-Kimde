@@ -43,11 +43,11 @@ function setLanguage(lang) {
     
     // Update active flag UI
     const flags = { 'tr': '🇹🇷', 'en': '🇺🇸', 'es': '🇪🇸' };
-    const currentFlag = document.getElementById('current-lang-flag');
-    const currentText = document.getElementById('current-lang-text');
+    const langDisplay = document.getElementById('current-lang-display');
     
-    if (currentFlag) currentFlag.textContent = flags[lang];
-    if (currentText) currentText.textContent = lang.toUpperCase();
+    if (langDisplay) {
+        langDisplay.textContent = `${flags[lang]} ${lang.toUpperCase()}`;
+    }
 
     // Close all dropdowns
     document.querySelectorAll('.custom-dropdown').forEach(d => {

@@ -33,101 +33,39 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Calculated Adjustments for Light/Dark Themes */
+/* --- GLOBAL LEGIBILITY FIXES --- */
+input, textarea, select {
+    color: var(--text-main) !important;
+}
 
-/* Header Scroll Visibility Fix */
+.light-theme input, .light-theme textarea {
+    color: #0f172a !important;
+}
+
+/* Animations & Polishes */
+@keyframes highlightPulse {
+    0% { filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.4)); }
+    50% { filter: drop-shadow(0 0 15px rgba(251, 146, 60, 0.7)); }
+    100% { filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.4)); }
+}
+
+.highlight {
+    animation: highlightPulse 2s infinite ease-in-out;
+}
+
+/* --- Header & Navigation --- */
+.main-header {
+    z-index: 1001 !important;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .main-header.scrolled {
     background: var(--bg-nav) !important;
     box-shadow: var(--glass-shadow);
     padding: 0.8rem 2rem;
 }
 
-/* --- Premium Footer Redesign: Fintech Authority --- */
-.main-footer {
-    background: var(--bg-footer);
-    padding: 6rem 2rem 4rem;
-    width: 100%;
-    margin-top: 5rem;
-    border-top: 1px solid var(--glass-border);
-    position: relative;
-    z-index: 10;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-col h4 {
-    color: var(--primary);
-    margin-bottom: 2rem;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 800;
-}
-
-.footer-col p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.8;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 1.2rem;
-}
-
-.footer-links a {
-    color: var(--text-main);
-    text-decoration: none;
-    font-size: 1rem;
-    opacity: 0.7;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-block;
-}
-
-.footer-links a:hover {
-    opacity: 1;
-    color: var(--primary);
-    transform: translateX(8px);
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 4rem auto 0;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--glass-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.footer-bottom p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-/* Light Theme Polish - Deeper contrast */
-.light-theme .portal-card {
-    background: white;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-}
-
-.light-theme .section-title {
-    color: #0f172a;
-}
-
-/* Custom Premium Dropdown */
+/* --- Language Dropdown --- */
 .custom-dropdown {
     position: relative;
     z-index: 1000;
@@ -137,22 +75,15 @@ body {
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
     color: var(--text-main);
-    padding: 0.7rem 1.2rem;
+    padding: 0.6rem 1rem !important;
     border-radius: 14px;
     cursor: pointer;
-    font-family: inherit;
     font-size: 0.9rem;
     font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dropdown-trigger:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(251, 146, 60, 0.2);
+    gap: 0.5rem;
+    transition: 0.3s;
 }
 
 .dropdown-menu {
@@ -168,7 +99,7 @@ body {
     flex-direction: column;
     padding: 0.5rem;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    animation: dropdownFade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: dropdownFade 0.3s ease;
 }
 
 .custom-dropdown.active .dropdown-menu {
@@ -183,17 +114,10 @@ body {
     text-align: left;
     cursor: pointer;
     border-radius: 10px;
-    font-family: inherit;
     font-weight: 600;
-    transition: 0.2s;
     display: flex;
     align-items: center;
     gap: 0.8rem;
-}
-
-.dropdown-menu button:hover {
-    background: rgba(251, 146, 60, 0.1);
-    color: var(--primary);
 }
 
 .dropdown-menu button.active {
@@ -202,50 +126,26 @@ body {
     border-left: 3px solid var(--primary);
 }
 
-/* Global Contrast Polish */
-p, .text-muted {
-    text-rendering: optimizeLegibility;
-}
-
-[data-theme="dark"] .text-muted, .dark-theme .text-muted {
-    color: #94a3b8 !important;
-}
-
-h2, h3, h4 {
-    letter-spacing: -0.5px;
-}
-
 @keyframes dropdownFade {
-    from { opacity: 0; transform: translateY(-10px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Market Module App UI Overhaul --- */
+/* --- Market Module Fixes --- */
+.shop-area {
+    padding-top: 8rem !important;
+}
 
-/* App Header */
 .app-header {
     background: var(--bg-card);
     padding: 2rem;
     border-radius: 24px;
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 2rem;
 }
 
-.app-header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-}
-
-.app-header p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-/* Lobby Portal Redesign */
+/* --- Lobby & Tabs --- */
 .lobby-portal {
     background: var(--bg-card) !important;
     border: 1px solid var(--glass-border) !important;
@@ -254,89 +154,107 @@ h2, h3, h4 {
     backdrop-filter: blur(40px) !important;
 }
 
-.lobby-header {
-    padding-bottom: 3rem !important;
-}
-
-.lobby-header h2 {
-    font-size: 1.8rem;
-    letter-spacing: -1px;
-}
-
 .lobby-tabs {
-    background: rgba(0,0,0,0.3) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid var(--glass-border) !important;
-    padding: 6px !important;
-    border-radius: 18px !important;
+    padding: 8px !important;
+    border-radius: 20px !important;
     margin-top: 2rem !important;
+}
+
+.light-theme .lobby-tabs {
+    background: rgba(0, 0, 0, 0.03) !important;
 }
 
 .tab-btn {
     font-weight: 700 !important;
-    letter-spacing: 0.5px;
     color: var(--text-muted) !important;
 }
 
 .tab-btn.active {
     background: var(--primary) !important;
     color: white !important;
-    box-shadow: 0 4px 15px rgba(251, 146, 60, 0.4) !important;
 }
 
-/* Auth / Login Design - High Contrast Fix */
+/* --- Auth Box --- */
 .auth-box {
     background: rgba(255,255,255,0.03) !important;
     padding: 2.5rem !important;
     border-radius: 28px !important;
     border: 1px solid var(--glass-border) !important;
-    margin-top: 1.5rem !important;
-    position: relative;
-}
-
-.auth-box h3 {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 800;
 }
 
 .auth-box input {
     background: rgba(255,255,255,0.05) !important;
     border: 2px solid var(--glass-border) !important;
-    padding: 1.2rem 1.5rem !important;
-    color: white !important;
-    margin-bottom: 1.2rem !important;
-    border-radius: 16px !important;
-    font-size: 1rem !important;
-    transition: 0.3s !important;
-}
-
-.auth-box input::placeholder {
-    color: rgba(255,255,255,0.3);
-}
-
-.auth-box input:focus {
-    border-color: var(--primary) !important;
-    background: rgba(255,255,255,0.08) !important;
-    box-shadow: 0 0 20px rgba(251, 146, 60, 0.1);
-}
-
-.auth-box .btn.primary-btn {
     padding: 1.2rem !important;
-    font-size: 1.1rem !important;
+    border-radius: 16px !important;
+}
+
+/* --- Cart Area Overhaul --- */
+.cart-area {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(30px) !important;
+    border-left: 1px solid var(--glass-border) !important;
+    padding: 2.5rem !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-header {
+    margin-bottom: 2rem;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.cart-items ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-items li {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    padding: 1rem;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.users-summary {
+    background: rgba(251, 146, 60, 0.1);
+    color: var(--primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    display: inline-block;
+    margin-top: 0.5rem;
 }
 
-/* Room Cards */
-.room-card {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid var(--glass-border) !important;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+.cart-total-section {
+    background: rgba(255,255,255,0.03);
+    padding: 2rem;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    margin-top: auto;
 }
 
-.room-card:hover {
-    transform: translateY(-5px) !important;
-    background: rgba(255,255,255,0.06) !important;
-    border-color: var(--primary) !important;
+.total-amount {
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+/* --- Footer --- */
+.main-footer {
+    background: var(--bg-footer);
+    padding: 6rem 2rem 4rem;
+    border-top: 1px solid var(--glass-border);
 }
