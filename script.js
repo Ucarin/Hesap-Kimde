@@ -1288,15 +1288,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             approveBtn.classList.add('approved');
 
-            const approvedText = (localStorage.getItem('lang') || 'tr') === 'tr' ? 'Onaylandı ✅' : ((localStorage.getItem('lang') || 'tr') === 'es' ? 'Aprobado ✅' : 'Approved ✅');
-            approveBtn.textContent = approvedText;
+            approveBtn.textContent = 'Onaylandı ✅';
 
         } else {
 
             approveBtn.classList.remove('approved');
 
-            const currentLang = localStorage.getItem('lang') || 'tr';
-            approveBtn.textContent = translations[currentLang]?.approve_btn || 'SEPETİ ONAYLIYORUM';
+            approveBtn.textContent = 'Sepeti Onaylıyorum';
 
         }
 

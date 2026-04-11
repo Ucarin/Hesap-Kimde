@@ -41,6 +41,7 @@ const translations = {
         market_app_title: "Hesap <span class='highlight'>Kitle</span>",
         market_tab_join: "Lobilere Göz At",
         market_tab_create: "Lobi Kur",
+<<<<<<< HEAD
         market_app_desc: "Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!",
         approve_btn: "SEPETİ ONAYLIYORUM",
         total_label: "Toplam:",
@@ -52,6 +53,9 @@ const translations = {
         items_count: "Ürün",
         joint_cart_desc: "Ortak sepet — tüm kullanıcılar görebilir",
         added_toast: "Sepete eklendi!"
+=======
+        market_app_desc: "Bir şeyler ekle, herkes onaylasın, çarkı çevirip ödeyecek kişiyi kura ile seçelim!"
+>>>>>>> parent of e4a9351 (yyyy)
     },
     en: {
         nav_home: "Portal",
@@ -95,6 +99,7 @@ const translations = {
         market_app_title: "Bill <span class='highlight'>Split</span>",
         market_tab_join: "Browse Lobbies",
         market_tab_create: "Create Lobby",
+<<<<<<< HEAD
         market_app_desc: "Add items, get everyone to approve, and let the wheel decide who pays!",
         approve_btn: "APPROVE CART",
         total_label: "Total:",
@@ -106,6 +111,9 @@ const translations = {
         items_count: "Items",
         joint_cart_desc: "Joint cart — visible to everyone",
         added_toast: "Added to cart!"
+=======
+        market_app_desc: "Add items, get everyone to approve, and let the wheel decide who pays!"
+>>>>>>> parent of e4a9351 (yyyy)
     },
     es: {
         nav_home: "Portal",
@@ -149,6 +157,7 @@ const translations = {
         market_app_title: "Dividir <span class='highlight'>Cuenta</span>",
         market_tab_join: "Ver Salas",
         market_tab_create: "Crear Sala",
+<<<<<<< HEAD
         market_app_desc: "¡Agregue artículos, haga que todos aprueben y deje que la rueda decida quién paga!",
         approve_btn: "APROBAR CARRITO",
         total_label: "Total:",
@@ -160,5 +169,8 @@ const translations = {
         items_count: "Artículos",
         joint_cart_desc: "Carrito conjunto — visible para todos",
         added_toast: "¡Añadido al carrito!"
+=======
+        market_app_desc: "¡Agregue artículos, haga que todos aprueben y deje que la rueda decida quién paga!"
+>>>>>>> parent of e4a9351 (yyyy)
     }
 };
