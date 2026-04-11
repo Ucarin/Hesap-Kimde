@@ -1742,6 +1742,7 @@ canvas { border-radius: 50%; transition: transform 4s cubic-bezier(0.17, 0.67, 0
 }
 
 .portal-card {
+    text-decoration: none !important;
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
@@ -1844,9 +1845,10 @@ canvas { border-radius: 50%; transition: transform 4s cubic-bezier(0.17, 0.67, 0
 }
 
 .main-header.scrolled {
-    padding: 1rem 2rem;
+    padding: 0.8rem 2rem;
     background: var(--bg-nav);
     box-shadow: var(--glass-shadow);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .nav-links {
@@ -1856,7 +1858,7 @@ canvas { border-radius: 50%; transition: transform 4s cubic-bezier(0.17, 0.67, 0
 
 .nav-links a {
     color: var(--text-main);
-    text-decoration: none;
+    text-decoration: none !important;
     font-size: 0.95rem;
     font-weight: 600;
     transition: 0.2s;

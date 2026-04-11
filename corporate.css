@@ -29,33 +29,28 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
 }
 
-<<<<<<< HEAD
 /* --- LOGO & HEADER VISIBILITY --- */
 .logo-text h2 {
-    color: var(--text-main) !important; /* Dynamic based on theme */ transition: 0.3s;
+    color: var(--text-main) !important;
+    transition: 0.3s;
 }
 
 .light-theme .logo-text h2 {
-    color: #0f172a !important; /* Force visibility in light mode */
+    color: #0f172a !important;
 }
 
 .main-header {
-    z-index: 1100 !important; /* Above everything */
+    z-index: 1100 !important;
     padding: 1.5rem 2rem;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-=======
-/* Calculated Adjustments for Light/Dark Themes */
->>>>>>> parent of 4ecfaa8 (deneme)
 
-/* Header Scroll Visibility Fix */
 .main-header.scrolled {
     background: var(--bg-nav) !important;
     box-shadow: var(--glass-shadow);
     padding: 0.8rem 2rem;
 }
 
-<<<<<<< HEAD
 /* --- GLOBAL LEGIBILITY FIXES --- */
 input, textarea, select {
     color: var(--text-main) !important;
@@ -67,9 +62,20 @@ input, textarea, select {
 
 /* --- SECTION SPACING OPTIMIZATION --- */
 section {
-    padding: 2.5rem 2rem !important; /* Significantly reduced to avoid massive gaps */
-=======
-/* --- Premium Footer Redesign: Fintech Authority --- */
+    padding: 2.5rem 2rem !important;
+}
+
+#portal.portal-container {
+    padding-top: 6rem !important;
+    min-height: auto;
+    padding-bottom: 4rem;
+}
+
+.portal-hero {
+    margin-bottom: 2rem !important;
+}
+
+/* --- PREMIUM FOOTER REDESIGN --- */
 .main-footer {
     background: var(--bg-footer);
     padding: 6rem 2rem 4rem;
@@ -82,30 +88,20 @@ section {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 4rem;
->>>>>>> parent of 4ecfaa8 (deneme)
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-<<<<<<< HEAD
-#portal.portal-container {
-    padding-top: 6rem !important; /* Reduced Hero top spacing */
-    min-height: auto;
-    padding-bottom: 4rem;
+.footer-col h2 {
+    margin-bottom: 1rem;
+    font-weight: 800;
 }
 
-.portal-hero {
-    margin-bottom: 2rem !important;
-}
-
-/* --- PRODUCT CARD & ADD BUTTON FIX --- */
-.product-card {
-=======
 .footer-col h4 {
     color: var(--primary);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2.5px;
@@ -132,7 +128,7 @@ section {
     text-decoration: none;
     font-size: 1rem;
     opacity: 0.7;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.3s;
     display: inline-block;
 }
 
@@ -145,188 +141,28 @@ section {
 .footer-bottom {
     max-width: 1200px;
     margin: 4rem auto 0;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--glass-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.footer-bottom p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-/* Light Theme Polish - Deeper contrast */
-.light-theme .portal-card {
-    background: white;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-}
-
-.light-theme .section-title {
-    color: #0f172a;
-}
-
-/* Custom Premium Dropdown */
-.custom-dropdown {
->>>>>>> parent of 4ecfaa8 (deneme)
-    position: relative;
-    z-index: 1;
-}
-
-.add-btn {
-    position: relative;
-    z-index: 10 !important;
-    pointer-events: auto !important;
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
-    transition: 0.2s;
-}
-
-.add-btn:hover {
-    transform: scale(1.1);
-    background: var(--primary-hover);
-}
-
-/* --- FINTECH DASHBOARD CART UI --- */
-.cart-area {
-    background: var(--bg-card) !important;
-    backdrop-filter: blur(40px) !important;
-    border-left: 1px solid var(--glass-border) !important;
-    padding: 2rem !important;
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-}
-
-<<<<<<< HEAD
-.cart-header {
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--glass-border);
-    margin-bottom: 1.5rem;
-}
-
-.cart-header h2 {
-    font-size: 1.4rem;
-    font-weight: 800;
-}
-
-.users-summary {
-    background: rgba(251, 146, 60, 0.1);
-    color: var(--primary);
-    padding: 0.5rem 1rem;
-    border-radius: 14px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-.cart-items li {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid var(--glass-border) !important;
-    padding: 1.2rem !important;
-    border-radius: 20px !important;
-    margin-bottom: 0.8rem !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    transition: 0.3s;
-}
-
-.cart-items li:hover {
-    border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.08) !important;
-}
-
-.cart-total-section {
-    background: rgba(59, 130, 246, 0.05) !important; /* Subtle blue tint for fintech feel */
-    padding: 2rem !important;
-    border-radius: 28px !important;
-    border: 1px solid var(--glass-border) !important;
-    margin-top: auto !important;
-}
-
-.total-amount {
-    color: var(--primary);
-    font-weight: 800;
-    font-size: 1.8rem;
-}
-
-.cart-area .primary-btn {
-    background: var(--primary) !important;
-    padding: 1.25rem !important;
-    border-radius: 18px !important;
-    font-size: 1.1rem !important;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    box-shadow: 0 10px 25px rgba(251, 146, 60, 0.3) !important;
-}
-
-/* --- PREMIUM MULTI-COLUMN FOOTER --- */
-.main-footer {
-    background: var(--bg-footer);
-    padding: 6rem 2rem 4rem;
-    border-top: 1px solid var(--glass-border);
-    position: relative;
-    z-index: 10;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-col h2 { margin-bottom: 1rem; font-weight: 800; }
-.footer-col h4 {
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 800;
-}
-
-.footer-links { list-style: none; padding: 0; }
-.footer-links li { margin-bottom: 1rem; }
-.footer-links a {
-    color: var(--text-main);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: 0.3s;
-}
-
-.footer-links a:hover {
-    opacity: 1;
-    color: var(--primary);
-    padding-left: 5px;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 4rem auto 0;
     padding-top: 2rem;
     border-top: 1px solid var(--glass-border);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
     font-size: 0.85rem;
     color: var(--text-muted);
-=======
+}
+
+/* --- CUSTOM PREMIUM DROPDOWN --- */
+.custom-dropdown {
+    position: relative;
+    z-index: 1050;
+}
+
 .dropdown-trigger {
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
     color: var(--text-main);
-    padding: 0.7rem 1.2rem;
+    padding: 0.6rem 1.1rem;
     border-radius: 14px;
     cursor: pointer;
     font-family: inherit;
@@ -378,6 +214,7 @@ section {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    width: 100%;
 }
 
 .dropdown-menu button:hover {
@@ -391,27 +228,88 @@ section {
     border-left: 3px solid var(--primary);
 }
 
-/* Global Contrast Polish */
-p, .text-muted {
-    text-rendering: optimizeLegibility;
-}
-
-[data-theme="dark"] .text-muted, .dark-theme .text-muted {
-    color: #94a3b8 !important;
-}
-
-h2, h3, h4 {
-    letter-spacing: -0.5px;
-}
-
 @keyframes dropdownFade {
     from { opacity: 0; transform: translateY(-10px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* --- Market Module App UI Overhaul --- */
+/* --- FINTECH DASHBOARD CART UI --- */
+.cart-area {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(40px) !important;
+    border-left: 1px solid var(--glass-border) !important;
+    padding: 2rem !important;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
 
-/* App Header */
+.cart-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 1.5rem;
+}
+
+.cart-header h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.users-summary {
+    background: rgba(251, 146, 60, 0.1);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.cart-items li {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid var(--glass-border) !important;
+    padding: 1.2rem !important;
+    border-radius: 20px !important;
+    margin-bottom: 0.8rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    transition: 0.3s;
+}
+
+.cart-items li:hover {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.cart-total-section {
+    background: rgba(59, 130, 246, 0.05) !important;
+    padding: 2rem !important;
+    border-radius: 28px !important;
+    border: 1px solid var(--glass-border) !important;
+    margin-top: auto !important;
+}
+
+.total-amount {
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+.cart-area .primary-btn {
+    background: var(--primary) !important;
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    box-shadow: 0 10px 25px rgba(251, 146, 60, 0.3) !important;
+}
+
+/* --- MARKET MODULE OVERHAUL --- */
 .app-header {
     background: var(--bg-card);
     padding: 2rem;
@@ -434,7 +332,37 @@ h2, h3, h4 {
     color: var(--text-muted);
 }
 
-/* Lobby Portal Redesign */
+.product-card {
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.add-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+/* Lobby Styling */
 .lobby-portal {
     background: var(--bg-card) !important;
     border: 1px solid var(--glass-border) !important;
@@ -447,86 +375,28 @@ h2, h3, h4 {
     padding-bottom: 3rem !important;
 }
 
-.lobby-header h2 {
-    font-size: 1.8rem;
-    letter-spacing: -1px;
-}
-
 .lobby-tabs {
     background: rgba(0,0,0,0.3) !important;
     border: 1px solid var(--glass-border) !important;
     padding: 6px !important;
     border-radius: 18px !important;
-    margin-top: 2rem !important;
 }
 
 .tab-btn {
     font-weight: 700 !important;
-    letter-spacing: 0.5px;
     color: var(--text-muted) !important;
 }
 
 .tab-btn.active {
     background: var(--primary) !important;
     color: white !important;
-    box-shadow: 0 4px 15px rgba(251, 146, 60, 0.4) !important;
 }
 
-/* Auth / Login Design - High Contrast Fix */
-.auth-box {
-    background: rgba(255,255,255,0.03) !important;
-    padding: 2.5rem !important;
-    border-radius: 28px !important;
-    border: 1px solid var(--glass-border) !important;
-    margin-top: 1.5rem !important;
-    position: relative;
+/* Contrast & Typography */
+p, .text-muted {
+    text-rendering: optimizeLegibility;
 }
 
-.auth-box h3 {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 800;
-}
-
-.auth-box input {
-    background: rgba(255,255,255,0.05) !important;
-    border: 2px solid var(--glass-border) !important;
-    padding: 1.2rem 1.5rem !important;
-    color: white !important;
-    margin-bottom: 1.2rem !important;
-    border-radius: 16px !important;
-    font-size: 1rem !important;
-    transition: 0.3s !important;
-}
-
-.auth-box input::placeholder {
-    color: rgba(255,255,255,0.3);
-}
-
-.auth-box input:focus {
-    border-color: var(--primary) !important;
-    background: rgba(255,255,255,0.08) !important;
-    box-shadow: 0 0 20px rgba(251, 146, 60, 0.1);
-}
-
-.auth-box .btn.primary-btn {
-    padding: 1.2rem !important;
-    font-size: 1.1rem !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Room Cards */
-.room-card {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid var(--glass-border) !important;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-.room-card:hover {
-    transform: translateY(-5px) !important;
-    background: rgba(255,255,255,0.06) !important;
-    border-color: var(--primary) !important;
->>>>>>> parent of 4ecfaa8 (deneme)
+h2, h3, h4 {
+    letter-spacing: -0.5px;
 }
