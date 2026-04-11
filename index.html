@@ -31,37 +31,137 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <main class="portal-container">
-        <header class="portal-hero">
-            <h1>Hesap<span class="highlight">Kimde?</span></h1>
-            <p>Bölüşmek hiç bu kadar kolay, akıllı ve güvenli olmamıştı.</p>
-        </header>
+    <!-- Navigation Header -->
+    <header class="main-header" id="navbar">
+        <div class="logo-text">
+            <h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2>
+        </div>
+        <nav class="nav-links">
+            <a href="#portal">Giriş</a>
+            <a href="#hakkimizda">Kurumsal</a>
+            <a href="#cozumler">Çözümler</a>
+            <a href="#partnerler">İş Ortaklığı</a>
+            <a href="#iletisim">İletişim</a>
+        </nav>
+    </header>
 
-        <section class="portal-grid">
-            <a href="/market" class="portal-card" id="market-card">
-                <span class="portal-badge">Akıllı Sepet</span>
-                <div class="icon">🛒</div>
-                <h2>Market Modülü</h2>
-                <p>Market alışverişini eğlenceye dönüştürün. Ürünleri ekleyin, fiyatları karşılaştırın ve yakında
-                    gelecek doğrudan market API entegrasyonları ile ödemenizi saniyeler içinde tamamlayın.</p>
-            </a>
+    <main>
+        <!-- Hero / Portal Section -->
+        <section id="portal" class="portal-container" style="padding-top: 10rem;">
+            <header class="portal-hero">
+                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem);">Bölüşmek Hiç Bu Kadar <span class="highlight">Akıllı</span> Olmamıştı.</h1>
+                <p>Türkiye'nin en hızlı ve eğlenceli hesap bölüşme platformuna hoş geldiniz.</p>
+            </header>
 
-            <a href="/yemek" class="portal-card" id="yemek-card">
-                <span class="portal-badge">QR Entegre</span>
-                <div class="icon">🍽️</div>
-                <h2>Yemek & Restoran</h2>
-                <p>Restoranlarda masadan kalkmadan kontrol sizde. QR okutun, adisyonu anlık takip edin ve Fransız usulü
-                    (Split/Pay) ile hesabınızı garson beklemeden, güvenli sistemlerimizle ödeyin.</p>
-            </a>
+            <div class="portal-grid">
+                <a href="/market" class="portal-card" id="market-card">
+                    <span class="portal-badge">Popüler</span>
+                    <div class="icon">🛒</div>
+                    <h2>Market Modülü</h2>
+                    <p>Market alışverişini eğlenceye dönüştürün. Ürünleri ekleyin, sepeti onaylayın ve çarkı çevirerek kimin ödeyeceğine karar verin.</p>
+                </a>
+
+                <a href="/yemek" class="portal-card" id="yemek-card">
+                    <span class="portal-badge">Yeni</span>
+                    <div class="icon">🍽️</div>
+                    <h2>Yemek & Restoran</h2>
+                    <p>QR okutun, adisyona ulaşın ve restoranlarda garson beklemeden hesabınızı saniyeler içinde bölüşün.</p>
+                </a>
+            </div>
         </section>
 
-        <footer style="margin-top: 5rem; width: 100%; max-width: 800px;">
+        <!-- About Us Section -->
+        <section id="hakkimizda">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="portal-badge" style="position: static; margin-bottom: 1rem; display: inline-block;">Vizyonumuz</span>
+                    <h3>Hesap Bölüşme Kültürünü Dijitalleştiriyoruz</h3>
+                    <p>
+                        Hesap Kimde?, arkadaş gruplarının ve işletmelerin ödeme süreçlerini daha şeffaf, hızlı ve eğlenceli hale getirmek için doğdu. 
+                        Frankfurt merkezli güçlü sunucu altyapımızla, saniyeler içinde senkronize olan WebSockets altyapısı sunuyoruz.
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        Sadece bir uygulama değil; marketlerden restoranlara, her noktada ödemeyi kolaylaştıran bir ekosistem inşa ediyoruz.
+                    </p>
+                </div>
+                <div class="about-visual" style="text-align: right;">
+                    <div style="background: var(--bg-card); padding: 2rem; border-radius: 30px; border: 1px solid var(--glass-border); display: inline-block;">
+                        <span style="font-size: 8rem;">🚀</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions / Programs Section -->
+        <section id="cozumler" style="background: rgba(255,255,255,0.02); border-radius: 50px;">
+            <h2 class="section-title">Programlarımız & <span class="highlight">Çözümler</span></h2>
+            <div class="solutions-container">
+                <div class="solution-item">
+                    <span class="bullet-icon">⚡</span>
+                    <h4>Gerçek Zamanlı Senkronizasyon</h4>
+                    <p>WebSocket teknolojisi ile sepetinizdeki her değişiklik tüm grupta anında görünür.</p>
+                </div>
+                <div class="solution-item">
+                    <span class="bullet-icon">🛡️</span>
+                    <h4>Güvenli Ödeme Entegrasyonu</h4>
+                    <p>Apple Pay, Google Pay ve yerel ödeme sistemleriyle %100 güvenli çözüm ortaklığı.</p>
+                </div>
+                <div class="solution-item">
+                    <span class="bullet-icon">📊</span>
+                    <h4>Gelişmiş Raporlama</h4>
+                    <p>Kişisel ve grup bazlı harcama geçmişi ile bütçenizi kontrol altında tutun.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section id="partnerler">
+            <h2 class="section-title">Gelecek İş Ortaklarımız</h2>
+            <div class="partners-grid">
+                <div class="partner-logo">BİM</div>
+                <div class="partner-logo">A101</div>
+                <div class="partner-logo">ŞOK</div>
+                <div class="partner-logo">MİGROS</div>
+                <div class="partner-logo">YEMEKSEPETİ</div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">
+                Çok yakında Türkiye'nin dev perakende ve restoran zincirleri ile doğrudan entegrasyon!
+            </p>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section id="iletisim">
+            <h2 class="section-title">Bizimle <span class="highlight">İletişime</span> Geçin</h2>
+            <div class="contact-wrapper">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Adınız Soyadınız</label>
+                        <input type="text" id="name" placeholder="Örn: Ahmet Yılmaz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz</label>
+                        <input type="email" id="email" placeholder="orn@mail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Konu</label>
+                        <input type="text" id="subject" placeholder="İş Ortaklığı, Destek vb.">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mesajınız</label>
+                        <textarea id="message" rows="5" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary-btn" style="margin-top: 1rem;">Mesajı Gönder</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="margin-top: 5rem; padding-bottom: 3rem;">
             <div
                 style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 2rem; flex-wrap: wrap; gap: 1.5rem;">
                 <div style="text-align: left;">
                     <h3 style="margin-bottom: 0.5rem; color: white;">Hesap Kimde?</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Frankfurt Server Altyapısı ile ışık hızında
-                        fintech deneyimi.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Işık hızında fintech deneyimi.</p>
                 </div>
                 <div style="display: flex; gap: 2rem;">
                     <div style="text-align: left;">
@@ -74,19 +174,46 @@
                         <span
                             style="display: block; font-size: 0.75rem; color: var(--primary); font-weight: bold; text-transform: uppercase;">Sosyal</span>
                         <div style="display: flex; gap: 1rem; margin-top: 0.2rem;">
-                            <a href="https://www.instagram.com/cereezersin/"
+                            <a href="https://www.instagram.com/cereezersin/" target="_blank"
                                 style="color: white; text-decoration: none; font-size: 0.9rem;">Instagram</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">&copy; 2024
-                Hesap Kimde? Tüm hakları saklıdır. Made with ❤️ in Frankfurt.</p>
+            <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">&copy; 2026
+                Hesap Kimde? Tüm hakları saklıdır.</p>
         </footer>
     </main>
 
     <script>
-        // Smooth entrance animations
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission placeholder
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mesajınız başarıyla iletildi! En kısa sürede size geri döneceğiz. 🚀');
+            this.reset();
+        });
+
+        // Entrance animations for cards
         document.querySelectorAll('.portal-card').forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
