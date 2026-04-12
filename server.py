@@ -22,11 +22,9 @@ def hash_password(password: str) -> str:
 app = FastAPI()
 
 # --- KRİTİK DÜZELTME: STATIC DOSYA YOLU ---
-# Python'un çalıştığı klasörü bul ve içindeki 'static' klasörünü bağla
 current_dir = os.path.dirname(os.path.realpath(__file__))
 static_path = os.path.join(current_dir, "static")
 
-# Eğer static klasörü varsa bağla, yoksa hata verme (Local/Frankfurt uyumu için)
 if os.path.exists(static_path):
     app.mount("/static", StaticFiles(directory=static_path), name="static")
 
@@ -81,7 +79,6 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_json()
             msg_type = data.get("type")
             
-            # --- ODA VE SEPET MANTIĞI (SENİN KODUN) ---
             if msg_type == "join_room":
                 target_room = data.get("room_id", "genel")
                 password = data.get("password")
@@ -98,12 +95,23 @@ async def websocket_endpoint(websocket: WebSocket):
                 await websocket.send_json({"type": "init_products", "products": snacks})
                 await broadcast_state(room_id)
 
-            elif msg_type == "add_to_cart":
-                state = get_room_state(room_id)
-                product = data.get("product")
-                product["added_by"] = state["users"][user_id]["name"]
-                state["cart"].append(product)
-                for uid in state["users"]: state["users"][uid]["approved"] = False
+            elif msg_type == "create_room":
+                new_room = data.get("room_id")
+                new_pass = data.get("password")
+                name = data.get("name", "Misafir")
+                if not new_room:
+                    await websocket.send_json({"type": "error", "message": "Oda adı boş olamaz! ❌"})
+                    continue
+                state = get_room_state(new_room)
+                state["password"] = new_pass
+                room_id = new_room
+                if websocket in lobby_clients: lobby_clients.remove(websocket)
+                if websocket not in state["clients"]:
+                    state["clients"].append(websocket)
+                state["users"][user_id] = {"name": name, "approved": False, "safe": False}
+                snacks = await get_snacks()
+                await websocket.send_json({"type": "init_products", "products": snacks})
+                await broadcast_room_list()
                 await broadcast_state(room_id)
 
             elif msg_type == "login":
@@ -116,16 +124,98 @@ async def websocket_endpoint(websocket: WebSocket):
                 user_data = {"username": user["username"], "total_spent": user.get("total_spent", 0.0), "wins": user.get("wins", 0), "losses": user.get("losses", 0)}
                 await websocket.send_json({"type": "login_success", "user": user_data})
 
-            # ... (Diğer msg_type'ların: record_loser, reset_game vb. aynen korunmuştur) ...
+            elif msg_type == "register":
+                username = data.get("username")
+                password = data.get("password")
+                exists = await get_account(username)
+                if exists:
+                    await websocket.send_json({"type": "error", "message": "Bu kullanıcı adı alınmış! ❌"})
+                    continue
+                success = await create_account(username, hash_password(password))
+                if success:
+                    await websocket.send_json({"type": "login_success", "user": {"username": username, "total_spent": 0, "wins": 0, "losses": 0}})
+                else:
+                    await websocket.send_json({"type": "error", "message": "Kayıt sırasında hata oluştu! ❌"})
+
+            elif msg_type == "add_to_cart":
+                state = get_room_state(room_id)
+                product = data.get("product")
+                product["added_by"] = state["users"][user_id]["name"]
+                state["cart"].append(product)
+                for uid in state["users"]: state["users"][uid]["approved"] = False
+                await broadcast_state(room_id)
+
+            elif msg_type == "remove_from_cart":
+                state = get_room_state(room_id)
+                index = data.get("index")
+                if 0 <= index < len(state["cart"]):
+                    state["cart"].pop(index)
+                    for uid in state["users"]: state["users"][uid]["approved"] = False
+                    await broadcast_state(room_id)
+
+            elif msg_type == "toggle_approve":
+                state = get_room_state(room_id)
+                approved = data.get("approved", False)
+                state["users"][user_id]["approved"] = approved
+                await broadcast_state(room_id)
+                # Check if everyone is approved
+                all_approved = all(u["approved"] for u in state["users"].values())
+                if all_approved and len(state["users"]) > 0 and len(state["cart"]) > 0:
+                    state["state"] = "wheel"
+                    await broadcast_state(room_id)
+
+            elif msg_type == "spin_wheel":
+                state = get_room_state(room_id)
+                mode = data.get("mode", "roulette")
+                target_index = data.get("target_index")
+                await broadcast_to_room(room_id, {
+                    "type": "wheel_spin",
+                    "mode": mode,
+                    "target_index": target_index
+                })
+
+            elif msg_type == "wheel_result_eliminate":
+                state = get_room_state(room_id)
+                elim_id = data.get("eliminated_user_id")
+                if elim_id in state["users"]:
+                    state["users"][elim_id]["safe"] = True
+                    await broadcast_state(room_id)
+
             elif msg_type == "record_loser":
                 state = get_room_state(room_id)
                 loser_name = data.get("loser_name")
+                total = 0.0
+                for item in state["cart"]:
+                    p = str(item.get("price", "0")).replace(",", ".").replace("₺", "").strip()
+                    clean_p = "".join(c for c in p if (c.isdigit() or c == "."))
+                    try: total += float(clean_p)
+                    except: pass
+                
                 await mark_paid(loser_name, list(state["cart"]))
+                await update_account_stats(loser_name, total, is_loss=True)
+                for uid, udata in state["users"].items():
+                    if udata["name"] != loser_name:
+                        await update_account_stats(udata["name"], 0, is_loss=False)
+                
+                await broadcast_state(room_id)
+
+            elif msg_type == "reset_game":
+                state = get_room_state(room_id)
+                state["cart"] = []
+                state["state"] = "shopping"
+                for uid in state["users"]:
+                    state["users"][uid]["approved"] = False
+                    state["users"][uid]["safe"] = False
                 await broadcast_state(room_id)
 
     except WebSocketDisconnect:
         if websocket in lobby_clients: lobby_clients.remove(websocket)
-        # Oda temizliği ve broadcast...
+        for rid, s in rooms.items():
+            if websocket in s["clients"]:
+                s["clients"].remove(websocket)
+                if user_id in s["users"]: del s["users"][user_id]
+                await broadcast_state(rid)
+        await broadcast_room_list()
 
 # --- SAYFA YÖNLENDİRMELERİ ---
 @app.get("/")
@@ -154,6 +244,11 @@ async def broadcast_state(room_id: str):
         try: await client.send_json(msg)
         except: pass
 
+async def broadcast_to_room(room_id: str, msg: dict):
+    state = get_room_state(room_id)
+    for client in state["clients"]:
+        try: await client.send_json(msg)
+        except: pass
+
 if __name__ == "__main__":
-    # Local'de 127.0.0.1, Canlıda 0.0.0.0 kullanılabilir
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
