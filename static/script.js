@@ -282,15 +282,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Profile Modal
 
-    openProfileBtn.addEventListener('click', () => {
+    if (openProfileBtn) {
+        openProfileBtn.addEventListener('click', () => {
+            renderProfile();
+            profileModal.classList.add('active');
+        });
+    }
 
-        renderProfile();
+    if (closeProfileBtn) {
+        closeProfileBtn.addEventListener('click', () => profileModal && profileModal.classList.remove('active'));
+    }
 
-        profileModal.classList.add('active');
-
-    });
-
-    closeProfileBtn.addEventListener('click', () => profileModal.classList.remove('active'));
 
 
 

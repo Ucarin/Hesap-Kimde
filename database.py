@@ -42,12 +42,24 @@ async def clear_history():
 
 # --- 2. ÜRÜN (SNACK) FONKSİYONLARI ---
 async def get_snacks():
-    """Market ürünlerini listeler"""
+    """Market ürünlerini listeler, hata durumunda JSON'dan okur"""
+    import json, os
     snacks = []
-    cursor = snacks_collection.find()
-    async for doc in cursor:
-        doc["_id"] = str(doc["_id"])
-        snacks.append(doc)
+    try:
+        cursor = snacks_collection.find()
+        async for doc in cursor:
+            doc["_id"] = str(doc["_id"])
+            snacks.append(doc)
+        if not snacks:
+            raise ValueError("Koleksiyon boş, JSON'dan yükle")
+    except Exception as e:
+        print(f"[UYARI] MongoDB ürün hatası: {e}. JSON'dan yükleniyor...")
+        try:
+            json_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "market_data.json")
+            with open(json_path, "r", encoding="utf-8") as f:
+                snacks = json.load(f)
+        except Exception as e2:
+            print(f"[HATA] JSON yüklenemedi: {e2}")
     return snacks
 
 # --- 3. KULLANICI HESAP VE PANEL FONKSİYONLARI ---
