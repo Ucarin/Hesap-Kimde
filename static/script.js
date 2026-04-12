@@ -144,9 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Canvas Context
 
-    const ctx = wheelCanvas.getContext('2d');
+    // Canvas Context
+    let ctx = null;
+    if (wheelCanvas) {
+        ctx = wheelCanvas.getContext('2d');
+    }
+
 
 
 
@@ -182,69 +186,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
     // Auth View Switching
+    if (showRegister) {
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            authLoginView.style.display = 'none';
+            authRegisterView.style.display = 'block';
+        });
+    }
 
-    showRegister.addEventListener('click', (e) => {
-
-        e.preventDefault();
-
-        authLoginView.style.display = 'none';
-
-        authRegisterView.style.display = 'block';
-
-    });
-
-    showLogin.addEventListener('click', (e) => {
-
-        e.preventDefault();
-
-        authRegisterView.style.display = 'none';
-
-        authLoginView.style.display = 'block';
-
-    });
+    if (showLogin) {
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            authRegisterView.style.display = 'none';
+            authLoginView.style.display = 'block';
+        });
+    }
 
 
 
     // Login / Register Actions
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            const usernameInput = document.getElementById('login-username');
+            const passwordInput = document.getElementById('login-password');
+            if (!usernameInput || !passwordInput) return;
 
-    loginBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
 
-        const username = document.getElementById('login-username').value.trim();
-
-        const password = document.getElementById('login-password').value;
-
-        if (!username || !password) return showToast("Eksik bilgi!", "error");
-
-        ws.send(JSON.stringify({ type: 'login', username, password }));
-
-    });
-
-
-
-    registerBtn.addEventListener('click', () => {
-
-        const username = document.getElementById('reg-username').value.trim();
-
-        const password = document.getElementById('reg-password').value;
-
-        if (!username || !password) return showToast("Eksik bilgi!", "error");
-
-        ws.send(JSON.stringify({ type: 'register', username, password }));
-
-    });
+            if (!username || !password) return showToast("Eksik bilgi!", "error");
+            ws.send(JSON.stringify({ type: 'login', username, password }));
+        });
+    }
 
 
 
-    logoutBtn.addEventListener('click', () => {
+    if (registerBtn) {
+        registerBtn.addEventListener('click', () => {
+            const usernameInput = document.getElementById('reg-username');
+            const passwordInput = document.getElementById('reg-password');
+            if (!usernameInput || !passwordInput) return;
 
-        currentUser = null;
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
 
-        localStorage.removeItem('sr_user');
+            if (!username || !password) return showToast("Eksik bilgi!", "error");
+            ws.send(JSON.stringify({ type: 'register', username, password }));
+        });
+    }
 
-        updateAuthUI();
 
-    });
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('sr_user');
+            updateAuthUI();
+        });
+    }
+
 
 
 
@@ -519,6 +521,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const host = window.location.hostname;
         const port = window.location.port ? `:${window.location.port}` : '';
         const wsUrl = `${protocol}//${host}${port}/ws`;
+
+
 
         console.log("WebSocket bağlantısı başlatılıyor:", wsUrl);
 

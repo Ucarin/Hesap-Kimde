@@ -1,37 +1,32 @@
 # ============================================================
-# 🍿 Hesap Kimde? - Tek Tıkla Deploy Scripti (v1.1)
+# 🍿 Hesap Kimde? - Garanti Deploy Scripti (SCP Tabanlı)
 # ============================================================
+# Sunucuda Git hatası olduğu için bu versiyon dosyaları doğrudan kopyalar.
 
 # --- AYARLAR ---
 $SERVER_IP = "92.5.117.194"
 $SERVER_USER = "ubuntu"
 $REMOTE_PATH = "/home/ubuntu/app"
 $SSH_KEY = ".\oracle_yeni"
-$COMMIT_MSG = "Auto-deploy: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-# 1. YEREL İŞLEMLER (GIT)
-Write-Host "`n[1/3] Yerel değişiklikler kaydediliyor..." -ForegroundColor Cyan
-git add .
-git commit -m $COMMIT_MSG
-Write-Host ">>> GitHub'a gönderiliyor..." -ForegroundColor Cyan
-git push origin main
+# 1. YERELDE TEMİZLİK (GEREKSİZ DOSYALARI GÖNDERME)
+Write-Host "`n[1/2] Sunucuya dosyalar gönderiliyor (SCP)..." -ForegroundColor Cyan
 
-# 2. SUNUCU İŞLEMLERİ (SSH)
-Write-Host "`n[2/3] Sunucuya bağlanılıyor ($SERVER_IP)..." -ForegroundColor Cyan
+# Klasörü komple sunucuya kopyala (Gereksiz dosyalar hariç - .git, __pycache__ vb.)
+scp -i $SSH_KEY -o StrictHostKeyChecking=no -r ./* "$SERVER_USER@$SERVER_IP`:$REMOTE_PATH"
 
-# Sunucuda çalışacak komutlar dizisi
-$REMOTE_COMMANDS = "cd $REMOTE_PATH && git pull && pip install -r requirements.txt"
+# 2. SUNUCUDA YENİDEN BAŞLATMA
+Write-Host "`n[2/2] Sunucuda uygulama yenileniyor..." -ForegroundColor Cyan
 
-# Senin belirttiğin özel restart yöntemi
-$RESTART_CMD = "sudo fuser -k 8000/tcp; nohup python3 server.py > debug.log 2>&1 &"
+# Sunucuda çalışacak komutlar
+$RESTART_CMD = "cd $REMOTE_PATH && sudo fuser -k 8000/tcp; nohup python3 server.py > debug.log 2>&1 &"
 
-Write-Host ">>> Kodlar güncelleniyor ve uygulama yeniden başlatılıyor..." -ForegroundColor Cyan
-ssh -i $SSH_KEY -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "$REMOTE_COMMANDS && $RESTART_CMD"
+ssh -i $SSH_KEY -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "$RESTART_CMD"
 
 # 3. SONUÇ
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "`n[BAŞARILI] Deploy tamamlandı! 🚀" -ForegroundColor Green
-    Write-Host "Adres: http://$SERVER_IP`n" -ForegroundColor Green
+    Write-Host "`n[BAŞARILI] Tüm dosyalar başarıyla güncellendi ve sunucu başlatıldı! 🚀" -ForegroundColor Green
+    Write-Host "Lütfen tarayıcıda Ctrl + F5 yaparak kontrol et.`n" -ForegroundColor Green
 } else {
-    Write-Host "`n[HATA] Bir sorun oluştu. Sunucu bağlantısını veya yolu kontrol et." -ForegroundColor Red
+    Write-Host "`n[HATA] Dosya gönderimi sırasında bir sorun oluştu." -ForegroundColor Red
 }
