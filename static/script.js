@@ -515,299 +515,170 @@ document.addEventListener('DOMContentLoaded', () => {
     // Connection
 
     function connectWebSocket() {
-
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const host = window.location.hostname;
+        const port = window.location.port ? `:${window.location.port}` : '';
+        const wsUrl = `${protocol}//${host}${port}/ws`;
 
-        ws = new WebSocket(`${protocol}//92.5.117.194:8000/ws`);
+        console.log("WebSocket bağlantısı başlatılıyor:", wsUrl);
 
+        if (ws) {
+            ws.close();
+        }
 
+        ws = new WebSocket(wsUrl);
 
         ws.onopen = () => {
-
-            console.log("Connected to Lobby");
-
+            console.log("Sunucuya başarıyla bağlandık! ✅");
+            showToast("Sunucu bağlantısı aktif.", "success");
         };
-
-
 
         ws.onmessage = (event) => {
-
             const msg = JSON.parse(event.data);
 
-
-
             if (msg.type === 'error') {
-
                 showToast(msg.message, 'error');
-
             }
-
             else if (msg.type === 'room_list') {
-
                 renderLobbyList(msg.rooms);
-
             }
-
             else if (msg.type === 'login_success') {
-
                 currentUser = msg.user;
-
                 localStorage.setItem('sr_user', JSON.stringify(currentUser));
-
                 updateAuthUI();
-
                 showToast("Giriş başarılı! Hoşgeldin.", "success");
-
                 // Navigate to Lobby tab
-
                 tabBtns[0].click();
-
             }
-
             else if (msg.type === 'init_products') {
-
                 loginModal.classList.remove('active');
-
                 snacksData = msg.products;
-
                 renderProducts(snacksData);
-
             }
-
             else if (msg.type === 'state_update') {
-
                 usersState = msg.users;
-
                 cartState = msg.cart;
 
-
-
                 renderUsers();
-
                 renderCart();
-
                 if (msg.history) {
-
                     globalHistory = msg.history; // Update global reference
-
                     lastHistoryLength = msg.history.length;
-
                     historyInitialized = true;
-
                     renderHistory(msg.history);
-
                     renderLastResult(msg.history[msg.history.length - 1]);
-
                 }
-
-
 
                 if (msg.app_state === "wheel") {
-
                     wheelOverlay.classList.add('active');
-
                     drawWheel();
-
                     winnerCartSummary.style.display = 'none';
-
                     winnerCartSummary.innerHTML = '';
-
                     wheelEndActions.style.display = 'none';
-
                     syncCartPanelButtonLabels();
-
                 } else {
-
                     wheelOverlay.classList.remove('active');
-
                     wheelEndActions.style.display = 'none';
-
                     spinBtn.disabled = false;
-
                     winnerText.textContent = '';
-
                     winnerCartSummary.style.display = 'none';
-
                     winnerCartSummary.innerHTML = '';
-
                     currentRotation = 0;
-
                     wheelCanvas.style.transition = 'none';
-
                     wheelCanvas.style.transform = 'rotate(0deg)';
-
                     setTimeout(() => { wheelCanvas.style.transition = ''; }, 50);
-
                     syncCartPanelButtonLabels();
-
-
 
                     // reset approval btn state if cart changed
-
                     const allFalse = Object.values(usersState).every(u => !u.approved);
-
                     if (allFalse) {
-
                         myApproved = false;
-
                         approveBtn.classList.remove('approved');
-
                         approveBtn.textContent = 'Sepeti Onaylıyorum';
-
                     }
-
                 }
-
             }
-
             else if (msg.type === 'wheel_spin') {
-
                 spinBtn.disabled = true;
-
                 winnerText.textContent = "Çark Dönüyor...";
-
                 winnerCartSummary.style.display = 'none';
-
                 winnerCartSummary.innerHTML = '';
-
                 wheelEndActions.style.display = 'none';
-
                 syncCartPanelButtonLabels();
 
-
-
                 const targetIndex = msg.target_index;
-
                 const activeUsers = getWheelSlots();
-
                 if (activeUsers.length === 0) return;
 
-
-
-                /* Canvas’ta 0° sağ (3), işaret üstte = 270°. Dönüşle üstte görünen yerel açı λ = norm360(270 - toplamDönüş).
-
-                   Hedef dilim targetIndex içinde λ kalacak şekilde dönüş (eski formül dilim 0’ı üstte sanıyordu). */
-
                 const sliceDeg = 360 / activeUsers.length;
-
                 const randomOffset = Math.random() * sliceDeg;
-
                 const lambdaPick = targetIndex * sliceDeg + randomOffset;
-
                 let nSpin = 5;
-
                 let Cprime = 270 - lambdaPick + nSpin * 360;
-
                 let deltaR = Cprime - currentRotation;
-
                 while (deltaR < 1080) {
-
                     nSpin++;
-
                     Cprime = 270 - lambdaPick + nSpin * 360;
-
                     deltaR = Cprime - currentRotation;
-
                 }
-
                 currentRotation += deltaR;
-
                 wheelCanvas.style.transform = `rotate(${currentRotation}deg)`;
 
-
-
                 setTimeout(() => {
-
                     const loser = activeUsers[targetIndex];
-
                     if (!loser) return;
 
-
-
                     const loserColor = colors[targetIndex % colors.length];
-
                     let text = `Sonuç: ${loser.name}!`;
-
                     let showPayerCartSummary = false;
 
-
-
                     if (msg.mode === 'survivor') {
-
                         text = `${loser.name} KURTULDU!`;
-
                         if (activeUsers.length > 2) {
-
                             setTimeout(() => {
-
                                 ws.send(JSON.stringify({ type: 'wheel_result_eliminate', eliminated_user_id: loser.userId }));
-
                                 spinBtn.disabled = false;
-
                                 winnerText.textContent = "Sıradaki kişi için çevir!";
-
                                 syncCartPanelButtonLabels();
-
                             }, 2000);
-
                         } else {
-
                             const ultimateLoserInfo = activeUsers.filter((u, i) => i !== targetIndex)[0];
-
                             const ultimateLoserColor = colors[activeUsers.indexOf(ultimateLoserInfo) % colors.length];
-
                             text = `HESAP <span style="color:${ultimateLoserColor}">${ultimateLoserInfo.name}</span> KİŞİSİNE KALDI! 💀`;
-
-
-
-                            // Only the person who spun the wheel sends the record
-
-                            // or rely on server-side protection. I'll still send it but server handles dedupe.
-
                             ws.send(JSON.stringify({ type: 'record_loser', loser_name: ultimateLoserInfo.name }));
-
-
-
                             wheelEndActions.style.display = 'flex';
-
                             showPayerCartSummary = true;
-
                             drawWheel([ultimateLoserInfo], ultimateLoserColor);
-
                         }
-
                     } else {
-
                         text = `HESAP <span style="color:${loserColor}">${loser.name}</span> KİŞİSİNE KALDI! 💀`;
-
                         ws.send(JSON.stringify({ type: 'record_loser', loser_name: loser.name }));
-
                         wheelEndActions.style.display = 'flex';
-
                         showPayerCartSummary = true;
-
                         drawWheel([loser], loserColor);
-
                     }
-
                     winnerText.innerHTML = text;
-
                     if (showPayerCartSummary) renderWinnerCartSummary();
-
                 }, 4000);
-
             }
-
             else if (msg.type === 'user_eliminated') {
-
                 delete usersState[msg.user_id];
-
                 drawWheel();
-
             }
-
         };
 
+        ws.onclose = (e) => {
+            console.log("WebSocket bağlantısı koptu! ❌ Sebeb:", e.reason);
+            setTimeout(() => {
+                console.log("Tekrar bağlanmaya çalışılıyor...");
+                connectWebSocket();
+            }, 3000);
+        };
+
+        ws.onerror = (err) => {
+            console.error("WebSocket hatası tespit edildi:", err);
+            ws.close();
+        };
     }
 
 
