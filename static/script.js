@@ -555,10 +555,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 tabBtns[0].click();
             }
             else if (msg.type === 'init_products') {
-                loginModal.classList.remove('active');
+                if (loginModal) {
+                    loginModal.classList.remove('active');
+                    loginModal.style.display = 'none';
+                }
+                // Ürün alanını göster
+                if (productGrid) {
+                    productGrid.closest('section') && (productGrid.closest('section').style.display = '');
+                }
                 snacksData = msg.products;
                 renderProducts(snacksData);
             }
+
             else if (msg.type === 'state_update') {
                 usersState = msg.users;
                 cartState = msg.cart;
