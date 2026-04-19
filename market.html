@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atıştırmalık Roulette | Market Hesabını Kim Ödeyecek? | Hesap Kimde?</title>
-    <meta name="description" content="Sepetinizi ortaklaşa doldurun, çarkı çevirin ve ödemeyi kime kitleyeceğinizi şansa bırakın. Market alışverişleri hiç bu kadar eğlenceli olmamıştı!">
-    <link rel="stylesheet" href="/static/style.css?v=2.5">
-
+    <title>Atıştırmalık Roulette | Cips, Gofret, Bisküvi Fiyatları | Hesap Kimde?</title>
+    <meta name="description" content="Sepetinizi ortaklaşa doldurun, cips, gofret, bisküvi fiyatlarını karşılaştırın ve ödemeyi kime kitleyeceğinizi şansa bırakın. Market alışverişleri hiç bu kadar eğlenceli olmamıştı!">
+    <link rel="stylesheet" href="/static/style.css?v=2.6">
     <link rel="stylesheet" href="/static/corporate.css">
+    <link rel="icon" id="favicon" href="/logo-dark">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Preference Scripts -->
@@ -25,7 +25,10 @@
     <!-- Navigation Header (Consistent with Index) -->
     <header class="main-header" id="navbar">
         <div class="logo-text">
-            <a href="/" style="text-decoration: none; color: inherit;"><h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2></a>
+            <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
+                <img id="main-logo" src="/logo-dark" alt="Logo" style="height: 35px; width: auto; display: block;">
+                <h2 style="font-weight: 800; margin: 0; line-height: 1;">Hesap<span class="highlight">Kimde?</span></h2>
+            </a>
         </div>
         <div class="pref-controls">
             <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">
@@ -161,6 +164,7 @@
 
     <!-- Main App -->
     <div class="app-layout">
+        <h1 style="display:none">Market Hesabını Kim Ödeyecek? Atıştırmalık Çarkı ve Cips Fiyatları</h1>
         <main class="shop-area">
             <header class="app-header">
                 <div class="header-left">

@@ -1,5 +1,5 @@
-import json
 import os
+import json
 import re
 import asyncio
 import datetime
@@ -10,25 +10,28 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-# Kendi database modülünden gelenler
+# database.py dosyasındaki fonksiyonları içeri alıyoruz
 from database import (
     get_history, add_history_record, clear_history, get_snacks, snacks_collection,
-    get_account, create_account, update_account_stats
+    get_account, create_account, update_account_stats, check_db_connectivity
 )
+
+# Çalışma dizinini dosyanın bulunduğu yer olarak ayarla
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 
 app = FastAPI()
 
-# --- KRİTİK DÜZELTME: STATIC DOSYA YOLU ---
+# --- STATIC DOSYA AYARLARI ---
 current_dir = os.path.dirname(os.path.realpath(__file__))
 static_path = os.path.join(current_dir, "static")
 
 if os.path.exists(static_path):
     app.mount("/static", StaticFiles(directory=static_path), name="static")
 
-# --- STATE YÖNETİMİ ---
+# --- ODA VE LOBİ YÖNETİMİ ---
 rooms: Dict[str, dict] = {} 
 lobby_clients: List[WebSocket] = []
 
@@ -42,10 +45,6 @@ def get_room_state(room_id: str):
             "state": "shopping"
         }
     return rooms[room_id]
-
-def log_debug(msg):
-    ts = datetime.datetime.now().strftime("%H:%M:%S")
-    print(f"[{ts}] {msg}")
 
 async def mark_paid(name, current_cart=None):
     total = 0.0
@@ -65,7 +64,7 @@ async def mark_paid(name, current_cart=None):
     await add_history_record(new_record)
     return True
 
-# --- WEBSOCKET ENDPOINT ---
+# --- WEBSOCKET SİSTEMİ ---
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     room_id = None
@@ -79,18 +78,22 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_json()
             msg_type = data.get("type")
             
+            # 1. ODA İŞLEMLERİ
             if msg_type == "join_room":
                 target_room = data.get("room_id", "genel")
                 password = data.get("password")
                 name = data.get("name", "Misafir")
                 state = get_room_state(target_room)
+                
                 if state["password"] and state["password"] != password:
                     await websocket.send_json({"type": "error", "message": "Yanlış şifre! ❌"})
                     continue
+                
                 room_id = target_room
                 if websocket in lobby_clients: lobby_clients.remove(websocket)
                 state["clients"].append(websocket)
                 state["users"][user_id] = {"name": name, "approved": False, "safe": False}
+                
                 snacks = await get_snacks()
                 await websocket.send_json({"type": "init_products", "products": snacks})
                 await broadcast_state(room_id)
@@ -109,11 +112,13 @@ async def websocket_endpoint(websocket: WebSocket):
                 if websocket not in state["clients"]:
                     state["clients"].append(websocket)
                 state["users"][user_id] = {"name": name, "approved": False, "safe": False}
+                
                 snacks = await get_snacks()
                 await websocket.send_json({"type": "init_products", "products": snacks})
                 await broadcast_room_list()
                 await broadcast_state(room_id)
 
+            # 2. HESAP İŞLEMLERİ
             elif msg_type == "login":
                 username = data.get("username")
                 password = data.get("password")
@@ -137,6 +142,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 else:
                     await websocket.send_json({"type": "error", "message": "Kayıt sırasında hata oluştu! ❌"})
 
+            # 3. SEPET VE ÇARK İŞLEMLERİ
             elif msg_type == "add_to_cart":
                 state = get_room_state(room_id)
                 product = data.get("product")
@@ -155,12 +161,9 @@ async def websocket_endpoint(websocket: WebSocket):
 
             elif msg_type == "toggle_approve":
                 state = get_room_state(room_id)
-                approved = data.get("approved", False)
-                state["users"][user_id]["approved"] = approved
+                state["users"][user_id]["approved"] = data.get("approved", False)
                 await broadcast_state(room_id)
-                # Check if everyone is approved
-                all_approved = all(u["approved"] for u in state["users"].values())
-                if all_approved and len(state["users"]) > 0 and len(state["cart"]) > 0:
+                if all(u["approved"] for u in state["users"].values()) and len(state["users"]) > 0 and len(state["cart"]) > 0:
                     state["state"] = "wheel"
                     await broadcast_state(room_id)
 
@@ -193,10 +196,10 @@ async def websocket_endpoint(websocket: WebSocket):
                 
                 await mark_paid(loser_name, list(state["cart"]))
                 await update_account_stats(loser_name, total, is_loss=True)
+                # Kazananların puanını artır
                 for uid, udata in state["users"].items():
                     if udata["name"] != loser_name:
                         await update_account_stats(udata["name"], 0, is_loss=False)
-                
                 await broadcast_state(room_id)
 
             elif msg_type == "reset_game":
@@ -230,6 +233,26 @@ async def read_market():
 async def read_yemek():
     return FileResponse(os.path.join(current_dir, "yemek.html"))
 
+@app.get("/logo-light")
+async def get_logo_light():
+    return FileResponse(os.path.join(current_dir, "HesapKimde-acik-tema.png"))
+
+@app.get("/logo-dark")
+async def get_logo_dark():
+    return FileResponse(os.path.join(current_dir, "HesapKimde-koyu-tema.png"))
+
+# --- STARTUP CHECK ---
+@app.on_event("startup")
+async def startup_db_check():
+    print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] --- SUNUCU BAŞLIYOR: Veritabanı Teşhisi Başlatıldı ---")
+    status = await check_db_connectivity()
+    if status["success"]:
+        print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] MONGODB BAĞLANTISI: BAŞARILI ✅")
+        print(f"-> Mevcut Kayıtlar: {status['counts']}")
+    else:
+        print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] MONGODB BAĞLANTI HATASI: {status['message']} ❌")
+        print("!!! DİKKAT: Veritabanına bağlanılamazsa kayıt ve ürün çekme işlemleri ÇALIŞMAYACAKTIR. !!!")
+
 # --- YARDIMCI BROADCAST FONKSİYONLARI ---
 async def broadcast_room_list():
     room_list = [{"room_id": rid, "count": len(s["users"]), "protected": s["password"] is not None} for rid, s in rooms.items()]
@@ -239,7 +262,14 @@ async def broadcast_room_list():
 
 async def broadcast_state(room_id: str):
     state = get_room_state(room_id)
-    msg = {"type": "state_update", "users": state["users"], "cart": state["cart"], "app_state": state["state"], "history": await get_history()}
+    history = await get_history()
+    msg = {
+        "type": "state_update", 
+        "users": state["users"], 
+        "cart": state["cart"], 
+        "app_state": state["state"], 
+        "history": history
+    }
     for client in state["clients"]:
         try: await client.send_json(msg)
         except: pass

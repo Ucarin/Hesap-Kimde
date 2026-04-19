@@ -19,7 +19,7 @@ scp -i $SSH_KEY -o StrictHostKeyChecking=no -r ./* "$SERVER_USER@$SERVER_IP`:$RE
 Write-Host "`n[2/2] Sunucuda uygulama yenileniyor..." -ForegroundColor Cyan
 
 # Sunucuda çalışacak komutlar
-$RESTART_CMD = "cd $REMOTE_PATH && sudo fuser -k 8000/tcp; nohup python3 server.py > debug.log 2>&1 &"
+$RESTART_CMD = "cd $REMOTE_PATH && sudo chmod -R 755 . && sudo fuser -k 8000/tcp; nohup python3 server.py > debug.log 2>&1 &"
 
 ssh -i $SSH_KEY -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "$RESTART_CMD"
 

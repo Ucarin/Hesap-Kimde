@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Menü & Anlık Adisyon Takibi | Hesabı Saniyeler İçinde Böl! | Hesap Kimde?</title>
     <meta name="description" content="Garson beklemeden adisyonunuzu takip edin, arkadaşlarınızla Fransız usulü (paylaş/öde) hesabınızı kapatın. Geleceğin restoran deneyimi burada.">
-    <link rel="stylesheet" href="/static/style.css?v=1.1">
+    <link rel="stylesheet" href="/static/style.css?v=2.6">
     <link rel="stylesheet" href="/static/corporate.css">
+    <link rel="icon" id="favicon" href="/logo-dark">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Preference Scripts -->
@@ -36,7 +37,10 @@
     <!-- Navigation Header -->
     <header class="main-header" id="navbar">
         <div class="logo-text">
-            <a href="/" style="text-decoration: none; color: inherit;"><h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2></a>
+            <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
+                <img id="main-logo" src="/logo-dark" alt="Logo" style="height: 35px; width: auto; display: block;">
+                <h2 style="font-weight: 800; margin: 0; line-height: 1;">Hesap<span class="highlight">Kimde?</span></h2>
+            </a>
         </div>
         <div class="pref-controls">
             <button class="theme-toggle" onclick="handleThemeToggle()" title="Tema Değiştir">

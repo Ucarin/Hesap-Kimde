@@ -557,13 +557,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 tabBtns[0].click();
             }
             else if (msg.type === 'init_products') {
+                console.log("DATABASE LOAD: Sunucudan ürünler geldi:", msg.products);
                 if (loginModal) {
                     loginModal.classList.remove('active');
                     loginModal.style.display = 'none';
                 }
-                // Ürün alanını göster
+                // Grid görünürlüğünü garantiye al
                 if (productGrid) {
-                    productGrid.closest('section') && (productGrid.closest('section').style.display = '');
+                    productGrid.style.display = 'grid'; 
+                    const shopArea = productGrid.closest('main');
+                    if (shopArea) shopArea.style.display = 'block';
                 }
                 snacksData = msg.products;
                 renderProducts(snacksData);
@@ -780,9 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const emoji = CATEGORY_EMOJIS[item.category] || CATEGORY_EMOJIS['default'];
 
             const thumb = hasRealImg
-
-                ? `<span class="winner-cart-thumb-wrap"><img class="winner-cart-thumb" src="${escapeHtml(item.image)}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="winner-cart-emoji-fallback" style="display:none">${emoji}</span></span>`
-
+                ? `<span class="winner-cart-thumb-wrap"><img class="winner-cart-thumb" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="winner-cart-emoji-fallback" style="display:none">${emoji}</span></span>`
                 : `<span class="winner-cart-thumb-wrap"><span class="winner-cart-emoji">${emoji}</span></span>`;
 
             const who = item.added_by ? escapeHtml(item.added_by) : '—';
@@ -960,9 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const emoji = CATEGORY_EMOJIS[product.category] || CATEGORY_EMOJIS['default'];
 
             const imgHtml = hasRealImg
-
-                ? `<img src="${product.image}" class="product-img" alt="${product.name}" onerror="this.parentElement.querySelector('.product-emoji').style.display='flex'; this.style.display='none';">`
-
+                ? `<img src="${product.image}" class="product-img" alt="${product.name} Fiyatı" onerror="this.parentElement.querySelector('.product-emoji').style.display='flex'; this.style.display='none';">`
                 : '';
 
             const emojiHtml = `<div class="product-emoji" style="display:${hasRealImg ? 'none' : 'flex'}">${emoji}</div>`;

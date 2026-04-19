@@ -1,10 +1,16 @@
 // Theme and Language Preference Management
 
 function applyTheme(theme) {
+    const logo = document.getElementById('main-logo');
+    const favicon = document.getElementById('favicon');
     if (theme === 'light') {
         document.body.classList.add('light-theme');
+        if (logo) logo.src = '/logo-light';
+        if (favicon) favicon.href = '/logo-light';
     } else {
         document.body.classList.remove('light-theme');
+        if (logo) logo.src = '/logo-dark';
+        if (favicon) favicon.href = '/logo-dark';
     }
     localStorage.setItem('theme', theme);
     updateThemeToggleIcon(theme);

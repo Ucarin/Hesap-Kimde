@@ -4,11 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hesap Kimde? | Masada Hesabı Kim Ödeyecek? Tek Tıkla Karar Ver!</title>
+    <title>Hesap Kimde? | Kim Ödeyecek? | Adil Hesap Bölüştürme & Market Çarkı</title>
 
-    <meta name="description" content="Arkadaş grubunla hesabı kimin ödeyeceğine saniyeler içinde karar ver.">
-    <link rel="stylesheet" href="static/style.css?v=1.1">
+    <meta name="description"
+        content="Hesap Kimde? Market (cips, gofret, bisküvi fiyatları) ve yemek harcamalarınızı adilce bölüştürür. Arkadaş grubu oyunları ve çarkı ile hesabı kimin ödeyeceğini eğlenceli bir şekilde gör!">
+    <link rel="canonical" href="https://hesapkimde.net/" />
+    <meta name="keywords"
+        content="hesap kimde, market çarkı, yemek çarkı, hesap ödeme, kim ödeyecek, eğlenceli karar verme, harcama paylaşımı, grup harcaması, cips fiyatları, gofret fiyatları, bisküvi çeşitleri, online çark çevirme, hesap bölüştürme, arkadaş grubu oyunları, migros cips fiyatları, a101 bisküvi fiyatları">
+    <meta name="author" content="Ersin Uçar">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Hesap Kimde?",
+      "url": "https://hesapkimde.net/",
+      "description": "Market ve yemek harcamalarını adilce bölüştüren, arkadaş grupları için eğlenceli bir karar verme platformu.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "featureList": [
+        "Market Harcaması Bölüştürme",
+        "Atıştırmalık Çarkı (Cips, Gofret, Bisküvi)",
+        "Gerçek Zamanlı Senkronizasyon",
+        "Hesap Kimde Oyunu"
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="static/style.css?v=2.6">
     <link rel="stylesheet" href="static/corporate.css">
+    <link rel="icon" id="favicon" href="/logo-dark">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <script src="static/translations.js"></script>
@@ -23,13 +46,16 @@
 
     <header class="main-header" id="navbar">
         <div class="logo-text">
-            <h2 style="font-weight: 800;">Hesap<span class="highlight">Kimde?</span></h2>
+            <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
+                <img id="main-logo" src="/logo-dark" alt="Hesap Kimde? Logo - Hesap Bölüştürme Platformu" style="height: 35px; width: auto; display: block;">
+                <h2 style="font-weight: 800; margin: 0; line-height: 1;">Hesap<span class="highlight">Kimde?</span></h2>
+            </a>
         </div>
         <nav class="nav-links">
-            <a href="#hakkimizda">Kurumsal</a>
-            <a href="#cozumler">Çözümler</a>
-            <a href="#partnerler">İş Ortaklığı</a>
-            <a href="#iletisim">İletişim</a>
+            <a href="#hakkimizda" data-i18n="nav_corporate">Kurumsal</a>
+            <a href="#cozumler" data-i18n="nav_solutions">Çözümler</a>
+            <a href="#partnerler" data-i18n="nav_partners">İş Ortaklığı</a>
+            <a href="#iletisim" data-i18n="nav_contact">İletişim</a>
         </nav>
         <div class="pref-controls">
             <button class="theme-toggle" onclick="handleThemeToggle()"><span id="theme-icon">☀️</span></button>
@@ -47,22 +73,23 @@
     <main>
         <section id="portal" class="portal-container" style="padding-top: 6rem;">
             <header class="portal-hero">
-                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem);">Bölüşmek Hiç Bu Kadar <span
+                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem);" data-i18n="hero_title">Hesap Bölüştürmek Hiç Bu Kadar <span
                         class="highlight">Akıllı</span> Olmamıştı.</h1>
-                <p>Türkiye'nin en hızlı ve eğlenceli hesap bölüşme platformuna hoş geldiniz.</p>
+                <p data-i18n="hero_subtitle">Türkiye'nin en hızlı ve eğlenceli hesap bölüştürme platformu. Kim ödeyecek diye dert etmeyin, çarkı çevirin!</p>
             </header>
             <div class="portal-grid">
                 <a href="/market" class="portal-card">
-                    <span class="portal-badge">Popüler</span>
+                    <span class="portal-badge" data-i18n="market_badge">Popüler</span>
                     <div class="icon">🛒</div>
-                    <h2>Market Modülü</h2>
-                    <p>Market alışverişini eğlenceye dönüştürün. Ürünleri ekleyin ve çarkı çevirin.</p>
+                    <h2 data-i18n="market_title">Market Modülü</h2>
+                    <p data-i18n="market_desc">Market alışverişini eğlenceye dönüştürün. Ürünleri ekleyin ve çarkı
+                        çevirin.</p>
                 </a>
                 <a href="/yemek" class="portal-card">
-                    <span class="portal-badge">Yeni</span>
+                    <span class="portal-badge" data-i18n="yemek_badge">Yeni</span>
                     <div class="icon">🍽️</div>
-                    <h2>Yemek & Restoran</h2>
-                    <p>QR okutun, adisyona ulaşın ve hesabı saniyeler içinde bölüşün.</p>
+                    <h2 data-i18n="yemek_title">Yemek & Restoran</h2>
+                    <p data-i18n="yemek_desc">QR okutun, adisyona ulaşın ve hesabı saniyeler içinde bölüşün.</p>
                 </a>
             </div>
         </section>
@@ -70,36 +97,37 @@
         <section id="hakkimizda">
             <div class="about-grid">
                 <div class="about-text">
-                    <span class="portal-badge"
+                    <span class="portal-badge" data-i18n="about_badge"
                         style="position: static; margin-bottom: 1rem; display: inline-block;">Vizyonumuz</span>
-                    <h3>Hesap Bölüşme Kültürünü Dijitalleştiriyoruz</h3>
-                    <p>Frankfurt merkezli güçlü sunucu altyapımızla, saniyeler içinde senkronize olan WebSockets
-                        teknolojisi sunuyoruz.</p>
+                    <h3 data-i18n="about_title">Hesap Bölüştürme Kültürünü Dijitalleştiriyoruz</h3>
+                    <p data-i18n="about_p1">Frankfurt merkezli güçlü sunucu altyapımızla, saniyeler içinde senkronize
+                        olan WebSockets teknolojisi sunuyoruz. Arkadaş grubu oyunları ve harcama paylaşımı konusunda en stabil deneyimi sağlıyoruz.</p>
                 </div>
                 <div class="about-visual" style="text-align: right;"><span style="font-size: 8rem;">🚀</span></div>
             </div>
         </section>
 
         <section id="cozumler" style="background: rgba(255,255,255,0.02); border-radius: 50px; padding: 3rem;">
-            <h2 class="section-title">Programlarımız & <span class="highlight">Çözümler</span></h2>
+            <h2 class="section-title" data-i18n="solutions_title">Programlarımız & <span
+                    class="highlight">Çözümler</span></h2>
             <div class="solutions-container">
                 <div class="solution-item">
-                    <h4>⚡ Gerçek Zamanlı</h4>
-                    <p>WebSocket ile her şey anında senkron.</p>
+                    <h4 data-i18n="sol_1_title">⚡ Gerçek Zamanlı</h4>
+                    <p data-i18n="sol_1_desc">WebSocket ile her şey anında senkron.</p>
                 </div>
                 <div class="solution-item">
-                    <h4>🛡️ Güvenli Ödeme</h4>
-                    <p>%100 güvenli çözüm ortaklığı.</p>
+                    <h4 data-i18n="sol_2_title">🛡️ Güvenli Ödeme</h4>
+                    <p data-i18n="sol_2_desc">%100 güvenli çözüm ortaklığı.</p>
                 </div>
                 <div class="solution-item">
-                    <h4>📊 Raporlama</h4>
-                    <p>Harcama geçmişi kontrol altında.</p>
+                    <h4 data-i18n="sol_3_title">📊 Raporlama</h4>
+                    <p data-i18n="sol_3_desc">Harcama geçmişi kontrol altında.</p>
                 </div>
             </div>
         </section>
 
         <section id="partnerler">
-            <h2 class="section-title">Gelecek İş Ortaklarımız</h2>
+            <h2 class="section-title" data-i18n="partners_title">Gelecek İş Ortaklarımız</h2>
             <div class="partners-grid">
                 <div class="partner-logo">BİM</div>
                 <div class="partner-logo">A101</div>
@@ -110,7 +138,8 @@
         </section>
 
         <section id="iletisim">
-            <h2 class="section-title">Bizimle <span class="highlight">İletişime</span> Geçin</h2>
+            <h2 class="section-title" data-i18n="contact_title">Bizimle <span class="highlight">İletişime</span> Geçin
+            </h2>
             <div class="contact-wrapper">
                 <form id="contact-form">
                     <input type="text" placeholder="Adınız Soyadınız" required
@@ -126,13 +155,46 @@
     </main>
 
     <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h2 style="font-weight: 800; margin-bottom: 1rem;">Hesap<span class="highlight">Kimde?</span></h2>
+                <p data-i18n="footer_subtitle">Işık hızında fintech deneyimi.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="nav_corporate">Kurumsal</h4>
+                <ul class="footer-links">
+                    <li><a href="#hakkimizda">Hakkımızda</a></li>
+                    <li><a href="#cozumler">Çözümler</a></li>
+                    <li><a href="#partnerler">İş Ortaklığı</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_contact">İletişim</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:info@hesapkimde.net">info@hesapkimde.net</a></li>
+                    <li><a href="#iletisim">Bize Yazın</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_social">Sosyal</h4>
+                <ul class="footer-links">
+                    <li><a href="https://www.instagram.com/cereezersin" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/in/ersin-uçar-485396289/" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Hesap Kimde? Tüm hakları saklıdır.</p>
-            <p>Işık hızında fintech deneyimi.</p>
+            <p data-i18n="footer_rights">&copy; 2026 Hesap Kimde? Tüm hakları saklıdır.</p>
+            <div class="footer-legal">
+                <a href="#" style="margin-left: 1rem; color: var(--text-muted); text-decoration: none;"
+                    data-i18n="footer_kvkk">KVKK</a>
+                <a href="#" style="margin-left: 1rem; color: var(--text-muted); text-decoration: none;"
+                    data-i18n="footer_terms">Kullanım Koşulları</a>
+            </div>
         </div>
     </footer>
 
-    <script **type="module" ** src="/static/script.js"></script>
+    <script type="module" src="/static/script.js"></script>
     <script>
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
