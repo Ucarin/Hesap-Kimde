@@ -233,6 +233,12 @@ async def read_market():
 async def read_yemek():
     return FileResponse(os.path.join(current_dir, "yemek.html"))
 
+@app.get("/health")
+async def health_check():
+    """Veritabanı durumunu test eden diagnostic endpoint"""
+    status = await check_db_connectivity()
+    return status
+
 @app.get("/logo-light")
 async def get_logo_light():
     return FileResponse(os.path.join(current_dir, "HesapKimde-acik-tema.png"))

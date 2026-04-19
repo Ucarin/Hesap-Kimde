@@ -6,14 +6,15 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
 
 # .env dosyasını yükle
-load_dotenv()
+
 
 # Railway Variables'tan veya .env'den gelen değerleri al
 # NOT: tlsAllowInvalidCertificates eklendi çünkü bazı sunucu ortamlarında SSL kütüphanesi hata verebiliyor
 # database.py içindeki DEFAULT_URI kısmını şu şekilde güncelle:
-DEFAULT_URI = "mongodb+srv://hesapkimde_ersinucar:3dTpZkzOUYo5eFL3@hesapkimde.acx5con.mongodb.net/hesapkimde?retryWrites=true&w=majority&appName=hesapkimde&tlsAllowInvalidCertificates=true"   
-MONGODB_URI = os.getenv("MONGODB_URI", DEFAULT_URI)
-DB_NAME = os.getenv("DB_NAME", "hesapkimde")
+
+DEFAULT_URI = "mongodb://hesapkimde_ersinucar:3dTpZkzOUYo5eFL3@acx5con-shard-00-00.mongodb.net:27017,acx5con-shard-00-01.mongodb.net:27017,acx5con-shard-00-02.mongodb.net:27017/hesapkimde?replicaSet=atlas-acx5com-shard-0&ssl=true&authSource=admin&retryWrites=true"
+MONGODB_URI = DEFAULT_URI
+DB_NAME = "hesapkimde"
 
 # MongoDB Bağlantısı (Timeout eklendi: Bağlantı sorunu varsa 5sn içinde hata versin)
 print(f"--- DATABASE DIAGNOSTIC: URI Başlatılıyor... (Cluster: acx5com) ---")
@@ -39,6 +40,7 @@ async def check_db_connectivity():
     try:
         # 1. Ping testi
         print("--- DEBUG: Veritabanı ping testi yapılıyor... ---")
+        # SSL hataları için detaylı log
         await client.admin.command('ping')
         
         # 2. Koleksiyon sayımı
@@ -59,12 +61,21 @@ async def check_db_connectivity():
         return status
     except Exception as e:
         error_msg = str(e)
-        print(f"--- DATABASE DIAGNOSTIC FAIL: {error_msg} ❌ ---")
+        detailed_error = f"Hata Türü: {type(e).__name__} | Mesaj: {error_msg}"
+        print(f"--- DATABASE DIAGNOSTIC FAIL: {detailed_error} ❌ ---")
+        
+        advice = ""
         if "timeout" in error_msg.lower():
-            print("--- ÖNERİ: IP Whitelist (Ağ Erişimi) ayarlarını kontrol et! ---")
+            advice = "ÖNERİ: IP Whitelist (Atlas) veya Oracle Outbound Port 27017'yi kontrol et!"
+        elif "dnspython" in error_msg.lower() or "dns" in error_msg.lower():
+            advice = "ÖNERİ: dnspython kütüphanesi kurulu mu? pip install dnspython"
+        elif "ssl" in error_msg.lower() or "cert" in error_msg.lower():
+            advice = "ÖNERİ: SSL Sertifika hatası. Python certifi paketini güncellemeyi veya OS CA-certificates paketini kontrol etmeyi dene."
         elif "auth" in error_msg.lower():
-            print("--- ÖNERİ: Kullanıcı adı veya şifreyi kontrol et! ---")
-        return {"success": False, "message": error_msg}
+            advice = "ÖNERİ: Kullanıcı adı veya şifreyi kontrol et!"
+            
+        print(f"--- {advice} ---")
+        return {"success": False, "message": error_msg, "advice": advice}
 
 # --- 1. ÇARK GEÇMİŞİ FONKSİYONLARI ---
 async def get_history():

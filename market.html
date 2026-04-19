@@ -227,39 +227,44 @@
         </aside>
     </div>
 
-    <!-- Wheel Overlay -->
+    <!-- Premium Wheel Overlay -->
     <div id="wheel-overlay" class="modal">
-        <div class="wheel-container">
-            <button type="button" id="close-wheel-btn" class="close-modal-btn">&times;</button>
-            <div class="wheel-top-bar">
-                <h2>Kime Kitlensin ? 💀</h2>
-                <button type="button" id="wheel-cart-toggle-btn" class="btn outline-btn wheel-cart-btn">Ortak
-                    sepet</button>
+        <div class="wheel-container glass-premium">
+            <button type="button" id="close-wheel-btn" class="close-modal-btn" title="Kapat">&times;</button>
+            <div class="wheel-header">
+                <h2 data-i18n="wheel_title">HESAP <span class="highlight">KİME KİTLENSİN?</span> 💀</h2>
+                <div class="wheel-badge">CANLI ÇEKİLİŞ</div>
             </div>
-            <p>Sıra ödemede! Mod seç ve çarkı çevir.</p>
-
-            <div class="wheel-controls">
-                <label>
-                    <input type="radio" name="wheel-mode" value="roulette" checked>
-                    Rus Ruleti (İlk Çıkan Öder)
-                </label>
-                <label>
-                    <input type="radio" name="wheel-mode" value="survivor">
-                    Survivor (Sona Kalan Öder)
-                </label>
-            </div>
-
-            <div class="canvas-wrapper">
-                <div class="pointer">▼</div>
-                <canvas id="wheel-canvas" width="400" height="400"></canvas>
+            
+            <div class="wheel-settings">
+                <div class="wheel-mode-toggle">
+                    <label class="mode-option">
+                        <input type="radio" name="wheel-mode" value="roulette" checked>
+                        <span class="mode-text">🎯 Rus Ruleti</span>
+                    </label>
+                    <label class="mode-option">
+                        <input type="radio" name="wheel-mode" value="survivor">
+                        <span class="mode-text">🔥 Survivor</span>
+                    </label>
+                </div>
+                <button type="button" id="wheel-cart-toggle-btn" class="btn outline-btn mini-btn">🛒 Sepeti Gör</button>
             </div>
 
-            <button id="spin-btn" class="btn danger-btn">Çevir!</button>
-            <p id="winner-text"></p>
-            <div id="winner-cart-summary" class="winner-cart-summary" style="display:none;" aria-live="polite"></div>
+            <div class="canvas-wrapper premium">
+                <div class="wheel-pointer"></div>
+                <canvas id="wheel-canvas" width="440" height="440"></canvas>
+            </div>
+
+            <div class="wheel-footer">
+                <button id="spin-btn" class="btn danger-btn main-spin-btn">ÇEVİR!</button>
+                <div id="winner-text" class="winner-announcement"></div>
+            </div>
+
+            <div id="winner-cart-summary" class="winner-cart-summary-premium" style="display:none;"></div>
+            
             <div id="wheel-end-actions" class="wheel-end-actions" style="display:none;">
-                <button type="button" id="view-payer-cart-btn" class="btn outline-btn">Sepeti görüntüle</button>
-                <button type="button" id="reset-game-btn" class="btn primary-btn">Sıfırla ve Geri Dön</button>
+                <button type="button" id="view-payer-cart-btn" class="btn outline-btn">Detaylı İncele</button>
+                <button type="button" id="reset-game-btn" class="btn primary-btn">YENİ TUR BAŞLAT</button>
             </div>
         </div>
     </div>

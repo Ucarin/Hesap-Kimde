@@ -617,9 +617,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             else if (msg.type === 'wheel_spin') {
                 spinBtn.disabled = true;
-                winnerText.textContent = "Çark Dönüyor...";
+                winnerText.innerHTML = '<span style="color:var(--text-muted)">Çark Dönüyor... 🎰</span>';
                 winnerCartSummary.style.display = 'none';
-                winnerCartSummary.innerHTML = '';
                 wheelEndActions.style.display = 'none';
                 syncCartPanelButtonLabels();
 
@@ -628,17 +627,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (activeUsers.length === 0) return;
 
                 const sliceDeg = 360 / activeUsers.length;
-                const randomOffset = Math.random() * sliceDeg;
+                const randomOffset = Math.random() * (sliceDeg * 0.8) + (sliceDeg * 0.1); 
                 const lambdaPick = targetIndex * sliceDeg + randomOffset;
-                let nSpin = 5;
+                
+                let nSpin = 10; // Daha dramatik dönüş
                 let Cprime = 270 - lambdaPick + nSpin * 360;
                 let deltaR = Cprime - currentRotation;
-                while (deltaR < 1080) {
+                
+                while (deltaR < 3240) { // En az 9 tam tur
                     nSpin++;
                     Cprime = 270 - lambdaPick + nSpin * 360;
                     deltaR = Cprime - currentRotation;
                 }
+                
                 currentRotation += deltaR;
+                wheelCanvas.style.transition = 'transform 6s cubic-bezier(0.15, 0, 0.15, 1)';
                 wheelCanvas.style.transform = `rotate(${currentRotation}deg)`;
 
                 setTimeout(() => {
@@ -650,14 +653,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     let showPayerCartSummary = false;
 
                     if (msg.mode === 'survivor') {
-                        text = `${loser.name} KURTULDU!`;
+                        text = `<span style="color:var(--success)">${loser.name} KURTULDU! 🏃‍♂️</span>`;
                         if (activeUsers.length > 2) {
                             setTimeout(() => {
                                 ws.send(JSON.stringify({ type: 'wheel_result_eliminate', eliminated_user_id: loser.userId }));
                                 spinBtn.disabled = false;
-                                winnerText.textContent = "Sıradaki kişi için çevir!";
+                                winnerText.innerHTML = "Sıradaki kişi için çevir!";
                                 syncCartPanelButtonLabels();
-                            }, 2000);
+                            }, 2500);
                         } else {
                             const ultimateLoserInfo = activeUsers.filter((u, i) => i !== targetIndex)[0];
                             const ultimateLoserColor = colors[activeUsers.indexOf(ultimateLoserInfo) % colors.length];
@@ -676,7 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     winnerText.innerHTML = text;
                     if (showPayerCartSummary) renderWinnerCartSummary();
-                }, 4000);
+                }, 6000); 
             }
             else if (msg.type === 'user_eliminated') {
                 delete usersState[msg.user_id];
@@ -1206,118 +1209,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Wheel logic
-
+    // --- PREMIUM WHEEL LOGIC ---
     function drawWheel(overrideUsers, overrideColor) {
-
         const activeUsers = overrideUsers || getWheelSlots();
-
-
-
+        if (!wheelCanvas) return;
         const centerX = wheelCanvas.width / 2;
-
         const centerY = wheelCanvas.height / 2;
-
-        const radius = centerX;
-
-
-
-        if (activeUsers.length === 0) {
-
-            ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-
-            ctx.fillStyle = '#fff';
-
-            ctx.font = 'bold 20px Outfit';
-
-            ctx.textAlign = 'center';
-
-            // Only show fallback if we are NOT overriding for the winner display
-
-            if (!overrideUsers) {
-
-                const lang = localStorage.getItem('lang') || 'tr';
-                const msg = lang === 'tr' ? "Herkes güvende! Tur sıfırlanıyor..." : (lang === 'es' ? "¡Todos a salvo! Reiniciando..." : "Everyone is safe! Resetting tour...");
-                ctx.fillText(msg, centerX, centerY);
-
-            }
-
-            return;
-
-        }
-
-
-
-        const sliceAngle = (2 * Math.PI) / activeUsers.length;
-
-
+        const radius = (wheelCanvas.width / 2) - 15; // Extra padding
 
         ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
 
+        if (activeUsers.length === 0) {
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.font = '600 18px Outfit';
+            ctx.textAlign = 'center';
+            if (!overrideUsers) {
+                const lang = localStorage.getItem('lang') || 'tr';
+                ctx.fillText(translations[lang]?.everyone_safe || "Herkes güvende!", centerX, centerY);
+            }
+            return;
+        }
 
-
-        // Reset rotation if it's a "winner take all" redraw to align with the pointer
+        const sliceAngle = (2 * Math.PI) / activeUsers.length;
 
         if (overrideUsers) {
-
             wheelCanvas.style.transition = 'none';
-
-            wheelCanvas.style.transform = 'rotate(90deg)'; // Adjust so text at PI ends up at top
-
+            wheelCanvas.style.transform = 'rotate(90deg)';
         }
-
-
 
         for (let i = 0; i < activeUsers.length; i++) {
-
             const startAngle = i * sliceAngle;
-
             const endAngle = startAngle + sliceAngle;
 
-
-
+            // Segment Circle
             ctx.beginPath();
-
             ctx.moveTo(centerX, centerY);
-
             ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-
             ctx.closePath();
 
+            // Gradient for Segment
+            const baseColor = overrideColor || colors[i % colors.length];
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+            gradient.addColorStop(0, adjustColor(baseColor, 20)); // Lighter center
+            gradient.addColorStop(1, baseColor);
 
-
-            ctx.fillStyle = overrideColor || colors[i % colors.length];
-
+            ctx.fillStyle = gradient;
             ctx.fill();
 
-            ctx.strokeStyle = '#fff';
-
+            // Segment Border
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
             ctx.lineWidth = 2;
-
             ctx.stroke();
 
-
-
-            // Text
-
+            // Text Rendering
             ctx.save();
-
             ctx.translate(centerX, centerY);
-
             ctx.rotate(startAngle + sliceAngle / 2);
-
             ctx.textAlign = 'right';
-
             ctx.fillStyle = '#fff';
-
-            ctx.font = 'bold 20px Outfit';
-
-            ctx.fillText(activeUsers[i].name, radius - 20, 10);
-
+            ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            ctx.shadowBlur = 4;
+            ctx.font = 'bold 18px Outfit';
+            
+            let name = activeUsers[i].name;
+            if (name.length > 12) name = name.substring(0, 10) + '..';
+            
+            ctx.fillText(name, radius - 40, 7);
             ctx.restore();
-
         }
 
+        // --- Outer Decorative Ring ---
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+        ctx.lineWidth = 10;
+        ctx.stroke();
+
+        // --- Center Hub (Premium Look) ---
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 40, 0, 2 * Math.PI);
+        ctx.fillStyle = '#1e293b';
+        ctx.shadowColor = 'rgba(0,0,0,0.6)';
+        ctx.shadowBlur = 15;
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 32, 0, 2 * Math.PI);
+        const hubGrad = ctx.createLinearGradient(centerX - 25, centerY - 25, centerX + 25, centerY + 25);
+        hubGrad.addColorStop(0, '#fb923c');
+        hubGrad.addColorStop(1, '#f97316');
+        ctx.fillStyle = hubGrad;
+        ctx.shadowBlur = 0;
+        ctx.fill();
+
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 20px Outfit';
+        ctx.textAlign = 'center';
+        ctx.fillText('HK', centerX, centerY + 7);
+    }
+
+    function adjustColor(hex, percent) {
+        let r = parseInt(hex.slice(1, 3), 16);
+        let g = parseInt(hex.slice(3, 5), 16);
+        let b = parseInt(hex.slice(5, 7), 16);
+        r = Math.min(255, Math.floor(r * (1 + percent / 100)));
+        g = Math.min(255, Math.floor(g * (1 + percent / 100)));
+        b = Math.min(255, Math.floor(b * (1 + percent / 100)));
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
     }
 
 

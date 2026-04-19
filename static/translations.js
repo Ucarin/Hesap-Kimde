@@ -53,7 +53,9 @@ const translations = {
         system_label: "Sistem",
         items_count: "Ürün",
         joint_cart_desc: "Ortak sepet — tüm kullanıcılar görebilir",
-        added_toast: "Sepete eklendi!"
+        added_toast: "Sepete eklendi!",
+        wheel_title: "HESAP <span class='highlight'>KİME KİTLENSİN?</span> 💀",
+        everyone_safe: "Herkes güvende! Tur sıfırlanıyor..."
     },
     en: {
         nav_home: "Portal",
@@ -109,7 +111,9 @@ const translations = {
         system_label: "System",
         items_count: "Items",
         joint_cart_desc: "Joint cart — visible to everyone",
-        added_toast: "Added to cart!"
+        added_toast: "Added to cart!",
+        wheel_title: "WHO WILL <span class='highlight'>PAY?</span> 💀",
+        everyone_safe: "Everyone is safe! Resetting tour..."
     },
     es: {
         nav_home: "Portal",
@@ -165,6 +169,8 @@ const translations = {
         system_label: "Sistem",
         items_count: "Artículos",
         joint_cart_desc: "Carrito conjunto — visible para todos",
-        added_toast: "¡Añadido al carrito!"
+        added_toast: "¡Añadido al carrito!",
+        wheel_title: "¿QUIÉN <span class='highlight'>PAGA?</span> 💀",
+        everyone_safe: "¡Todos a salvo! Reiniciando..."
     }
 };
